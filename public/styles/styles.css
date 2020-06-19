@@ -1,0 +1,357 @@
+.navbar {
+	border-radius:0px;
+}
+
+hr { 
+	border: 1px inset; 
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+* {
+	font-family: Arial;
+	font-smooth: always;
+}
+
+body {
+	/* background: #FFF url(http://www2.binghamton.edu/images/common/bg3.gif) center top repeat-x; */
+	margin: 0;
+	padding: 0;
+	background-repeat: repeat-x;
+	background-color: #FFFFFF;
+}
+
+h1 {
+	margin: 5px 5px 5px 0px;
+	/* color: #0f7258; */
+	font-size: 150%;
+}
+
+h2 {
+	margin: 5px 5px 5px 0px;
+	/* color: #0f7258; */
+	font-size: 130%;
+	border-bottom: 1px black solid;
+	font-variant: small-caps;
+}
+
+h3 {
+	/* color: #0f7258; */
+	margin: 0px;
+}
+
+h4 {
+	/* color: #0f7258; */
+}
+
+p {
+	/* color: #0f7258; */
+	font-size: 13px;
+	margin: 10px 15px 10px 15px;
+	text-align: justify;
+}
+
+td {
+	vertical-align: top;
+}
+
+#header {
+	background: #00694e url(http://www.binghamton.edu/images/common/header-bg.gif) repeat-x;
+	background-color: #0F7258;
+	width: 100%;
+	height: 100px;
+	vertical-align: middle;
+}
+#toggle{
+	width: 400px;
+	display: none
+}
+.bttn {
+  background: #87c7b5;
+  background-image: -webkit-linear-gradient(top, #87c7b5, #04611d);
+  background-image: -moz-linear-gradient(top, #87c7b5, #04611d);
+  background-image: -ms-linear-gradient(top, #87c7b5, #04611d);
+  background-image: -o-linear-gradient(top, #87c7b5, #04611d);
+  background-image: linear-gradient(to bottom, #87c7b5, #04611d);
+  -webkit-border-radius: 11;
+  -moz-border-radius: 11;
+  /* border-radius: 11px; */
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 19px;
+  padding: 9px 50px;
+  text-decoration: none;
+}
+.bttn:hover {
+  background: #07784b;
+  text-decoration: none;
+}
+
+/*
+.nav {
+//	list-style-type: none;
+//	width: 500px;
+	margin-top:10px;
+}
+
+.nav li a {
+//	background-color: #97B8AF;
+	background-color: lightgray;
+	font-size: 14px;
+	float: left;
+	text-decoration: none;
+	color: #111111;
+	display: block;
+	border-right: 2px #888888 solid;
+	border-bottom: 2px #888888 solid;
+	padding: 4px 10px;
+	margin: 0px 3px;
+}
+
+.nav li a:hover {
+	text-decoration: none;
+//	color: #0F7258;
+	background-color: #CCCCCC;
+}
+*/
+.navLnk {
+	color: #FFFFFF;
+	font-size: 12px;
+}
+.navLnk:hover {
+	color: white;
+}
+
+#headerPic {
+	padding: 15px 0px 0px 0px;
+	border: 0;
+}
+
+#progress {
+	width: 700px;
+	margin: 0px auto;
+}
+
+#progress td {
+	width: 33%;
+	text-align: center;
+	background-image: url('../img_bin/listing_progress.png');
+	background-repeat: no-repeat;
+	background-position: middle center;
+	height: 34px;
+	font-size: 12px;
+	padding: 0px 15px;
+	color: #FFFFFF;
+}
+
+#progress #active {
+	color: #FFFFFF;
+	font-size: 15px;
+	background-image: url('../img_bin/listing_progress_active.png');
+}
+
+.srcHeader {
+	font-weight: bold;
+	font-size: small;
+	color: green;
+}
+.viewSection {
+	color: #0f7258;
+	font-size: 13px;
+	width: 100%;
+	margin: 0px 0px;
+	background-color: #DDDDDD;
+	border: 1px solid #0f7258;
+}
+
+.viewSection  td{
+	padding: 4px 10px;
+}
+
+.cyanLnk {
+	color: #0099CC;
+	text-decoration: none;
+	font-size: 110%;
+}
+
+.smallTable {
+	width: 100%;
+	color: #0f7258;
+	font-size: 13px;
+	margin-left: 13px;
+}
+
+#srcTab {
+	width: 100%;
+}
+
+#srcTab td {
+	color: #0f7258;
+	font-size: 13px;
+	vertical-align: middle;
+	padding: 0;
+}
+
+#srcTab td input {
+	width: 190px;
+	
+}
+
+#srcTab td select {
+	width: 190px;
+}
+
+#srcTab #reqText {
+	color: #FF0000; 
+	padding-right: 15px;
+	text-align: right;
+}
+
+.adminHeader {
+	color: #0f7258;
+	font-weight: bold;
+	text-align: center;
+	font-size: 125%;
+	margin: 5px 0px 18px 0px;
+}
+
+.required {
+	color: #FF0000;
+	font-size: 16px;
+	font-weight: none;
+}
+
+.smallInp {
+	width: 20px;
+}
+
+.breaker {
+	width: 15px;
+}
+
+.hidden {
+	display: none;
+}
+
+#org_desc {
+	width: 97%;
+	height: 90px;
+}
+
+#chkBoxes {
+	width: 100%;
+}
+
+#grades {
+	width: 100%;	
+}
+
+#chkBoxes td input, #grades td input {
+	width: 20px;
+}
+
+#chkBoxes td , #grades td {
+	padding: 0 5px;
+	font-size: 11px;
+	font-weight: none;
+}
+
+.infoLbl {
+	font-weight: bold;
+	padding-right: 10px;
+}
+
+#projectInfo td {
+	padding: 4px 0px 4px 0px;
+}
+
+.success {
+	color: #0000FF; 
+	font-size: 13px; 
+	margin: 10px auto; 
+	border: 1px solid black; 
+	text-align: center; 
+	padding: 10px 30px;
+}
+
+.listTab {
+	width: 100%;
+}
+
+.listTab td{
+	vertical-align: top;
+	font-size: 14px;
+	color: #0f7258;
+	padding: 4px 0px;
+}
+
+#footer {
+	text-align: center;
+	color: white;
+	font-size: 12px;
+	width: 100%;
+	/* border-top: 1px solid black; */
+	margin-top: 15px;
+	padding:10px 0px;
+	background-color:#344;
+}
+
+#pscroller1{
+/* width: 300px; */
+height: 175px;
+/* border: 1px solid black; */
+padding: 5px;
+/* background-color: #EEEEEE; */
+}
+
+.Display_Msg p{
+    margin: 0px;
+    float: left;
+    margin-right: 2%;
+}
+
+blockquote {
+    font-size:100%;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #005A43;
+}
+
+@media (min-width: 768px) {
+    .navbar .navbar-nav {
+        display: inline-block;
+        float: none;
+        vertical-align: top;
+    }
+
+    .navbar .navbar-collapse {
+        text-align: center;
+    }
+}
+
+.navbar-nav li:hover {
+	background-color:white;
+}
+
+.headline {
+    box-flex: 1;
+    -webkit-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-align-self: flex-end;
+    -ms-flex-item-align: end;
+    align-self: flex-end;
+    margin: -9px 0px 0px 0px;
+    padding: .3em;
+    color: #fff;
+    -webkit-font-smoothing: auto;
+    border-top: 1px solid #000;
+    letter-spacing: .15rem;
+    word-spacing: .2rem;
+    text-transform: uppercase;
+	font-weight: 400;
+	font-size:30px;
+    background: url(//www.binghamton.edu/assets/img/bkg/screen-lines.png);
+}

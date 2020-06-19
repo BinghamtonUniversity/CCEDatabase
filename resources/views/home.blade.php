@@ -3,10 +3,9 @@
 @section('title', 'Service Listings Database')
 
 @section('description')
-    Thank you for visiting the Center for Civic Engagement (CCE) Service Listings database. The CCE works with 
-    communities within and beyond Binghamton University's campus to provide various rewarding and meaningful service 
-    opportunities to students, faculty, staff, alumni, and community members. The CCE supports the attainment of academic, 
-    personal, and professional growth through civic engagement to develop active and engaged citizens.
+    Welcome to the Center for Civic Engagement (CCE) Service Listings database. 
+    The CCE cultivates partnerships that strengthen communities and develop 
+    active and engaged citizens.
 @endsection
 
 @section('content')
@@ -27,20 +26,6 @@
 						<hr>
 						<h3>Community Leaders</h3> 
 						<a class="cyanLnk" href="addorg.php" style="font-size: 100%; font-weight: bold;">List</a> your organization's projects to recruit volunteers, interns, or partners.
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="panel panel-default">
-					<div class="panel-heading"><h3>Check Out Our Recent Listings!</h3></div>
-					<div class="panel-body">
-						<table style="width:100%;"><tr><td>
-							<script type="text/javascript">
-							new pausescroller(pausecontent, "pscroller1", "someclass", 5000);
-							</script>
-						</td></tr></table>
 					</div>
 				</div>
 			</div>

@@ -69,17 +69,17 @@ class SearchController extends Controller
         ];
     }
     public function search_page(Request $request) {
-        return view('search');
+        return view('search.search');
     }
     public function search_results_page(Request $request) {
         $results = $this->advanced_search($request);
-        return view('search_results',$results);
+        return view('search.search_results',$results);
     }
     public function google_search_results_page(Request $request) {
         if ($request->has('q')){
             $q = $request->q;
         }
-        return view('google_search_results',[
+        return view('search.google_search_results',[
             'q'=>$q
         ]);
     }

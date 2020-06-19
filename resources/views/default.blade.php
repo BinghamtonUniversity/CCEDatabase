@@ -3,14 +3,9 @@
 <head>
 <title>@yield('title')</title>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="//cdn.datatables.net/autofill/1.2.0/css/dataTables.autoFill.css"/>
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css">
-<link rel="stylesheet" href="{{url('/styles/styles.css')}}" type="text/css" />
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<script src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
-<script src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="scripts/scripts.js"></script>
+<link rel="stylesheet" href="{{url('/assets/css/ccedb.css')}}" type="text/css" />
+<link href="/assets/css/toastr.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -29,8 +24,8 @@
         </span>
       </a>
       <div class="hidden-xs" style="float: right; text-align: right;">
-				<a class="navLnk" href="/cce/about/index.html">Contact Us | </a>
-				<a class="navLnk" href="manage.php">Manage Service Listings</a>
+				<a class="navLnk" href="https://www.binghamton.edu/cce/about/index.html">Contact Us | </a>
+				<a class="navLnk" href="{{url('/manage')}}">Manage Service Listings</a>
 		  </div>
     </div>    
   </div><!-- /.container-fluid -->
@@ -53,9 +48,9 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
   <li><a href="{{url('/')}}">Home</a></li>
-  <li><a href="{{url('/listings/new')}}"><span style="font-size: 14px;" class="label label-primary">New Listings!</span></a></li>
-	<li><a href="{{url('/organizations')}}">Organizations</a></li>
-	<li><a href="{{url('/search')}}">Search</a></li>
+  <li><a href="{{url('/search')}}">Search</a></li>
+  <li><a href="{{url('/organizations')}}">Organizations</a></li>
+  <li><a href="{{url('/listings/new')}}">Recent Listings</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -75,19 +70,35 @@
     </div>
     <div class="row">
         <div id="footer">
-            &copy; 2020 Binghamton University Center for Civic Engagement | 
-            <a href="/cce/about/index.html" style="color:white;">Contact the Office</a>
+            &copy; {{date('Y')}} Binghamton University Center for Civic Engagement | 
+            <a href="https://www.binghamton.edu/cce/about/index.html" style="color:white;">Contact the Office</a>
         </div>
     </div>
 </div>
+<script src="{{url('/assets/js/vendor/jquery.min.js')}}"></script>
+<script src="{{url('/assets/js/vendor/bootstrap.min.js')}}"></script>
+<script src="{{url('/assets/js/vendor/lodash.min.js')}}"></script>
+<script>_.findWhere = _.find; _.where = _.filter;_.pluck = _.map;_.contains = _.includes;</script>
+<script src="{{url('/assets/js/vendor/hogan.min.js')}}"></script>
+<script src="{{url('/assets/js/vendor/toastr.min.js')}}"></script>
+<script src="{{url('/assets/js/vendor/gform_bootstrap.min.js')}}"></script>
+<script src="{{url('/assets/js/vendor/GrapheneDataGrid.min.js')}}"></script>
+<script src="{{url('/assets/js/vendor/moment.js')}}"></script>
+<script src="{{url('/assets/js/vendor/bootstrap-datetimepicker.min.js')}}"></script>
+<script type="text/javascript">
+var root_url = "{{url('/')}}";
+</script>
+<script type="text/javascript" src="{{url('/assets/js/ccedb.js')}}"></script>
+<script>
+@yield('scripts')
+</script>
 <!-- Begin Google Analytics -->
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-1861349-1', 'auto');  // Replace with your property ID.
+ga('create', 'UA-1861349-1', 'auto');
 ga('send', 'pageview');
 </script>
 <!-- End Google Analytics -->

@@ -11,7 +11,7 @@
 <div id="org-admin-update-org-btn" class="btn btn-primary">Update My Organization</div>
 <div class="alert alert-info" style="margin-top:15px;">
     <h3>Instructions:</h3>
-    Use the <div class="btn btn-success btn-xs">New</div> button below to create a new listing.  <br>
+    Use the <div class="btn btn-success btn-xs">New</div> button below to create a new project listing.  <br>
     Select the <i class="fa fa-check-square-o"></i> next to the listing you want to modify and click <div class="btn btn-primary btn-xs">Edit</div> or <div class="btn btn-danger btn-xs">Delete</div>  
 </div>
 <div id="org-admin-update-listings"></div>

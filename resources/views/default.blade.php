@@ -4,8 +4,8 @@
 <title>@yield('title')</title>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="{{url('/assets/css/ccedb.css')}}" type="text/css" />
-<link href="/assets/css/toastr.min.css" rel="stylesheet">
-<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="{{url('/assets/css/toastr.min.css')}}" rel="stylesheet">
+<link href="{{url('/assets/css/font-awesome.min.css')}}" rel="stylesheet">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>

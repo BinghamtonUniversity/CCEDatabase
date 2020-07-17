@@ -2,8 +2,8 @@
 	border-radius:0px;
 }
 
-hr { 
-	border: 1px inset; 
+hr {
+	border: 1px inset;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
@@ -194,7 +194,7 @@ td {
 
 #srcTab td input {
 	width: 190px;
-	
+
 }
 
 #srcTab td select {
@@ -202,7 +202,7 @@ td {
 }
 
 #srcTab #reqText {
-	color: #FF0000; 
+	color: #FF0000;
 	padding-right: 15px;
 	text-align: right;
 }
@@ -216,9 +216,9 @@ td {
 }
 
 .required {
-	color: #FF0000;
-	font-size: 16px;
-	font-weight: none;
+	/*color: #FF0000;*/
+	/*font-size: 16px;*/
+	/*font-weight: none;*/
 }
 
 .smallInp {
@@ -243,7 +243,7 @@ td {
 }
 
 #grades {
-	width: 100%;	
+	width: 100%;
 }
 
 #chkBoxes td input, #grades td input {
@@ -266,11 +266,11 @@ td {
 }
 
 .success {
-	color: #0000FF; 
-	font-size: 13px; 
-	margin: 10px auto; 
-	border: 1px solid black; 
-	text-align: center; 
+	color: #0000FF;
+	font-size: 13px;
+	margin: 10px auto;
+	border: 1px solid black;
+	text-align: center;
 	padding: 10px 30px;
 }
 

@@ -39,6 +39,7 @@ new gform(
 	],
     "actions":[
         {"type":"save","label":"Submit","modifiers":"btn btn-primary"},
+        {"type":"cancel","label":"Register","modifiers":"btn btn-default"},
     ]}
 ).on('save',function(form_event) {
     $.ajax({
@@ -53,5 +54,31 @@ new gform(
             toastr.error('Permission Denied!');
         }
     });
+})
+.on('cancel',function(){
+    new gform({"fields": {!! json_encode($register_organization) !!} }).modal()
+    .on('save',function(form_event) {
+        if(form_event.form.validate()){
+            var form_data = form_event.form.get();
+            console.log(form_event.form.get());
+            $.ajax({
+                type: "POST",
+                url: root_url+"/api/orgauth/register",
+                data: form_event.form.get(),
+                success: function(response) {
+                    toastr.success(response);
+                    form_event.form.trigger('close')
+                },
+                error: function(response) {
+                toastr.error(response);
+                }
+            });
+        }
+    })
+    .on('cancel',function(form_event) {
+        form_event.form.trigger('close');
+    })
+console.log("ali Kemal");
+
 });
 @endsection

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class OrgAdmin extends Controller
 {
     public function login(Request $request) {
-        return view('orgadmin.login');
+        return view('orgadmin.login',['register_organization'=>Organization::get_register_organization_fields()]);
     }
     public function logout(Request $request) {
         Auth::logout();
@@ -30,6 +30,7 @@ class OrgAdmin extends Controller
     public function manage(Request $request) {
         if (Auth::check()) {
             return view('orgadmin.manage',[
+                'organization_password_change'=>Organization::get_password_fields(),
                 'organization_fields'=>Organization::get_fields(),
                 'listing_fields'=>Listing::get_fields()
             ]);
@@ -37,5 +38,13 @@ class OrgAdmin extends Controller
             return redirect(url('/manage/login'));
         }
     }
-
+    public function register(Request $request){
+        $organization = Organizations::add($request);
+        if (!is_null($organization)) {
+            Auth::login($organization,true);
+            return Auth::user();
+        } else {
+            return response('Unauthorized.', 401);
+        }
+    }
 }

@@ -9,12 +9,14 @@
 </div>
 
 <div id="org-admin-update-org-btn" class="btn btn-primary">Update My Organization</div>
+<div id="org-admin-password-update-btn" class="btn btn-default">Update My Password</div>
 <div class="alert alert-info" style="margin-top:15px;">
     <h3>Instructions:</h3>
     Use the <div class="btn btn-success btn-xs">New</div> button below to create a new project listing.  <br>
-    Select the <i class="fa fa-check-square-o"></i> next to the listing you want to modify and click <div class="btn btn-primary btn-xs">Edit</div> or <div class="btn btn-danger btn-xs">Delete</div>  
+    Select the <i class="fa fa-check-square-o"></i> next to the listing you want to modify and click <div class="btn btn-primary btn-xs">Edit</div> or <div class="btn btn-danger btn-xs">Delete</div>
 </div>
 <div id="org-admin-update-listings"></div>
+
 
 @endsection
 
@@ -48,8 +50,33 @@ $(document).ready(function() {
                     form_event.form.trigger('close');
                 })
             }
-        });  
-    }); 
+        });
+    });
+});
+
+$('#org-admin-password-update-btn').on('click',function() {
+    new gform({"fields": {!! json_encode($organization_password_change) !!} }).modal()
+    .on('save',function(form_event) {
+        if(form_event.form.validate()){
+            var form_data = form_event.form.get();
+            console.log(form_event.form.get());
+            $.ajax({
+                type: "PUT",
+                url: root_url+"/api/password_update/"+{{Auth::user()->key}},
+                data: form_event.form.get(),
+                success: function(response) {
+                    toastr.success(response);
+                    form_event.form.trigger('close')
+                },
+                error: function(response) {
+                toastr.error(response);
+                }
+            });
+        }
+    })
+    .on('cancel',function(form_event) {
+    form_event.form.trigger('close');
+    })
 });
 
 // Edit Listings// Edit Listings
@@ -62,16 +89,29 @@ $.ajax({
         search: false,columns: false,upload:false,download:false,title:'Users',
         entries:[],
         count:20,
-        schema:{!! json_encode($listing_fields) !!}, 
+        schema:{!! json_encode($listing_fields) !!},
         data: listings
         }).on("model:created",function(grid_event) {
-            console.log(id);
-            ajax.put('/api/modules/'+id+'/permissions/',grid_event.model.attributes,function(data) {
-                grid_event.model.update(data)
-            },function(data) {
-                grid_event.model.undo();
-            });
-        }).on("model:deleted",function(grid_event) {
+            console.log(grid_event.model.attributes);
+            $.ajax({
+                type:"POST",
+                url:root_url+"/api/listings/{{Auth::user()->key}}",
+                data:grid_event.model.attributes,
+                success:function(result){
+                    console.log(result)}
+            })
+        }).on("model:edited",function(grid_event){
+            console.log(grid_event.model.attributes);
+            $.ajax({
+                type:"PUT",
+                url:root_url+"/api/listings/"+ grid_event.model.attributes.key,
+                data:grid_event.model.attributes,
+                success:function(result){
+                console.log(result)}
+        })
+        })
+
+        .on("model:deleted",function(grid_event) {
             ajax.delete('/api/modules/'+id+'/permissions/'+grid_event.model.attributes.id,{},function(data) {},function(data) {
                 grid_event.model.undo();
             });

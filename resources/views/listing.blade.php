@@ -17,7 +17,7 @@
 <div class="col-sm-6">
     <div class="row">
         <div class="col-sm-12">
-            <div class="panel panel-default">			
+            <div class="panel panel-default">
                 <div class="panel-heading">Date and Location {{$listing->dates}}</div>
                 <div class="panel-body">
                     <div class="row">
@@ -38,7 +38,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <div class="panel panel-default">			
+            <div class="panel panel-default">
                 <div class="panel-heading">Project Details</div>
                 <div class="panel-body">
                     <div class="row">
@@ -51,7 +51,7 @@
                         <div class="col-sm-4">Project Category:</div>
                         <div class="col-sm-8">{{$listing->category}} ({{parse_yesno($listing->paid,'Paid','Unpaid')}})</div>
                     </div>
-        
+
                     <div class="row">
                         <div class="col-sm-4">Weekly Hours:</div>
                         <div class="col-sm-8">{{$listing->hours}}</div>
@@ -76,7 +76,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <div class="panel panel-default">			
+            <div class="panel panel-default">
                 <div class="panel-heading">Requirements</div>
                     <div class="panel-body">
                         <div class="row">
@@ -90,11 +90,11 @@
                         <div class="row">
                             <div class="col-sm-4">Application Needed:</div>
                             <div class="col-sm-8">{{parse_yesno($listing->reqs_application)}}</div>
-                        <div class="row">
-                            <div class="col-sm-4"></div>
-                            <div class="col-sm-8"><p></p></div>
                         </div>
-                    </div>
+                        <div class="row">
+                            <div class="col-sm-4">Other Requirements:</div>
+                            <div class="col-sm-8">{{$listing->reqs_desc}}</div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -103,7 +103,7 @@
 <div class="col-sm-6">
     <div class="row">
         <div class="col-sm-12">
-            <div class="panel panel-default">			
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     Contact Info.
                     <!-- <div id="togglebtn" class="btn btn-primary btn-xs" style="float:right;"><i class="glyphicon glyphicon-plus"></i> Show</div> -->
@@ -131,7 +131,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <div class="panel panel-default">			
+            <div class="panel panel-default">
                 <div class="panel-heading">Project Location (On Bus Route)</div>
                 <div class="panel-body" style="padding:0px;">
                     <iframe style="margin-top: 3px; width: 100%; height: 400px;" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;q={{{$listing->location}}}&amp;source=s_q&amp;hl=en&amp;ie=UTF8&amp;spn=0.002744,0.00456&amp;z=17&amp;output=embed"></iframe>
@@ -142,7 +142,7 @@
     </div>
     </div>
     <!-- Old Contact Form -- BROKEN! -->
-    <!-- <div class="row"><div class="col-sm-12"><div class="panel panel-default">			
+    <!-- <div class="row"><div class="col-sm-12"><div class="panel panel-default">
         <div class="panel-heading">To Contact The Project, Fill Out This Form</div>
         <div class="panel-body">
                     <div id="form_response" ></div>
@@ -190,11 +190,11 @@
             </form></div>
         </div>
     </div></div></div> -->
-    <!--<div class="row"><div class="col-sm-12"><div class="panel panel-default">			
+    <!--<div class="row"><div class="col-sm-12"><div class="panel panel-default">
         <div class="panel-body">
             <div style="font-size: 13px; color: #0000FF; text-align: center;">
             <div class="panel-heading"><span style="font-size: 100%;">This project was posted by<br /><strong style="font-size: 120%;">CCE Youth Initiatives</strong><br /><br /></div>
-            Visit the <a style="color: #0000FF;" href="vieworg.php?oid=MEMxNzk0">CCE Youth Initiatives Organization Page</a> 
+            Visit the <a style="color: #0000FF;" href="vieworg.php?oid=MEMxNzk0">CCE Youth Initiatives Organization Page</a>
             to find out more information about this organization and other projects they have posted with us.</span></div>
         </div>
     </div></div></div>-->

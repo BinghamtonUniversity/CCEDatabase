@@ -30,13 +30,17 @@ Route::get('/api/search', 'SearchController@advanced_search');
 Route::get('/api/listings/list', 'Listings@fetch_list');
 Route::get('/api/listings/fields', 'Listings@fields');
 Route::get('/api/listings/{listing}', 'Listings@get');
-Route::post('/api/listings/{listing}', 'Listings@update');
+Route::post('/api/listings/{organization}', 'Listings@add');
+
+Route::put('/api/password_update/{organization}', 'Organizations@password_update');
+Route::put('/api/listings/{listing}', 'Listings@update');
 Route::get('/api/organizations/list', 'Organizations@fetch_list');
 Route::get('/api/organizations/fields', 'Organizations@fields');
 Route::get('/api/organizations/{organization}/listings', 'Organizations@org_listings');
 Route::get('/api/organizations/{organization}', 'Organizations@get');
 Route::post('/api/organizations/{organization}', 'Organizations@update');
 Route::post('/api/orgauth/authenticate', 'OrgAdmin@authenticate');
+Route::post('/api/orgauth/register', 'OrgAdmin@register');
 
 
 

@@ -39,7 +39,7 @@ $(document).ready(function() {
                         url: root_url+"/api/organizations/"+form_data.key,
                         data: form_event.form.get(),
                         success: function(response) {
-                            toastr.success('Organization Info Updated!');
+                            toastr.success(response.name+' Info Updated!');
                             form_event.form.trigger('close')
                         },
                         error: function(response) {
@@ -65,7 +65,7 @@ $('#org-admin-password-update-btn').on('click',function() {
                 url: root_url+"/api/password_update/"+{{Auth::user()->key}},
                 data: form_event.form.get(),
                 success: function(response) {
-                    toastr.success(response);
+                    toastr.success("Password Updated");
                     form_event.form.trigger('close')
                 },
                 error: function(response) {
@@ -98,6 +98,7 @@ $.ajax({
                 url:root_url+"/api/listings/{{Auth::user()->key}}",
                 data:grid_event.model.attributes,
                 success:function(result){
+                    toastr.success(result.title +' successfully created!');
                     console.log(result)}
             })
         }).on("model:edited",function(grid_event){
@@ -107,14 +108,20 @@ $.ajax({
                 url:root_url+"/api/listings/"+ grid_event.model.attributes.key,
                 data:grid_event.model.attributes,
                 success:function(result){
+                toastr.success(result.title +' successfully updated!');
                 console.log(result)}
         })
         })
-
         .on("model:deleted",function(grid_event) {
-            ajax.delete('/api/modules/'+id+'/permissions/'+grid_event.model.attributes.id,{},function(data) {},function(data) {
-                grid_event.model.undo();
-            });
+            $.ajax({
+                type:"DELETE",
+                url:root_url+'/api/listings/'+grid_event.model.attributes.key,
+                data:grid_event.model.attributes,
+                success:function(result){
+                    toastr.success('Successfully deleted!');
+                    console.log(result)
+                }
+                })
         })
     }
 });

@@ -12,16 +12,16 @@
 				<div class="panel-body">{{$organization->desc}}</div>
 			</div>
 		</div></div>
-		
+
         <div class="row">
             <div class="col-sm-12">
-                <div class="panel panel-default">			
+                <div class="panel panel-default">
 			        <div class="panel-heading">Current Projects</div>
 			        <div class="panel-body">
                         @foreach($listings as $listing)
                         <div class="row">
                             <div class="col-sm-6">
-                                <a href="{{url('/listings/'.$listing->key)}}">{{$listing->title}}</a> 
+                                <a href="{{url('/listings/'.$listing->key)}}">{{$listing->title}}</a>
                                 [<?php
                                 if (is_null($listing->start_date)) {
                                     echo "Ongoing";
@@ -77,12 +77,12 @@
 			</div>
 		</div></div></div>
 
-		<!-- <div class="row"><div class="col-sm-12"><div class="panel panel-default">			
+		<!-- <div class="row"><div class="col-sm-12"><div class="panel panel-default">
 			<div class="panel-heading">To Contact The Organization, Fill Out This Form</div>
 			<div class="panel-body">
 			<div id="form_response" ></div>
 				<div class="contact-form">
-				
+
 				<form id="contact_form" name="contact_me" role="form">
 					<div class="form-group">
 						<label for="pods">PODS Username (jsmith1) <div class="btn btn-warning btn-xs">BU Only</div></label>
@@ -90,7 +90,7 @@
 					</div>
 					<div class="row"><div class="col-sm-6">
 					<input type="hidden" class="form-control" name="org_code_view" value="0C1794">
-					
+
 					<div class="form-group">
 						<label for="firstname">First Name</label>
 						<input type="text" class="form-control" name="firstname">

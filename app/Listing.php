@@ -9,6 +9,9 @@ class Listing extends Model
     protected $primaryKey = 'key';
     protected $table = "listings";
     public $timestamps = false;
+    protected $casts = [
+        'creation_date'=>'date:Y-m-d'
+    ];
     protected $fillable = [
         'key','org_code','name','location','location2','type','title','category',
         'bus_route', 'num_participants','ongoing','start_date','end_date',
@@ -16,11 +19,208 @@ class Listing extends Model
         'contact_name','contact_title','contact_email','contact_phone',
         'contact_address1','contact_address2','contact2_name','contact2_title',
         'contact2_email', 'contact2_phone','contact2_address1','contact2_address2',
-        'participants','related','reqs_training','reqs_immune','reqs_application','reqs_desc'
+        'participants','related','reqs_training','reqs_immune','reqs_application','reqs_desc','visible','creation_date'
     ];
 
     public function organization() {
         return $this->belongsTo(Organization::class,'org_code','org_code');
+    }
+
+    public function updateListing($listing,$org_code){
+        $this->update(self::modifyListing($listing,$org_code));
+        $this->visible = false;
+        return $this;
+    }
+//    public function addListing($request)
+
+    public static function modifyListing($list,$org_code){
+//        $this->attributes["key"] = $list->key;
+        $listing = [
+            "key"=>$list->key,
+            "org_code"=>$org_code,
+            "website"=>$list->website,
+            "type"=>$list->project_information["type"],
+            "title"=>$list->project_information["title"],
+            "location"=>$list->project_information["location"],
+            "location2"=>$list->project_information["location2"],
+            "category"=>implode(", ",$list->project_information["category"]),
+            "bus_route"=>$list->project_information["bus_route"],
+            "num_participants"=>$list->project_information["num_participants"]==="Other"?$list->project_information["other_people"]:$list->project_information["num_participants"],
+            "ongoing"=>$list->project_information["ongoing"]==1,
+            "start_date"=>isset($list->project_information["start_date"])?(date('Y-m-d',strtotime($list->project_information["start_date"]))):null,
+            "end_date"=>isset($list->project_information["end_date"])?(date('Y-m-d',strtotime($list->project_information["end_date"]))):null,
+            "fields"=>implode(", ",$list->project_information["fields"]),
+            "paid"=>($list->project_information["paid"]==="YES")?$list->project_information["paid"]."<-|->".$list->project_information["paid_amount"]:$list->project_information["paid"]."<-|->",
+
+            "days"=>implode(", ",$list->project_information["days"]),
+            "desc"=>$list->project_information["desc"],
+            "time"=>implode(", ",$list->project_information["time"]),
+
+            "contact_name"=>$list->contact_info["primary_contact"]["contact_name"],
+            "contact_title"=>$list->contact_info["primary_contact"]["contact_title"],
+            "contact_email"=>$list->contact_info["primary_contact"]["contact_email"],
+            "contact_phone"=>$list->contact_info["primary_contact"]["contact_phone"],
+            "contact_address1"=>$list->contact_info["primary_contact"]["contact_address1"],
+            "contact_address2"=>$list->contact_info["primary_contact"]["contact_address2"],
+
+            "contact2_name"=>$list->contact_info["secondary_contact"]["contact2_name"],
+            "contact2_title"=>$list->contact_info["secondary_contact"]["contact2_title"],
+            "contact2_email"=>$list->contact_info["secondary_contact"]["contact2_email"],
+            "contact2_phone"=>$list->contact_info["secondary_contact"]["contact2_phone"],
+            "contact2_address1"=>$list->contact_info["secondary_contact"]["contact2_address1"],
+            "contact2_address2"=>$list->contact_info["secondary_contact"]["contact2_address2"],
+
+            "reqs_training"=>($list->project_requirements["reqs_training"]==="YES")?$list->project_requirements["reqs_training"]."<-|->".$list->project_requirements["specify_training"]:$list->project_requirements["reqs_training"]."<-|->",
+            "reqs_immune"=>($list->project_requirements["reqs_immune"]==="YES")?$list->project_requirements["reqs_immune"]."<-|->".$list->project_requirements["specify_immune"]:$list->project_requirements["reqs_immune"]."<-|->",
+            "reqs_application"=>($list->project_requirements["reqs_application"]==="YES")?$list->project_requirements["reqs_application"]."<-|->".$list->project_requirements["specify_application"]:$list->project_requirements["reqs_application"]."<-|->",
+            "reqs_desc"=>$list->project_requirements["reqs_desc"]
+        ];
+
+        //Other Hours Handling
+        if($list->project_information["type"]==="short"){
+            if($list->project_information["hours"]==="Other"){
+                $listing["hours"]=$list->project_information["other_hour"];
+            }
+            else{
+                $listing["hours"]=$list->project_information["hours"];
+            }
+        }
+        if($list->project_information["type"]==="long"){
+            if($list->project_information["weekly_hours"]==="Other"){
+                $listing["hours"]=$list->project_information["other_hour"];
+            }
+            else{
+                $listing["hours"]=$list->project_information["weekly_hours"];
+            }
+        }
+
+        //Other Participants Handling
+        $temp_array = [];
+        foreach($list->participant_information["involved_people_type"] as $participant){
+            if($participant === "Other"){
+                $temp_array[]=$list->participant_information["involve_other"];
+            }
+            else{
+                $temp_array[]=$participant;
+            }
+        }
+        $listing["participants"]=implode(", ",$temp_array);
+
+        //Other University Offices Handling
+        $temp_array = [];
+        foreach($list->participant_information["university_offices"] as $office){
+            if($office === "Other"){
+                $temp_array[]=$list->participant_information["other_university_office"];
+            }
+            else{
+                $temp_array[]=$office;
+            }
+        }
+        $listing["related"]=implode(", ",$temp_array);
+
+        return $listing;
+    }
+
+
+    public function getListing($list){
+        //To get the value in Involved People Field
+        $involved_people_array = array_column(self::get_fields()[4]["fields"][0]["options"][0]["options"],"value");
+        //To get the value in University Offices Field
+        $offices_array = array_column(self::get_fields()[4]["fields"][2]["options"][0]["options"],"value");
+
+        //Get hours defined in the form definition
+        $hours_array = array_column(self::get_fields()[2]["fields"][13]["options"][0]["options"],"value");
+
+        //Get the participants defined in the form definition
+        $num_participants_array = array_column(self::get_fields()[2]["fields"][16]["options"][0]["options"],"value");
+
+        $listing = [
+            "key"=>$list->key,
+            "org_code"=>$list->org_code,
+            "website"=>$list->website,
+            "project_information"=>[
+                "type"=>$list->type,
+                "title"=>$list->title,
+                "location"=>$list->location,
+                "location2"=>$list->location2,
+                "category"=>explode(", ",$list->category),
+                "bus_route"=>$list->bus_route,
+                "ongoing"=>$list->ongoing===0?false:true,
+                "start_date"=>$list->ongoing===0?date('m-d-Y', strtotime($list->start_date)):null,
+                "end_date"=>$list->ongoing===0?date('m-d-Y', strtotime($list->end_date)):null,
+                "fields"=>explode(", ",$list->fields),
+                "paid"=>explode("<-|->",$list->paid)[0],
+                "paid_amount"=>explode("<-|->",$list->paid)[1],
+                "hours"=>$list->type==="short"?in_array($list->hours,$hours_array)?$list->hours:"Other":null,
+                "weekly_hours"=>$list->type==="long"?in_array($list->hours,$hours_array)?$list->hours:"Other":null,
+                "other_hour"=> in_array($list->hours,$hours_array)?null:$list->hours,
+                "num_participants"=>in_array($list->num_participants,$num_participants_array)?$list->num_participants:"Other",
+                "other_people"=>in_array($list->num_participants,$num_participants_array)?null:$list->num_participants,
+                "days"=>explode(", ",$list->days),
+                "desc"=>$list->desc,
+                "time"=>explode(", ",$list->time)
+            ],
+            "contact_info"=>[
+                "primary_contact"=>[
+                    "contact_name"=>$list->contact_name,
+                    "contact_title"=>$list->contact_title,
+                    "contact_email"=>$list->contact_email,
+                    "contact_phone"=>$list->contact_phone,
+                    "contact_address1"=>$list->contact_address1,
+                    "contact_address2"=>$list->contact_address2,
+                ],
+                "secondary_contact"=>[
+                    "contact2_name"=>$list->contact2_name,
+                    "contact2_title"=>$list->contact2_title,
+                    "contact2_email"=>$list->contact2_email,
+                    "contact2_phone"=>$list->contact2_phone,
+                    "contact2_address1"=>$list->contact2_address1,
+                    "contact2_address2"=>$list->contact2_address2
+                ]
+            ],
+//                "participant_information"=>[
+//                    "involved_people_type"=>explode(", ",$list->participants),
+//                    "university_offices"=>explode(", ",$list->related)
+//                ],
+            "project_requirements"=>[
+                "reqs_training"=>explode("<-|->",$list->reqs_training)[0],
+                "specify_training"=>explode("<-|->",$list->reqs_training)[0]==="YES"?explode("<-|->",$list->reqs_training)[1]:null,
+                "reqs_immune"=>explode("<-|->",$list->reqs_immune)[0],
+                "specify_immune"=>explode("<-|->",$list->reqs_immune)[0]==="YES"?explode("<-|->",$list->reqs_immune)[1]:null,
+                "reqs_application"=>explode("<-|->",$list->reqs_application)[0],
+                "specify_application"=>explode("<-|->",$list->reqs_application)[0]==="YES"?explode("<-|->",$list->reqs_application)[1]:null,
+                "reqs_desc"=>$list->reqs_desc
+            ]
+        ];
+
+
+        //Looking for Other in Involved People
+        $result_array = [];
+        foreach (explode(", ",$list->participants) as $participant){
+            if(in_array($participant,$involved_people_array)){
+                $result_array[]=$participant;
+            }
+            else{
+                $result_array[] = "Other";
+                $listing["participant_information"]["involve_other"] = $participant;
+            }
+        }
+        $listing["participant_information"]["involved_people_type"] = $result_array;
+
+        //Looking for Other in Related University Offices
+        $result_array=[];
+        foreach (explode(", ",$list->related) as $related_office){
+            if(in_array($related_office,$offices_array)){
+                $result_array[]=$related_office;
+            }
+            else{
+                $result_array[] = "Other";
+                $listing["participant_information"]["other_university_office"] = $related_office;
+            }
+        }
+        $listing["participant_information"]["university_offices"] = $result_array;
+
+        return $listing;
     }
     static public function get_fields() {
         $fields = [
@@ -191,20 +391,7 @@ class Listing extends Model
                     [
                         "label"=> "Please Specify",
                         "name"=> "other_field",
-                        "show"=> [
-                            [
-                                "op"=> "and",
-                                "conditions"=> [
-                                    [
-                                        "type"=> "contains",
-                                        "name"=> "fields",
-                                        "value"=> [
-                                            "Other"
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
+                        "show"=> false,
                         "required"=> "show",
                         "type"=> "text"
                     ],

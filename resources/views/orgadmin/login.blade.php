@@ -66,8 +66,25 @@ new gform(
                 url: root_url+"/api/orgauth/register",
                 data: form_event.form.get(),
                 success: function(response) {
-                    toastr.success(response);
-                    form_event.form.trigger('close')
+                    toastr.success('Welcome '+response.name);
+                    window.location = root_url+"/manage";
+
+                    //Login using register information
+{{--                    $.ajax({--}}
+{{--                        type: "POST",--}}
+{{--                        url: root_url+"/api/orgauth/authenticate",--}}
+{{--                        data: { "organization": response.key,--}}
+{{--                                "password": form_data.passcode--}}
+{{--                                },--}}
+{{--                        success: function(response) {--}}
+{{--                            toastr.success('Welcome '+response.name);--}}
+{{--                            window.location = root_url+"/manage";--}}
+{{--                        },--}}
+{{--                        error: function(response) {--}}
+{{--                            toastr.error('Permission Denied!');--}}
+{{--                        }--}}
+{{--                    });--}}
+
                 },
                 error: function(response) {
                 toastr.error(response);

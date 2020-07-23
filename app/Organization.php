@@ -11,7 +11,7 @@ class Organization extends Authenticatable
     protected $hidden = ['passcode','remember_token'];
     public $timestamps = false;
     protected $fillable = [
-        'key','name','address1','address2','website','passcode','type','desc','fields','shown',
+        'key','org_code','name','address1','address2','website','passcode','type','desc','fields','shown',
         'contact_name','contact_phone','contact_title','contact_email','contact_address1','contact_address2',
         'contact2_name','contact2_phone','contact2_title','contact2_email','contact2_address1','contact2_address2',
     ];
@@ -19,6 +19,107 @@ class Organization extends Authenticatable
     public function listings() {
         return $this->hasMany(Listing::class);
     }
+
+//    static public function addNewOrganization($request){
+//        $organization = [
+
+//            //Organization Information
+//            'name'=>$request->organization_information["name"],
+//            'address1'=>$request->organization_information["address1"],
+//            'address2'=>$request->organization_information["address2"],
+//            'website'=>$request->organization_information["website"],
+//            'type'=>$request->organization_information["type"],
+//            'desc'=>$request->organization_information["desc"],
+//            'fields'=>implode(", ",$request->organization_information["fields"]),
+//
+//            //Primary Contact
+//            'contact_name'=>$request->primary_contact["contact_name"],
+//            'contact_phone'=>$request->primary_contact["contact_phone"],
+//            'contact_title'=>$request->primary_contact["contact_title"],
+//            'contact_email'=>$request->primary_contact["contact_email"],
+//            'contact_address1'=>$request->primary_contact["contact_address1"],
+//            'contact_address2'=>$request->primary_contact["contact_address2"],
+//
+//            //Secondary Contact
+//            'contact2_name'=>$request->secondary_contact["contact2_name"],
+//            'contact2_phone'=>$request->secondary_contact["contact2_phone"],
+//            'contact2_title'=>$request->secondary_contact["contact2_title"],
+//            'contact2_email'=>$request->secondary_contact["contact2_email"],
+//            'contact2_address1'=>$request->secondary_contact["contact2_address1"],
+//            'contact2_address2'=>$request->secondary_contact["contact2_address2"]
+//        ];
+////        $organization->org_code = $organization->key;
+////        return $organization;
+//
+//        return $organization;
+//    }
+
+    public function updateOrganization($request){
+        $this->update([
+//            'key'=>$request->key,
+//            'org_code'=>$request->org_code,
+
+            //Organization Information
+            'name'=>$request->organization_information["name"],
+            'address1'=>$request->organization_information["address1"],
+            'address2'=>$request->organization_information["address2"],
+            'website'=>$request->organization_information["website"],
+            'type'=>$request->organization_information["type"],
+            'desc'=>$request->organization_information["desc"],
+            'fields'=>implode(", ",$request->organization_information["fields"]),
+
+            //Primary Contact
+            'contact_name'=>$request->primary_contact["contact_name"],
+            'contact_phone'=>$request->primary_contact["contact_phone"],
+            'contact_title'=>$request->primary_contact["contact_title"],
+            'contact_email'=>$request->primary_contact["contact_email"],
+            'contact_address1'=>$request->primary_contact["contact_address1"],
+            'contact_address2'=>$request->primary_contact["contact_address2"],
+
+            //Secondary Contact
+            'contact2_name'=>$request->secondary_contact["contact2_name"],
+            'contact2_phone'=>$request->secondary_contact["contact2_phone"],
+            'contact2_title'=>$request->secondary_contact["contact2_title"],
+            'contact2_email'=>$request->secondary_contact["contact2_email"],
+            'contact2_address1'=>$request->secondary_contact["contact2_address1"],
+            'contact2_address2'=>$request->secondary_contact["contact2_address2"]
+        ]);
+    }
+
+    public function getOrganization($organization){
+        return [
+            'key'=>$organization->key,
+            'org_code'=>$organization->org_code,
+            "organization_information"=>[
+                'name'=>$organization->name,
+                'address1'=>$organization->address1,
+                'address2'=>$organization->address2,
+                'website'=>$organization->website,
+                'type'=>$organization->type,
+                'desc'=>$organization->desc,
+                'fields'=>explode(", ",$organization->fields)
+            ],
+            'primary_contact'=>[
+                'contact_name'=>$organization->contact_name,
+                'contact_phone'=>$organization->contact_phone,
+                'contact_title'=>$organization->contact_title,
+                'contact_email'=>$organization->contact_email,
+                'contact_address1'=>$organization->contact_address1,
+                'contact_address2'=>$organization->contact_address2
+            ],
+            'secondary_contact'=>[
+                'contact2_name'=>$organization->contact2_name,
+                'contact2_phone'=>$organization->contact2_phone,
+                'contact2_title'=>$organization->contact2_title,
+                'contact2_email'=>$organization->contact2_email,
+                'contact2_address1'=>$organization->contact2_address1,
+                'contact2_address2'=>$organization->contact2_address2
+            ]
+        ];
+    }
+
+
+
     static public function get_fields() {
         $fields = [
             [

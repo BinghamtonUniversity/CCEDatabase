@@ -8,6 +8,15 @@ use App\Listing;
 
 class Organizations extends Controller
 {
+    public function list_all(Request $request) {
+        $organizations = Organization::orderBy('name')->get();
+        $organizations_arr = [];
+        foreach($organizations as $organization) {
+            $organizations_arr[] = $organization->get_form_data();
+        }
+        return $organizations_arr;
+    }
+
     public function fetch_list(Request $request) {
         $organizations = Organization::select('name','key')
             ->orderBy('name')->get();
@@ -20,6 +29,7 @@ class Organizations extends Controller
         }
         return $organizations_arr;
     }
+
     public function fields(Request $request) {
         return Organization::get_fields();
     }

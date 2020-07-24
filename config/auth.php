@@ -2,6 +2,11 @@
 
 return [
 
+    'api' => [
+        'user' => env('API_USER','defaultuser'),
+        'password' => env('API_PASS','defaultpass'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults

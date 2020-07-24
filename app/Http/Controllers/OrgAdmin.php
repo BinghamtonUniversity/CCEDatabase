@@ -39,7 +39,6 @@ class OrgAdmin extends Controller
         }
     }
     public function register(Request $request){
-//        $organization = new Organization();
         $organization = Organizations::add($request);
         if(!is_null($organization)) {
             Auth::login($organization,true);
@@ -48,29 +47,8 @@ class OrgAdmin extends Controller
                 'organization_fields'=>Organization::get_fields(),
                 'listing_fields'=>Listing::get_fields()
             ]);
-//            return "Success";
-        }
-        else{
+        } else {
             return "Failed";
         }
-
-//        if(){
-//            return "Success";
-//        }
-//        else{
-//            return "Failed to register";
-//        }
-
-
-//        if(Auth::login($organization,true)){
-//            return view('orgadmin.manage',[
-//                'organization_password_change'=>Organization::get_password_fields(),
-//                'organization_fields'=>Organization::get_fields(),
-//                'listing_fields'=>Listing::get_fields()
-//            ]);
-//        }
-//        $request_registered = new Request(["key"=>$organization,"passcode"=>sha1($request->passcode)]);
-//        $this->authenticate($request_registered);
-//        $this->manage($request_registered);
     }
 }

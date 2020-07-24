@@ -14,23 +14,22 @@ class Listings extends Controller
         return $listing;
     }
     public function add(Request $request,Organization $organization){
-        $modified_request =  Listing::modifyListing($request,$organization->org_code);
-        $listing =  new Listing($modified_request);
-        $listing->visible = false;
+        $listing = new Listing();
         $listing->creation_date = Carbon::now();
-        $listing->save();
-        return $listing;
+        $listing->org_code = $organization->org_code;
+        $listing->visible = false;
+        $listing->update_from_form($request->all());
+        return $listing->get_form_data();
     }
 
     public function update(Request $request, Listing $listing) {
-//        dd($listing);
-//        $listing->updateListing($request,$request->org_code);
-        $listing = $listing->updateListing($request,$request->org_code);
-        return (array)($listing->getAttributes());
+        $listing->org_code = $request->org_code;
+        $listing->visible = false;
+        $listing->update_from_form($request->all());
+        return $listing->get_form_data();
     }
 
     public function delete(Request $request,Listing $listing){
-//        return $listing->key;
         if($listing->delete()) {
             return "Success";
         }
@@ -38,6 +37,7 @@ class Listings extends Controller
             return "Failed";
         }
     }
+
     public function fetch_list(Request $request) {
         $listings = Listing::select('title','key')->orderBy('title')->get();
 

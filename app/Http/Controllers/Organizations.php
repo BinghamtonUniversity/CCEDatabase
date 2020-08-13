@@ -9,7 +9,11 @@ use App\Listing;
 class Organizations extends Controller
 {
     public function list_all(Request $request) {
-        $organizations = Organization::orderBy('name')->get();
+        if(isset($request->shown)){
+            $organizations = Organization::where('shown',($request->shown==='true')?true:false)->orderBy('name')->get();
+        }else {
+            $organizations = Organization::orderBy('name')->get();
+        }
         $organizations_arr = [];
         foreach($organizations as $organization) {
             $organizations_arr[] = $organization->get_form_data();
@@ -52,7 +56,11 @@ class Organizations extends Controller
         $organization->shown = false;
         return $organization->get_form_data();
     }
-
+    public function admin_update(Request $request, Organization $organization){
+        $organization->update_from_form($request->all());
+        $organization->shown = $request->shown;
+        return $organization;
+    }
     public function delete(Request $request, Organization $organization){
         if($organization->delete()){
             return "Successfully Deleted!";

@@ -51,6 +51,7 @@ class Organization extends Authenticatable
     public function get_form_data() {
         return [
             'key'=>$this->key,
+            'shown'=>$this->shown===1?true:false,
             'org_code'=>$this->org_code,
             "organization_information"=>[
                 'name'=>$this->name,

@@ -26,6 +26,7 @@ class Listing extends Model
         return $this->belongsTo(Organization::class,'org_code','org_code');
     }
 
+
     public function update_from_form($form_data){
         $this->key=$form_data["key"];
         $this->website=$form_data["website"];
@@ -106,8 +107,7 @@ class Listing extends Model
     }
 
     public function get_form_data(){
-
-        /* These "arrays" should be rewritten in a way that isn't super specific to the data 
+        /* These "arrays" should be rewritten in a way that isn't super specific to the data
            object.  Any change to the form definition and this whole thing breaks */
 
         //To get the value in Involved People Field
@@ -123,6 +123,7 @@ class Listing extends Model
 
         $form_data = [
             "key"=>$this->key,
+            'shown'=>$this->shown===1?true:false,
             "org_code"=>$this->org_code,
             "website"=>$this->website,
             "project_information"=>[
@@ -173,7 +174,8 @@ class Listing extends Model
                 "reqs_application"=>explode("<-|->",$this->reqs_application)[0],
                 "specify_application"=>explode("<-|->",$this->reqs_application)[0]==="YES"?explode("<-|->",$this->reqs_application)[1]:null,
                 "reqs_desc"=>$this->reqs_desc
-            ]
+            ],
+
         ];
 
         //Looking for Other in Involved People

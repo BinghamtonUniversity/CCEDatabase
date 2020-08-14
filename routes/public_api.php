@@ -12,25 +12,21 @@ use Illuminate\Http\Request;
 // API_USER=dev
 // API_PASS=dev
 
-//Route::group(['prefix' => 'api'], function () {
     Route::get('/organizations', 'Organizations@list_all');
-
     Route::post('/organizations', 'Organizations@add');
     Route::get('/organizations/fields', 'Organizations@fields');
-
-//Route::put('/organizations/{organization}', 'Organizations@update');
-
-    Route::get('organizations/{organization}','Organizations@get');
-    Route::put('organizations/{organization}','Organizations@admin_update');
+    Route::get('/organization/password/fields','Organizations@password_fields');
+    Route::get('/organization/register/fields','Organizations@get_register_fields');
+    Route::get('/organizations/{organization}','Organizations@get');
+    Route::put('/organizations/{organization}','Organizations@admin_update');
     Route::put('/organizations/{organization}/reset_password','Organizations@password_update');
+    Route::delete('/organizations/{organization}','Organizations@delete');
     Route::get('/organizations/{organization}/listings', 'Organizations@org_listings');
 
-//    Route::get('/listings/newListings', 'Listings@get');
     Route::get('/listings/fields','Listings@fields');
     Route::get('/listings', 'Listings@list_all');
     Route::get('/listings/{listing}', 'Listings@get');
-
     Route::put('/listings/{listing}','Listings@admin_update');
-
-//});
+    Route::post('/listings/{organization}', 'Listings@add');
+    Route::delete('/listings/{listing}','Listings@delete');
 

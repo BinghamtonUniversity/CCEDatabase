@@ -42,7 +42,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/organizations/fields', 'Organizations@fields');
     Route::get('/organizations/{organization}/listings', 'Organizations@org_listings');
     Route::get('/organizations/{organization}', 'Organizations@get');
-    Route::post('/organizations/{organization}', 'Organizations@update');
+    Route::put('/organizations/{organization}', 'Organizations@update');
     Route::post('/orgauth/authenticate', 'OrgAdmin@authenticate');
     Route::post('/orgauth/register', 'OrgAdmin@register');
 });

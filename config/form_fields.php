@@ -909,9 +909,15 @@ return [
                 ]
             ]
         ],
+        [
+            "type"=> "url",
+            "name"=> "website",
+            "value"=>"http://",
+            "label"=> "Listing Website"
+        ]
     ],
 
-    // Organization 
+    // Organization
     'organization' =>
     [
         [
@@ -934,11 +940,13 @@ return [
                 [
                     "type"=> "text",
                     "name"=> "name",
+                    "required"=>true,
                     "label"=> "Name of Organization"
                 ],
                 [
                     "type"=> "text",
                     "name"=> "address1",
+                    "required"=>true,
                     "label"=> "Mailing Address"
                 ],
                 [
@@ -956,6 +964,7 @@ return [
                     "type"=> "select",
                     "name"=> "type",
                     "label"=> "Type",
+                    "required"=>true,
                     "options"=> [
                         [
                             "options"=> [
@@ -992,6 +1001,7 @@ return [
                 [
                     "type"=> "textarea",
                     "name"=> "desc",
+                    "required"=>true,
                     "label"=> "Organization Description"
                 ],
                 [
@@ -999,6 +1009,7 @@ return [
                     "name"=> "fields",
                     "label"=> "Project Field(s) of Work (Check all that apply)",
                     "multiple"=> true,
+                    "required"=>true,
                     "options"=> [
                         [
                             "options"=> config('app.categories'),
@@ -1012,36 +1023,43 @@ return [
             "type"=> "fieldset",
             "label"=> "Primary Contact",
             "name"=> "primary_contact",
+            "parse"=> true,
+            "report"=>true,
             "fields"=> [
                 [
                     "type"=> "text",
                     "name"=> "contact_name",
-                    "label"=> "Contact Name"
+                    "label"=> "Contact Name",
+                    "required"=>true
                 ],
                 [
                     "type"=> "tel",
                     "name"=> "contact_phone",
-                    "label"=> "Phone Number"
+                    "label"=> "Phone Number",
+                    "required"=>true
                 ],
                 [
                     "type"=> "text",
                     "name"=> "contact_title",
-                    "label"=> "Contact Title"
+                    "label"=> "Contact Title",
+                    "required"=>true
                 ],
                 [
                     "type"=> "email",
                     "name"=> "contact_email",
-                    "label"=> "Email Address"
+                    "label"=> "Email Address",
+                    "required"=>true
                 ],
                 [
                     "type"=> "text",
                     "name"=> "contact_address1",
-                    "label"=> "Mailing Address"
+                    "label"=> "Mailing Address",
+                    "required"=>true
                 ],
                 [
                     "type"=> "text",
                     "name"=> "contact_address2",
-                    "label"=> "Mailing Address (Continued)"
+                    "label"=> "Mailing Address (Continued)",
                 ]
             ]
         ],
@@ -1049,6 +1067,8 @@ return [
             "type"=> "fieldset",
             "label"=> "Secondary Contact",
             "name"=> "secondary_contact",
+            "parse"=> true,
+            "report"=>true,
             "fields"=> [
                 [
                     "type"=> "text",
@@ -1090,12 +1110,14 @@ return [
         [
             "type"=> "password",
             "name"=> "passcode",
-            "label"=> "Password"
+            "label"=> "Password",
+            "required"=>true
         ],
         [
             "type"=> "password",
             "name"=> "confirm_passcode",
             "label"=> "Confirm Password",
+            "required"=>true,
             "validate"=> [
                 [
                     "type"=> "matches",

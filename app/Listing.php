@@ -19,7 +19,7 @@ class Listing extends Model
         'contact_name','contact_title','contact_email','contact_phone',
         'contact_address1','contact_address2','contact2_name','contact2_title',
         'contact2_email', 'contact2_phone','contact2_address1','contact2_address2',
-        'participants','related','reqs_training','reqs_immune','reqs_application','reqs_desc','visible','creation_date'
+        'participants','related','reqs_training','reqs_immune','reqs_application','reqs_desc','shown','creation_date'
     ];
 
     public function organization() {

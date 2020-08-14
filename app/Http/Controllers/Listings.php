@@ -12,10 +12,10 @@ class Listings extends Controller
 
     public function list_all(Request $request){
         if(isset($request->shown)){
-            $listings =  Listing::where('shown',($request->shown==='true')?true:false)->orderBy('creation_date','desc')->get();
+            $listings =  Listing::where('shown',($request->shown==='true')?true:false)->orderBy('creation_date','asc')->get();
         }
         else{
-            $listings = Listing::orderBy('creation_date','desc')->get();
+            $listings = Listing::orderBy('creation_date','asc')->get();
         }
 
         $listings_arr = [];
@@ -37,22 +37,25 @@ class Listings extends Controller
         $listing = new Listing();
         $listing->creation_date = Carbon::now();
         $listing->org_code = $organization->org_code;
-        $listing->visible = false;
+        $listing->shown = false;
         $listing->update_from_form($request->all());
         return $listing->get_form_data();
     }
 
     public function update(Request $request, Listing $listing) {
         $listing->org_code = $request->org_code;
-        $listing->visible = false;
+        $listing->shown = false;
         $listing->update_from_form($request->all());
         return $listing->get_form_data();
     }
     public function admin_update(Request $request,Listing $listing){
         $listing->org_code = $request->org_code;
         $listing->update_from_form($request->all());
-        $listing->visible = $request->visible;
-        return $listing;
+        if(isset($request->shown)) {
+            $listing->update(['shown'=>$request->shown == "1" ? true : false]);
+        }
+
+        return $listing->get_form_data();
     }
 
     public function delete(Request $request,Listing $listing){

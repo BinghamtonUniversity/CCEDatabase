@@ -10,9 +10,9 @@ class Organizations extends Controller
 {
     public function list_all(Request $request) {
         if(isset($request->shown)){
-            $organizations = Organization::where('shown',($request->shown==='true')?true:false)->orderBy('name')->get();
+            $organizations = Organization::where('shown',($request->shown==='true')?true:false)->orderBy('key','asc')->get();
         }else {
-            $organizations = Organization::orderBy('name')->get();
+            $organizations = Organization::orderBy('key','asc')->get();
         }
         $organizations_arr = [];
         foreach($organizations as $organization) {
@@ -37,7 +37,12 @@ class Organizations extends Controller
     public function fields(Request $request) {
         return Organization::get_fields();
     }
-
+    public function password_fields(){
+        return Organization::get_password_fields();
+    }
+    public function get_register_fields(){
+        return Organization::get_register_organization_fields();
+    }
     public static function add(Request $request){
         $organization = new Organization();
         $organization->save();
@@ -57,9 +62,12 @@ class Organizations extends Controller
         return $organization->get_form_data();
     }
     public function admin_update(Request $request, Organization $organization){
+//        return $request;
         $organization->update_from_form($request->all());
-        $organization->shown = $request->shown;
-        return $organization;
+        if(isset($request->shown)) {
+            $organization->update(['shown'=>$request->shown == "1" ? true : false]);
+        }
+        return $organization->get_form_data();
     }
     public function delete(Request $request, Organization $organization){
         if($organization->delete()){

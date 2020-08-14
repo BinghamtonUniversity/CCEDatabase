@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 
     Route::post('/organizations', 'Organizations@add');
     Route::get('/organizations/fields', 'Organizations@fields');
+
 //Route::put('/organizations/{organization}', 'Organizations@update');
 
     Route::get('organizations/{organization}','Organizations@get');
@@ -25,10 +26,11 @@ use Illuminate\Http\Request;
     Route::get('/organizations/{organization}/listings', 'Organizations@org_listings');
 
 //    Route::get('/listings/newListings', 'Listings@get');
+    Route::get('/listings/fields','Listings@fields');
     Route::get('/listings', 'Listings@list_all');
     Route::get('/listings/{listing}', 'Listings@get');
 
     Route::put('/listings/{listing}','Listings@admin_update');
-    Route::get('/listings/fields','Listings@fields');
+
 //});
 

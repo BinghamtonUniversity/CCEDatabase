@@ -25,6 +25,7 @@ Route::get('/search/google/iframe', 'SearchController@google_search_results_ifra
 Route::get('/manage/login', 'OrgAdmin@login');
 Route::get('/manage/logout', 'OrgAdmin@logout');
 Route::get('/manage', 'OrgAdmin@manage');
+Route::get('/manage/{password}','OrgAdmin@password_reset');
 
 
 Route::group(['prefix' => 'api'], function () {
@@ -43,7 +44,11 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/organizations/{organization}/listings', 'Organizations@org_listings');
     Route::get('/organizations/{organization}', 'Organizations@get');
     Route::put('/organizations/{organization}', 'Organizations@update');
+
     Route::post('/orgauth/authenticate', 'OrgAdmin@authenticate');
     Route::post('/orgauth/register', 'OrgAdmin@register');
+
+    Route::post('/password/{organization}','Organizations@password_request');
+
 });
 

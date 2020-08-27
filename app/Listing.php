@@ -2,7 +2,9 @@
 
 namespace App;
 
+use App\Mail\EmailNotification;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 
 class Listing extends Model
 {
@@ -209,4 +211,37 @@ class Listing extends Model
         return config('form_fields.listing');
     }
 
+    public function listing_approve(){
+        $this->update(['shown'=>true]);
+        return $this->shown;
+    }
+
+    public function email_sender($type){
+//        var_dump(config('mail.send_email'));
+        if(config('mail.send_emails')) {
+            if (isset($this->contact2_email)) {
+                Mail::to(["email" => $this->contact2_email])->send(new EmailNotification(
+                        [
+                            'contact' => [
+                                'name' => $this->contact2_name
+                            ],
+                            'listing' => [
+                                'name' => $this->title
+                            ],
+                            'url'=>url('/manage/')
+                        ], $type)
+                );
+            }
+            Mail::to(["email" => $this->contact_email])->send(new EmailNotification(
+                [
+                    'contact' => [
+                        'name' => $this->contact_name
+                    ],
+                    'listing' => [
+                        'name' => $this->title
+                    ],
+                    'url'=>url('/manage/')
+                ], $type));
+        }
+    }
 }

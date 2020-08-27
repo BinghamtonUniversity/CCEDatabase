@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\EmailNotification;
 use App\Organization;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Listing;
+use Illuminate\Support\Facades\Mail;
 
 class Listings extends Controller
 {
@@ -39,23 +41,45 @@ class Listings extends Controller
         $listing->org_code = $organization->org_code;
         $listing->shown = false;
         $listing->update_from_form($request->all());
+
+        $listing->email_sender('listing_created');
+
         return $listing->get_form_data();
     }
 
+    public function admin_add(Request $request, Organization $organization){
+        $listing = new Listing();
+        $listing->creation_date = Carbon::now();
+        $listing->org_code = $organization->org_code;
+        $listing->shown = false;
+        $listing->update_from_form($request->all());
+
+        return $listing->get_form_data();
+    }
     public function update(Request $request, Listing $listing) {
         $listing->org_code = $request->org_code;
         $listing->shown = false;
         $listing->update_from_form($request->all());
+
+        $listing->email_sender('listing_updated');
         return $listing->get_form_data();
     }
     public function admin_update(Request $request,Listing $listing){
         $listing->org_code = $request->org_code;
         $listing->update_from_form($request->all());
-        if(isset($request->shown)) {
-            $listing->update(['shown'=>$request->shown == "1" ? true : false]);
+
+//        $listing->email_sender('listing_updated');
+        return $listing->get_form_data();
+    }
+    public function admin_approve(Request $request, Listing $listing){
+        if($listing->listing_approve()){
+            $listing->email_sender('listing_approved');
+            return "Listing ".$listing->title." approved!";
+        }
+        else{
+            return "Cannot approved";
         }
 
-        return $listing->get_form_data();
     }
 
     public function delete(Request $request,Listing $listing){
@@ -79,4 +103,5 @@ class Listings extends Controller
         }
         return $listings_arr;
     }
+
 }

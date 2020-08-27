@@ -1,8 +1,10 @@
 <?php
 
 namespace App;
+use App\Mail\EmailNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 
 class Organization extends Authenticatable
 {
@@ -81,6 +83,11 @@ class Organization extends Authenticatable
         ];
     }
 
+    public function approve_org(){
+        $this->update(['shown'=>true]);
+        return $this->shown;
+    }
+
     static public function get_fields() {
         return config('form_fields.organization');
     }
@@ -91,4 +98,31 @@ class Organization extends Authenticatable
         return array_merge(config('form_fields.organization'),config('form_fields.password'));
     }
 
+    public function email_sender($type){
+        if(config('mail.send_emails')) {
+            if (isset($this->contact2_email)) {
+                Mail::to(["email" => $this->contact2_email])->send(new EmailNotification(
+                        [
+                            'contact' => [
+                                'name' => $this->contact2_name
+                            ],
+                            'organization' => [
+                                'name' => $this->name
+                            ],
+                            'url'=>url('/manage/')
+                        ], $type)
+                );
+            }
+            Mail::to(["email" => $this->contact_email])->send(new EmailNotification(
+                [
+                    'contact' => [
+                        'name' => $this->contact_name
+                    ],
+                    'organization' => [
+                        'name' => $this->name
+                    ],
+                    'url'=>url('/manage/')
+                ], $type));
+        }
+    }
 }

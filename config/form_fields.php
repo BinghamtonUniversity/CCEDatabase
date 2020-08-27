@@ -578,41 +578,48 @@ return [
                     "type"=> "fieldset",
                     "label"=> "Secondary Contact(Optional)",
                     "name"=> "secondary_contact",
+                    "parse"=>true,
                     "fields"=> [
                         [
                             "label"=> "Contact Name",
                             "name"=> "contact2_name",
                             "columns"=> 6,
+                            "parse"=>true,
                             "type"=> "text"
                         ],
                         [
                             "label"=> "Phone Number",
                             "name"=> "contact2_phone",
                             "columns"=> 6,
+                            "parse"=>true,
                             "type"=> "text"
                         ],
                         [
                             "label"=> "Contact Title",
                             "name"=> "contact2_title",
                             "columns"=> 6,
+                            "parse"=>true,
                             "type"=> "text"
                         ],
                         [
                             "label"=> "Email Address",
                             "name"=> "contact2_email",
                             "columns"=> 6,
+                            "parse"=>true,
                             "type"=> "email"
                         ],
                         [
                             "label"=> "Mailing Address",
                             "name"=> "contact2_address1",
                             "columns"=> 6,
+                            "parse"=>true,
                             "type"=> "text"
                         ],
                         [
                             "label"=> "Mailing Address (Continued)",
                             "name"=> "contact2_address2",
                             "columns"=> 6,
+                            "parse"=>true,
                             "type"=> "text"
                         ]
                     ]
@@ -905,6 +912,7 @@ return [
                 [
                     "type"=> "textarea",
                     "label"=> "Other Requirements",
+                    "parse"=>true,
                     "name"=> "reqs_desc"
                 ]
             ]
@@ -913,6 +921,7 @@ return [
             "type"=> "url",
             "name"=> "website",
             "value"=>"http://",
+            "parse"=>true,
             "label"=> "Listing Website"
         ]
     ],
@@ -936,35 +945,41 @@ return [
             "type"=> "fieldset",
             "label"=> "Organization Information",
             "name"=> "organization_information",
+            "parse"=>true,
             "fields"=> [
                 [
                     "type"=> "text",
                     "name"=> "name",
                     "required"=>true,
-                    "label"=> "Name of Organization"
+                    "label"=> "Name of Organization",
+                    "parse"=>true
                 ],
                 [
                     "type"=> "text",
                     "name"=> "address1",
                     "required"=>true,
-                    "label"=> "Mailing Address"
+                    "label"=> "Mailing Address",
+                    "parse"=>true
                 ],
                 [
                     "type"=> "text",
                     "name"=> "address2",
-                    "label"=> "Mailing Address (Continued)"
+                    "label"=> "Mailing Address (Continued)",
+                    "parse"=>true
                 ],
                 [
                     "type"=> "url",
                     "name"=> "website",
                     "value"=>"http://",
-                    "label"=> "Organization Website"
+                    "label"=> "Organization Website",
+                    "parse"=>true
                 ],
                 [
                     "type"=> "select",
                     "name"=> "type",
                     "label"=> "Type",
                     "required"=>true,
+                    "parse"=>true,
                     "options"=> [
                         [
                             "options"=> [
@@ -1002,7 +1017,8 @@ return [
                     "type"=> "textarea",
                     "name"=> "desc",
                     "required"=>true,
-                    "label"=> "Organization Description"
+                    "label"=> "Organization Description",
+                    "parse"=>true
                 ],
                 [
                     "type"=> "radio",
@@ -1010,6 +1026,7 @@ return [
                     "label"=> "Project Field(s) of Work (Check all that apply)",
                     "multiple"=> true,
                     "required"=>true,
+                    "parse"=>true,
                     "options"=> [
                         [
                             "options"=> config('app.categories'),
@@ -1073,32 +1090,38 @@ return [
                 [
                     "type"=> "text",
                     "name"=> "contact2_name",
-                    "label"=> "Contact Name"
+                    "label"=> "Contact Name",
+                    "parse"=>true
                 ],
                 [
                     "type"=> "tel",
                     "name"=> "contact2_phone",
-                    "label"=> "Phone Number"
+                    "label"=> "Phone Number",
+                    "parse"=>true
                 ],
                 [
                     "type"=> "text",
                     "name"=> "contact2_title",
-                    "label"=> "Contact Title"
+                    "label"=> "Contact Title",
+                    "parse"=>true
                 ],
                 [
                     "type"=> "email",
                     "name"=> "contact2_email",
-                    "label"=> "Email Address"
+                    "label"=> "Email Address",
+                    "parse"=>true
                 ],
                 [
                     "type"=> "text",
                     "name"=> "contact2_address1",
-                    "label"=> "Mailing Address"
+                    "label"=> "Mailing Address",
+                    "parse"=>true
                 ],
                 [
                     "type"=> "text",
                     "name"=> "contact2_address2",
-                    "label"=> "Mailing Address (Continued)"
+                    "label"=> "Mailing Address (Continued)",
+                    "parse"=>true
                 ]
             ]
         ]

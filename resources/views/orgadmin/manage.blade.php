@@ -35,11 +35,11 @@ $(document).ready(function() {
                 }).modal().on('save',function(form_event) {
                     var form_data = form_event.form.get();
                     $.ajax({
-                        type: "POST",
+                        type: "PUT",
                         url: root_url+"/api/organizations/"+form_data.key,
                         data: form_event.form.get(),
                         success: function(response) {
-                            toastr.success(response.name+' Info Updated!');
+                            toastr.success(response.organization_information.name+' Info Updated!');
                             form_event.form.trigger('close')
                         },
                         error: function(response) {
@@ -97,9 +97,11 @@ $.ajax({
                 type:"POST",
                 url:root_url+"/api/listings/{{Auth::user()->key}}",
                 data:grid_event.model.attributes,
-                success:function(result){
-                    toastr.success(result.title +' successfully created!');
-                    console.log(result)}
+                success:function(grid_event,result){
+                    grid_event.model.update(result)
+                    toastr.success(result.project_information.title +' successfully created!');
+                    console.log(result)
+                }.bind(null,grid_event)
             })
         }).on("model:edited",function(grid_event){
             console.log(grid_event.model.attributes);
@@ -108,7 +110,7 @@ $.ajax({
                 url:root_url+"/api/listings/"+ grid_event.model.attributes.key,
                 data:grid_event.model.attributes,
                 success:function(result){
-                toastr.success(result.title +' successfully updated!');
+                toastr.success(result.project_information.title +' successfully updated!');
                 console.log(result)}
         })
         })

@@ -7,6 +7,7 @@ use App\Listing;
 use App\Organization;
 use \Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class OrgAdmin extends Controller
 {
@@ -40,6 +41,10 @@ class OrgAdmin extends Controller
     }
     public function register(Request $request){
         $organization = Organizations::add($request);
+
+//        $organization = Organization::where('key',$new_organization['key'])
+//            ->where('passcode',sha1($request->passcode))->first();
+
         if(!is_null($organization)) {
             Auth::login($organization,true);
             return view('orgadmin.manage',[
@@ -51,4 +56,29 @@ class OrgAdmin extends Controller
             return "Failed";
         }
     }
+
+    public function password_reset(Request $request,$pass){
+        $result = json_decode(Crypt::decrypt($pass));
+
+        if((now()->timestamp - $result->timestamp)/60 <= 10){
+            $organization = Organization::where('key',$result->key)->first();
+            if (!is_null($organization)) {
+                Auth::login($organization, true);
+                return view('orgadmin.manage', [
+                    'organization_password_change' => Organization::get_password_fields(),
+                    'organization_fields' => Organization::get_fields(),
+                    'listing_fields' => Listing::get_fields()
+                ]);
+            } else {
+                return "Link Expired!";
+            }
+        }
+        else{
+            return "Failed";
+        }
+
+    }
+
+
+
 }

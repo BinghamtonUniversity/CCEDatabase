@@ -4,14 +4,14 @@
 @section('description','This page provides a portal for organizations and service groups to manage their organization page and project listings from one convenient location.')
 
 @section('content')
-<div>
-    <a href="{{url('/manage/logout')}}" class="btn btn-danger pull-right">Logout</a>
-</div>
-<div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
-        <div id="org-admin-login"></div>
+    <!--<div>
+        <a href="{{url('/manage/logout')}}" class="btn btn-danger pull-right">Logout</a>
+    </div>-->
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div id="org-admin-login"></div>
+        </div>
     </div>
-</div>
 @endsection
 
 @section('scripts')
@@ -38,8 +38,9 @@ new gform(
 		}
 	],
     "actions":[
-        {"type":"save","label":"Submit","modifiers":"btn btn-primary"},
-        {"type":"cancel","label":"Register","modifiers":"btn btn-default"},
+        {"type":"save","action":"save","label":"Submit","modifiers":"btn btn-primary"},
+        {"type":"cancel","action":"cancel","label":"Register","modifiers":"btn btn-default"},
+        {"type":"button","action":"reset_this","label":"Forgot Your Password?","modifiers":"btn btn-default"}
     ]}
 ).on('save',function(form_event) {
     $.ajax({
@@ -96,6 +97,18 @@ new gform(
         form_event.form.trigger('close');
     })
 console.log("ali Kemal");
-
-});
+})
+.on('reset_this',function(form_event){
+    var form_data = form_event.form.get();
+    $.ajax({
+        type: "POST",
+        url: root_url+"/api/password/"+form_data.organization,
+        success: function(response) {
+            toastr.success('Your reset link has been sent to your email');
+        },
+        error: function(response) {
+            toastr.error(response);
+        }
+    });
+});;
 @endsection

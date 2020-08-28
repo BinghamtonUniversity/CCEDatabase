@@ -16,7 +16,7 @@ class PagesController extends Controller
         $listings = Listing::with(['organization'=>function($query){
                 $query->where('shown',1);
             }])
-            ->where('visible',1)
+            ->where('shown',1)
             ->where(function($query) {
                 $query->whereNull('end_date');
                 $query->orWhere('end_date','>',Carbon::now());

@@ -104,11 +104,24 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-default">
+            <div class="panel-heading">Contact Form</div>
+                <div class="panel-body">
+                    <div id="form_response" ></div>
+                    <div class="contact-form"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     Contact Info.
-                    <!-- <div id="togglebtn" class="btn btn-primary btn-xs" style="float:right;"><i class="glyphicon glyphicon-plus"></i> Show</div> -->
+                    <div data-toggle="collapse" href="#collapse-contact-info" class="btn btn-primary btn-xs" style="float:right;">
+                        <i class="glyphicon glyphicon-plus"></i> Show
+                    </div>
                 </div>
-                <div class="panel-body" id="toggleinfo">
+                <div class="panel-body collapse" id="collapse-contact-info">
                     <div class="row">
                         <div class="col-sm-6">
                             <strong>Project Contact</strong><br><br>
@@ -141,62 +154,22 @@
     </div>
     </div>
     </div>
-    <!-- Old Contact Form -- BROKEN! -->
-    <!-- <div class="row"><div class="col-sm-12"><div class="panel panel-default">
-        <div class="panel-heading">To Contact The Project, Fill Out This Form</div>
-        <div class="panel-body">
-                    <div id="form_response" ></div>
-            <div class="contact-form">
-
-            <form id="contact_form" name="contact_me" role="form">
-                <div class="form-group">
-                    <label for="pods">PODS Username (jsmith1) <div class="btn btn-warning btn-xs">BU Only</div></label>
-                    <input type="text" class="form-control" name="pods" id="pods">
-                </div>
-                <div class="row"><div class="col-sm-6">
-                                    <input type="hidden" class="form-control" name="listing_key" value="994">
-                                    <input type="hidden" class="form-control" name="org_code_view" value="0C1794">
-
-                <div class="form-group">
-                    <label for="firstname">First Name</label>
-                    <input type="text" class="form-control" name="firstname">
-                </div>
-                </div><div class="col-sm-6">
-                <div class="form-group">
-                    <label for="lastname">Last Name</label>
-                    <input type="text" class="form-control" name="lastname">
-                </div>
-                </div></div>
-                <div class="row"><div class="col-sm-6">
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="text" class="form-control" name="email">
-                </div>
-                </div><div class="col-sm-6">
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="text" class="form-control" name="phone">
-                </div>
-                </div></div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea class="form-control" name="message"></textarea>
-                </div>
-                                    <div class="form-group" style="display:none;">
-                                            <label for="critical">Critical</label>
-                                            <input type="text" class="form-control" name="critical">
-                                    </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form></div>
-        </div>
-    </div></div></div> -->
-    <!--<div class="row"><div class="col-sm-12"><div class="panel panel-default">
-        <div class="panel-body">
-            <div style="font-size: 13px; color: #0000FF; text-align: center;">
-            <div class="panel-heading"><span style="font-size: 100%;">This project was posted by<br /><strong style="font-size: 120%;">CCE Youth Initiatives</strong><br /><br /></div>
-            Visit the <a style="color: #0000FF;" href="vieworg.php?oid=MEMxNzk0">CCE Youth Initiatives Organization Page</a>
-            to find out more information about this organization and other projects they have posted with us.</span></div>
-        </div>
-    </div></div></div>-->
 </div>
+@endsection
+
+@section('scripts')
+var contact_form = new gform(contact_form_config, '.contact-form').on('save',function(form_event) {
+    if (form_event.form.validate()) {
+        var contact_form_data = form_event.form.get()
+        $.ajax({
+            type:"POST",
+            url:root_url+"/api/contact/listing/{{$listing->key}}",
+            data:contact_form_data,
+            success:function(result){
+                toastr.success('Contact Request Sent!');
+                form_event.form.trigger('clear');
+            }
+        })
+    }
+})
 @endsection

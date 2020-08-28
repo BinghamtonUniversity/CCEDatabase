@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\DB;
 
 class Organizations extends Controller
 {
+    public function contact(Request $request, Organization $organization) {
+        // Send an email to contact1 and contact2 for the organization
+        // CC the person who submitted the form on the email 
+        // Set "reply to" to the person who submitted the form
+        return $organization;
+    }
+
     public function list_all(Request $request) {
         if(isset($request->shown)){
             $organizations = Organization::where('shown',($request->shown==='true')?true:false)->orderBy('key','asc')->get();

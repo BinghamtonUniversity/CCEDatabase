@@ -50,5 +50,7 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::post('/password/{organization}','Organizations@password_request');
 
+    Route::post('/contact/listing/{listing}', 'Listings@contact');
+    Route::post('/contact/organization/{organization}', 'Organizations@contact');
 });
 

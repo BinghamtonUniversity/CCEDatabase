@@ -3,3 +3,6 @@ Deny from all
 <FilesMatch ^(index\.php)?$>
   Allow from all
 </FilesMatch>
+<FilesMatch "volunteer">
+  Allow from all
+</FilesMatch>

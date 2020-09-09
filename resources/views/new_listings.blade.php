@@ -3,15 +3,15 @@
 @section('title', 'New Listings')
 
 @section('description')
-    View the 30 most recently posted listings, ordered from newest 
-    ({{date('m/d/y', strtotime($listings[0]->timestamp))}}) 
-    to oldest 
+    View the 30 most recently posted listings, ordered from newest
+    ({{date('m/d/y', strtotime($listings[0]->timestamp))}})
+    to oldest
     ({{date('m/d/y', strtotime($listings[count($listings)-1]->timestamp))}})
 @endsection
 
 @section('content')
-    @foreach ($listings as $listing)    
-    <div class="row"><div class="col-sm-12"><div class="panel panel-default">			
+    @foreach ($listings as $listing)
+    <div class="row"><div class="col-sm-12"><div class="panel panel-default">
         <div class="panel-heading">
             <div class="pull-right badge">
             Posted: {{date('m/d/y', strtotime($listing->timestamp))}}        </div>
@@ -22,20 +22,30 @@
             <div class="row">
                 <div class="col-sm-4">Organization:</div>
                 <div class="col-sm-8">
-                    <a href="{{url('/organizations/'.$listing->organization->key)}}">{{$listing->organization->name}}</a>
+                    <a href="{{url('/organizations/'.$listing->organization['key'])}}">{{$listing->organization['name']}}</a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4">Dates:</div>
                 <div class="col-sm-8">
                 <?php
-                if (is_null($listing->start_date)) {
-                    echo "Ongoing";
-                } else if ($listing->start_date == $listing->end_date) {
-                    echo date('l F jS, Y', strtotime($listing->start_date));
-                } else {
-                    echo date('l F jS, Y', strtotime($listing->start_date))." through ".date('l F jS, Y', strtotime($listing->end_date));
-                }
+                    if($listing->event_type === 'ongoing' || is_null($listing->end_date)){
+                        echo "Ongoing";
+                    }
+                    else if($listing->event_type === 'annual'){
+                        echo "Annual - ". date('l F jS, Y', strtotime($listing->start_date))." through ".date('l F jS, Y', strtotime($listing->end_date)); ;
+                    }
+                    else{
+                        echo date('l F jS, Y', strtotime($listing->start_date))." through ".date('l F jS, Y', strtotime($listing->end_date));
+                    }
+//                if (is_null($listing->start_date)) {
+//                    echo "Ongoing";
+//                } else if ($listing->start_date == $listing->end_date) {
+//                    echo date('l F jS, Y', strtotime($listing->start_date));
+//
+//                } else {
+//                    echo date('l F jS, Y', strtotime($listing->start_date))." through ".date('l F jS, Y', strtotime($listing->end_date));
+//                }
                 ?>
                 </div>
             </div>

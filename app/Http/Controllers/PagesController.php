@@ -21,10 +21,19 @@ class PagesController extends Controller
                 $query->whereNull('end_date');
                 $query->orWhere('end_date','>',Carbon::now());
             })
+//            ->whereNotNull('organization')
             ->orderBy('timestamp','desc')
             ->limit(30)->get();
+
+
+        $modified_listings = [];
+        foreach ($listings as $listing){
+            if(!is_null($listing->organization)){
+                $modified_listings[]= $listing;
+            }
+        }
         return view('new_listings',[
-            'listings'=>$listings
+            'listings'=>$modified_listings
         ]);
     }
     public function listing(Request $request, Listing $listing) {

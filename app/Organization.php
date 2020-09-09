@@ -2,16 +2,19 @@
 
 namespace App;
 use App\Mail\EmailNotification;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
 
 class Organization extends Authenticatable
 {
+    use SoftDeletes;
     protected $primaryKey = 'key';
     protected $table = "orgs";
     protected $hidden = ['passcode','remember_token'];
     public $timestamps = false;
+
     protected $fillable = [
         'key','org_code','name','address1','address2','website','passcode','type','desc','fields','shown',
         'contact_name','contact_phone','contact_title','contact_email','contact_address1','contact_address2',

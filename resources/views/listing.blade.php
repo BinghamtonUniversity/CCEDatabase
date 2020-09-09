@@ -51,6 +51,26 @@
                         <div class="col-sm-4">Project Category:</div>
                         <div class="col-sm-8">{{$listing->category}} ({{parse_yesno($listing->paid,'Paid','Unpaid')}})</div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-4">Event Type:</div>
+                        <div class="col-sm-8">
+                            <?php
+                            switch ($listing->event_type){
+                                case 'ongoing':
+                                    echo "Ongoing";
+                                    break;
+                                case 'event':
+                                    echo "Event";
+                                    break;
+                                case 'annual':
+                                    echo "Annual";
+                                    break;
+                                default:
+                                    echo '';
+                            }
+                            ?>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-sm-4">Weekly Hours:</div>
@@ -163,7 +183,7 @@ var contact_form = new gform(contact_form_config, '.contact-form').on('save',fun
         var contact_form_data = form_event.form.get()
         $.ajax({
             type:"POST",
-            url:root_url+"/api/contact/listing/{{$listing->key}}",
+            url:root_url+"/api/conversations/listing/{{$listing->key}}",
             data:contact_form_data,
             success:function(result){
                 toastr.success('Contact Request Sent!');

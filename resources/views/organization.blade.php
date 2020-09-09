@@ -90,7 +90,7 @@
 				</div>
 			</div>
 		</div></div></div>
-		
+
 	</div>
 </div>
 @endsection
@@ -101,7 +101,7 @@ var contact_form = new gform(contact_form_config, '.contact-form').on('save',fun
         var contact_form_data = form_event.form.get()
         $.ajax({
             type:"POST",
-            url:root_url+"/api/contact/organization/{{$organization->key}}",
+            url:root_url+"/api/conversations/organization/{{$organization->key}}",
             data:contact_form_data,
             success:function(result){
                 toastr.success('Contact Request Sent!');

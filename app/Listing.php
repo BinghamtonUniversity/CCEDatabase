@@ -4,19 +4,22 @@ namespace App;
 
 use App\Mail\EmailNotification;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Mail;
 
 class Listing extends Model
 {
+    use SoftDeletes;
     protected $primaryKey = 'key';
     protected $table = "listings";
     public $timestamps = false;
     protected $casts = [
         'creation_date'=>'date:Y-m-d'
     ];
+
     protected $fillable = [
         'key','org_code','name','location','location2','type','title','category',
-        'bus_route', 'num_participants','ongoing','start_date','end_date',
+        'bus_route', 'num_participants','ongoing','start_date','end_date','event_type',
         'fields','paid','hours','days','desc','time',
         'contact_name','contact_title','contact_email','contact_phone',
         'contact_address1','contact_address2','contact2_name','contact2_title',
@@ -39,7 +42,7 @@ class Listing extends Model
         $this->category=implode(", ",$form_data["project_information"]["category"]);
         $this->bus_route=$form_data["project_information"]["bus_route"];
         $this->num_participants=$form_data["project_information"]["num_participants"]==="Other"?$form_data["project_information"]["other_people"]:$form_data["project_information"]["num_participants"];
-        $this->ongoing=$form_data["project_information"]["ongoing"]==1;
+        $this->event_type=$form_data["project_information"]["event_type"];
         $this->start_date=isset($form_data["project_information"]["start_date"])?(date('Y-m-d',strtotime($form_data["project_information"]["start_date"]))):null;
         $this->end_date=isset($form_data["project_information"]["end_date"])?(date('Y-m-d',strtotime($form_data["project_information"]["end_date"]))):null;
         $this->fields=implode(", ",$form_data["project_information"]["fields"]);
@@ -135,9 +138,10 @@ class Listing extends Model
                 "location2"=>$this->location2,
                 "category"=>explode(", ",$this->category),
                 "bus_route"=>$this->bus_route,
-                "ongoing"=>$this->ongoing===0?false:true,
-                "start_date"=>$this->ongoing===0?date('m-d-Y', strtotime($this->start_date)):null,
-                "end_date"=>$this->ongoing===0?date('m-d-Y', strtotime($this->end_date)):null,
+                "event_type"=>$this->event_type,
+                "ongoing"=>$this->ongoing===1?true:false,
+                "start_date"=>isset($this->start_date)?date('m-d-Y', strtotime($this->start_date)):null,
+                "end_date"=>isset($this->end_date)?date('m-d-Y', strtotime($this->end_date)):null,
                 "fields"=>explode(", ",$this->fields),
                 "paid"=>explode("<-|->",$this->paid)[0],
                 "paid_amount"=>explode("<-|->",$this->paid)[1],

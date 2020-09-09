@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Conversation;
 use App\Mail\EmailNotification;
 use App\Organization;
 use Carbon\Carbon;
@@ -12,12 +13,8 @@ use Illuminate\Support\Facades\Mail;
 class Listings extends Controller
 {
 
-    public function contact(Request $request, Listing $listing) {
-        // Send an email to contact1 and contact2 for the listing
-        // CC the person who submitted the form on the email 
-        // Set "reply to" to the person who submitted the form
-        return $listing;
-    }
+
+
     public function list_all(Request $request){
         if(isset($request->shown)){
             $listings =  Listing::where('shown',($request->shown==='true')?true:false)->orderBy('creation_date','asc')->get();

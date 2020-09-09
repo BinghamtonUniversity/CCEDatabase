@@ -37,81 +37,38 @@ class EmailNotification extends Mailable
         switch ($type) {
             case 'org_created':
                 $this->email_conf = "created.organization";
-//                $email_content = [
-//                    'contact'=>[
-//                        'name'=>$obj->contact_name
-//                    ],
-//                    'organization'=>[
-//                        'name'=>$obj->name
-//                    ]
-//                ];
                 break;
             case 'org_updated':
                 $this->email_conf = "updated.organization";
-//                $email_content = [
-//                    'contact'=>[
-//                        'name'=>$obj->contact_name
-//                    ],
-//                    'organization'=>[
-//                        'name'=>$obj->name
-//                    ]
-//                ];
                 break;
             case 'org_approved':
                 $this->email_conf = "approved.organization";
-//                $email_content = [
-//                    'contact'=>[
-//                        'name'=>$obj->contact_name
-//                    ],
-//                    'listing'=>[
-//                        'name'=>$obj->title
-//                    ]
-//                ];
                 break;
             case 'listing_created':
                 $this->email_conf = "created.listing";
-//                $email_content = [
-//                    'contact'=>[
-//                        'name'=>$obj->contact_name
-//                    ],
-//                    'listing'=>[
-//                        'name'=>$obj->title
-//                    ]
-//                ];
                 break;
             case 'listing_updated':
                 $this->email_conf = "updated.listing";
-//                $email_content = [
-//                    'contact'=>[
-//                        'name'=>$obj->contact_name
-//                    ],
-//                    'listing'=>[
-//                        'name'=>$obj->title
-//                    ]
-//                ];
                 break;
             case 'listing_approved':
                 $this->email_conf = "approved.listing";
-//                $this->email_subject = config('email_templates.approved.listing.subject');
-//                $email_content = [
-//                    'contact'=>[
-//                        'name'=>$obj->contact_name
-//                    ],
-//                    'listing'=>[
-//                        'name'=>$obj->title
-//                    ]
-//                ];
+                break;
+            case 'listing_contact':
+                $this->email_conf = "contact_form.listing";
+                break;
+            case 'org_contact':
+                $this->email_conf = "contact_form.organization";
+                break;
+            case 'listing_user_message':
+                $this->email_conf = "contact_form.email_from_student_received.listing";
+                $this->replyToAddress = $obj['replyTo'];
+                break;
+            case 'org_user_message':
+                $this->email_conf = "contact_form.email_from_student_received.organization";
+                $this->replyToAddress = $obj['replyTo'];
                 break;
             case 'password_update':
                 $this->email_conf = "updated.password";
-//                $email_content = [
-//                    'contact'=>[
-//                        'name'=>$obj->contact_name
-//                    ],
-//                    'organization'=>[
-//                        'name'=>$obj->name
-//                    ]
-//                ];
                 break;
             case 'password_reset':
                 $this->email_conf = "reset.password";
@@ -131,8 +88,17 @@ class EmailNotification extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.email_raw')
-            ->with(['content'=>$this->content])
-            ->subject(config('email_templates.'.$this->email_conf.'.subject'));
+        if(isset($this->replyToAddress)){
+            return $this->view('emails.email_raw')
+                ->replyTo($this->replyToAddress)
+                ->with(['content'=>$this->content])
+                ->subject(config('email_templates.'.$this->email_conf.'.subject'));
+        }
+        else{
+            return $this->view('emails.email_raw')
+                ->with(['content'=>$this->content])
+                ->subject(config('email_templates.'.$this->email_conf.'.subject'));
+        }
+
     }
 }

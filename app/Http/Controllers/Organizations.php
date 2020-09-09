@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\OrganizationApproved;
+use App\Conversation;
 use Illuminate\Http\Request;
 use App\Organization;
 use App\Listing;
@@ -13,12 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class Organizations extends Controller
 {
-    public function contact(Request $request, Organization $organization) {
-        // Send an email to contact1 and contact2 for the organization
-        // CC the person who submitted the form on the email 
-        // Set "reply to" to the person who submitted the form
-        return $organization;
-    }
+
 
     public function list_all(Request $request) {
         if(isset($request->shown)){
@@ -106,6 +102,7 @@ class Organizations extends Controller
     }
 
     public function delete(Request $request, Organization $organization){
+        Listing::where('org_code',$organization->org_code)->delete();
         if($organization->delete()){
             return "Successfully Deleted!";
         } else{

@@ -99,18 +99,29 @@ return [
                     ]
                 ],
                 [
-                    "name"=> "ongoing",
-                    "type"=> "checkbox",
-                    "label"=> "Ongoing",
+                    "type"=> "select",
+                    "label"=> "Event Type",
+                    "name"=> "event_type",
+                    "multiple"=> false,
                     "options"=> [
                         [
-                            "label"=> "No",
-                            "value"=> 0
-                        ],
-                        [
-                            "label"=> "Yes",
-                            "value"=> 1
-                        ],
+                            "label"=> "",
+                            "type"=> "optgroup",
+                            "options"=> [
+                                [
+                                    "label"=> "Ongoing",
+                                    "value"=> "ongoing"
+                                ],
+                                [
+                                    "label"=> "Event",
+                                    "value"=> "event"
+                                ],
+                                [
+                                    "label"=> "Annual",
+                                    "value"=> "annual"
+                                ]
+                            ]
+                        ]
                     ]
                 ],
                 [
@@ -123,9 +134,9 @@ return [
                             "op"=> "and",
                             "conditions"=> [
                                 [
-                                    "type"=> "matches",
-                                    "name"=> "ongoing",
-                                    "value"=> 0
+                                    "type"=> "not_matches",
+                                    "name"=> "event_type",
+                                    "value"=> "ongoing"
                                 ]
                             ]
                         ]
@@ -145,9 +156,9 @@ return [
                             "op"=> "and",
                             "conditions"=> [
                                 [
-                                    "type"=> "matches",
-                                    "name"=> "ongoing",
-                                    "value"=> 0
+                                    "type"=> "not_matches",
+                                    "name"=> "event_type",
+                                    "value"=> "ongoing"
                                 ]
                             ]
                         ]

@@ -34,3 +34,8 @@ Route::put('/listings/{listing}','Listings@admin_update');
 Route::post('/listings/{organization}', 'Listings@admin_add');
 Route::delete('/listings/{listing}','Listings@delete');
 
+Route::get('/conversations/{conversation}','Conversations@get_conversation');
+Route::get('/conversations','Conversations@get_all_conversations');
+
+Route::get('/searches','SearchController@get_all_searches');
+

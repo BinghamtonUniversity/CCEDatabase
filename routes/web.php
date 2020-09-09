@@ -18,10 +18,12 @@ Route::get('/listings/new', 'PagesController@new_listings');
 Route::get('/listings/{listing}', 'PagesController@listing');
 Route::get('/organizations/{organization}', 'PagesController@organization');
 Route::get('/organizations', 'PagesController@organizations');
+
 Route::get('/search', 'SearchController@search_page');
 Route::get('/search/results', 'SearchController@search_results_page');
 Route::get('/search/google', 'SearchController@google_search_results_page');
 Route::get('/search/google/iframe', 'SearchController@google_search_results_iframe');
+
 Route::get('/manage/login', 'OrgAdmin@login');
 Route::get('/manage/logout', 'OrgAdmin@logout');
 Route::get('/manage', 'OrgAdmin@manage');
@@ -50,7 +52,9 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::post('/password/{organization}','Organizations@password_request');
 
-    Route::post('/contact/listing/{listing}', 'Listings@contact');
-    Route::post('/contact/organization/{organization}', 'Organizations@contact');
+    Route::post('/conversations/listing/{listing}', 'Conversations@add_listing_conversation');
+    Route::post('/conversations/organization/{organization}', 'Conversations@add_org_conversation');
+    Route::get('/conversations/{conversation}','Conversations@get_conversation');
+    Route::get('/conversations','Conversations@get_all_conversations');
 });
 

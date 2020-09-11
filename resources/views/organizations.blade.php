@@ -3,6 +3,11 @@
 @section('title', 'Organizations')
 
 @section('description')
+    @if((config('templates.organizations_page_alert'))!=='')
+        <div class="alert alert-danger">
+            {!! config('templates.organizations_page_alert') !!}
+        </div>
+    @endif
     This page shows all of the organizations who are listed in our database in ascending 
     alphabetical order. You can click on the links below to view each organization page. 
     Each page contains contact details, project listings, and other information regarding 

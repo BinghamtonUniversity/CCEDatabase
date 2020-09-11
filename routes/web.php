@@ -13,20 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'PagesController@home');
-Route::get('/listings/new', 'PagesController@new_listings');
+Route::get('/', 'PagesController@home')->name('home_page');
+Route::get('/newlistings', 'PagesController@new_listings')->name('newlistings_page');
 Route::get('/listings/{listing}', 'PagesController@listing');
 Route::get('/organizations/{organization}', 'PagesController@organization');
-Route::get('/organizations', 'PagesController@organizations');
+Route::get('/organizations', 'PagesController@organizations')->name('organizations_page');
 
-Route::get('/search', 'SearchController@search_page');
+Route::get('/search', 'SearchController@search_page')->name('search_page');
 Route::get('/search/results', 'SearchController@search_results_page');
 Route::get('/search/google', 'SearchController@google_search_results_page');
 Route::get('/search/google/iframe', 'SearchController@google_search_results_iframe');
 
 Route::get('/manage/login', 'OrgAdmin@login');
 Route::get('/manage/logout', 'OrgAdmin@logout');
-Route::get('/manage', 'OrgAdmin@manage');
+Route::get('/manage', 'OrgAdmin@manage')->name('manage_page');
 Route::get('/manage/{password}','OrgAdmin@password_reset');
 
 

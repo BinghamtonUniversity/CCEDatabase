@@ -8,8 +8,6 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-
-
 class EmailNotification extends Mailable
 {
     use Queueable, SerializesModels;

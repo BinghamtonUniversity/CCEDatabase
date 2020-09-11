@@ -11,8 +11,7 @@ use \Carbon\Carbon;
 class PagesController extends Controller
 {
     public function home(Request $request) {
-        $site_configs = SiteConfiguration::where('key','home_page')->first();
-        return view('home',['site_configs'=>$site_configs]);
+        return view('home');
     }
     public function new_listings(Request $request) {
         $listings = Listing::with(['organization'=>function($query){

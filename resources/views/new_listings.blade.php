@@ -3,6 +3,11 @@
 @section('title', 'New Listings')
 
 @section('description')
+    @if((config('templates.newlistings_page_alert'))!=='')
+        <div class="alert alert-danger">
+            {!! config('templates.newlistings_page_alert') !!}
+        </div>
+    @endif
     View the 30 most recently posted listings, ordered from newest
     ({{date('m/d/y', strtotime($listings[0]->timestamp))}})
     to oldest
@@ -38,14 +43,6 @@
                     else{
                         echo date('l F jS, Y', strtotime($listing->start_date))." through ".date('l F jS, Y', strtotime($listing->end_date));
                     }
-//                if (is_null($listing->start_date)) {
-//                    echo "Ongoing";
-//                } else if ($listing->start_date == $listing->end_date) {
-//                    echo date('l F jS, Y', strtotime($listing->start_date));
-//
-//                } else {
-//                    echo date('l F jS, Y', strtotime($listing->start_date))." through ".date('l F jS, Y', strtotime($listing->end_date));
-//                }
                 ?>
                 </div>
             </div>

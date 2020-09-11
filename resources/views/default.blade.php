@@ -17,7 +17,7 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header" style="width:100%;">
-      <a class="navbar-brand" href="/cce" style="height:60px; padding:7.5px 4.5px;color:white;">
+      <a class="navbar-brand" href="{{route('home_page')}}" style="height:60px; padding:7.5px 4.5px;color:white;">
         <img src="https://www.binghamton.edu/assets/img/logo/binghamton-university.png" style="width:351px;">
         <span class="hidden-xs" style="font-size: 22px;border-left: 1px solid #fff;margin-left: 10px;padding: 5px 0px 5px 10px;vertical-align: middle;">
           CCE Service Listings
@@ -25,7 +25,7 @@
       </a>
       <div class="hidden-xs" style="float: right; text-align: right;">
 				<a class="navLnk" href="https://www.binghamton.edu/cce/about/index.html">Contact Us | </a>
-				<a class="navLnk" href="{{url('/manage')}}">Manage Service Listings</a>
+				<a class="navLnk" href="{{route('manage_page')}}">Manage Service Listings</a>
 		  </div>
     </div>
   </div><!-- /.container-fluid -->
@@ -48,15 +48,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-          <?php
-          use App\SiteConfiguration;
-          $menu = SiteConfiguration::where('key','menu')->first();
-          echo $menu->value;
-          ?>
-{{--          <li><a href="{{url('/')}}">Home</a></li>--}}
-{{--          <li><a href="{{url('/search')}}">Search</a></li>--}}
-{{--          <li><a href="{{url('/organizations')}}">Organizations</a></li>--}}
-{{--          <li><a href="{{url('/listings/new')}}">Recent Listings</a></li>--}}
+          {!! config('templates.menu') !!}
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -76,8 +68,7 @@
     </div>
     <div class="row">
         <div id="footer">
-            &copy; {{date('Y')}} Binghamton University Center for Civic Engagement |
-            <a href="https://www.binghamton.edu/cce/about/index.html" style="color:white;">Contact the Office</a>
+            {!! config('templates.footer') !!}
         </div>
     </div>
 </div>

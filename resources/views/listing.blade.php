@@ -1,6 +1,14 @@
 @extends('default')
 @section('title',$listing->title)
-@section('description','')
+
+@section('description')
+    @if((config('templates.listing_page_alert'))!=='')
+        <div class="alert alert-danger">
+            {!! config('templates.listing_page_alert') !!}
+        </div>
+    @endif
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-sm-12">

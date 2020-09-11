@@ -73,23 +73,6 @@ window.search_form = {
     "horizontal": true,
     "fields": [
         {
-            "type": "checkbox",
-            "label": "",
-            "name": "is_advanced",
-            "value": false,
-            "showColumn": true,
-            "options": [
-                {
-                    "label": "Would you like to make advanced search?",
-                    "value": false
-                },
-                {
-                    "label": "Would you like to make advanced search?",
-                    "value": true
-                }
-            ]
-        },
-        {
             "label": "General Search",
             "name": "keyword",
             "placeholder": "Project or Org Name / Description",
@@ -108,6 +91,23 @@ window.search_form = {
             "required": "show",
             "showColumn": true,
             "type": "text"
+        },
+        {
+            "type": "checkbox",
+            "label": "",
+            "name": "is_advanced",
+            "value": false,
+            "showColumn": true,
+            "options": [
+                {
+                    "label": "Advanced Search",
+                    "value": false
+                },
+                {
+                    "label": "Advanced Search",
+                    "value": true
+                }
+            ]
         },
         {
             "type": "fieldset",
@@ -196,6 +196,7 @@ window.search_form = {
                     "multiple": true,
                     "size":4,
                     "showColumn": true,
+                    "required":true,
                     "options": [
                         {
                             "label": "",

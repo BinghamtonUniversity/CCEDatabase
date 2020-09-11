@@ -1,12 +1,18 @@
 @extends('default')
 
 @section('title', 'Manage Organization and Listings')
-@section('description','This page provides a portal for organizations and service groups to manage their organization page and project listings from one convenient location.')
+@section('description')
+    @if((config('templates.manage_page_alert'))!=='')
+        <div class="alert alert-danger">
+            {!! config('templates.manage_page_alert') !!}
+        </div>
+    @endif
+    This page provides a portal for organizations and service groups to 
+    manage their organization page and project listings from one convenient 
+    location.
+@endsection
 
 @section('content')
-    <!--<div>
-        <a href="{{url('/manage/logout')}}" class="btn btn-danger pull-right">Logout</a>
-    </div>-->
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
             <div id="org-admin-login"></div>
@@ -73,23 +79,6 @@ new gform(
                 success: function(response) {
                     toastr.success('Welcome '+response.name);
                     window.location = root_url+"/manage";
-
-                    //Login using register information
-{{--                    $.ajax({--}}
-{{--                        type: "POST",--}}
-{{--                        url: root_url+"/api/orgauth/authenticate",--}}
-{{--                        data: { "organization": response.key,--}}
-{{--                                "password": form_data.passcode--}}
-{{--                                },--}}
-{{--                        success: function(response) {--}}
-{{--                            toastr.success('Welcome '+response.name);--}}
-{{--                            window.location = root_url+"/manage";--}}
-{{--                        },--}}
-{{--                        error: function(response) {--}}
-{{--                            toastr.error('Permission Denied!');--}}
-{{--                        }--}}
-{{--                    });--}}
-
                 },
                 error: function(response) {
                 toastr.error(response);
@@ -116,5 +105,5 @@ console.log("ali Kemal");
             }
         });
     }
-});;
+});
 @endsection

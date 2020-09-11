@@ -1,7 +1,16 @@
 @extends('default')
 
 @section('title',"Manage: ".Auth::user()->name)
-@section('description','This page provides a portal for organizations and service groups to manage their organization page and project listings from one convenient location.')
+@section('description')
+    @if((config('templates.manage_page_alert'))!=='')
+        <div class="alert alert-danger">
+            {!! config('templates.manage_page_alert') !!}
+        </div>
+    @endif
+    This page provides a portal for organizations and service groups to 
+    manage their organization page and project listings from one convenient 
+    location.
+@endsection
 
 @section('content')
 <div>

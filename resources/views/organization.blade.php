@@ -1,5 +1,14 @@
 @extends('default')
 @section('title',$organization->name)
+
+@section('description')
+    @if((config('templates.organization_page_alert'))!=='')
+        <div class="alert alert-danger">
+            {!! config('templates.organization_page_alert') !!}
+        </div>
+    @endif
+@endsection
+
 @section('content')
 <div class="row">
 	<div class="col-sm-6">

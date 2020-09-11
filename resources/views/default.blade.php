@@ -23,9 +23,9 @@
           CCE Service Listings
         </span>
       </a>
-      <div class="hidden-xs" style="float: right; text-align: right;">
-				<a class="navLnk" href="https://www.binghamton.edu/cce/about/index.html">Contact Us | </a>
-				<a class="navLnk" href="{{route('manage_page')}}">Manage Service Listings</a>
+      <div class="hidden-xs" style="float:right;text-align:right;margin-top:5px;">
+				<a class="btn btn-xs btn-primary" href="{{ config('templates.contact_url') }}">Contact Us</a>
+				<a class="btn btn-xs btn-primary" href="{{route('manage_page')}}">Manage Service Listings</a>
 		  </div>
     </div>
   </div><!-- /.container-fluid -->
@@ -43,7 +43,6 @@
         <span class="icon-bar"></span>
       </button>
     </div>
-
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

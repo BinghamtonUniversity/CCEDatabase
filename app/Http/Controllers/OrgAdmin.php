@@ -71,14 +71,14 @@ class OrgAdmin extends Controller
                         'listing_fields' => Listing::get_fields()
                     ]);
                 } else {
-                    return "Link Expired!";
+                    return abort(401);
                 }
             }
             else{
-                return "Failed";
+                return abort(401);
             }
         }catch (\Exception $e){
-            return view('not_authorized');
+            return abort(401);
         }
 
 

@@ -99,15 +99,15 @@ class Listing extends Model
         $this->participants=implode(", ",$temp_array);
 
         //Other University Offices Handling
-        $temp_array = [];
-        foreach($form_data["participant_information"]["university_offices"] as $office){
-            if($office === "Other"){
-                $temp_array[]=$form_data["participant_information"]["other_university_office"];
-            } else{
-                $temp_array[]=$office;
-            }
-        }
-        $this->related=implode(", ",$temp_array);
+//        $temp_array = [];
+//        foreach($form_data["participant_information"]["university_offices"] as $office){
+//            if($office === "Other"){
+//                $temp_array[]=$form_data["participant_information"]["other_university_office"];
+//            } else{
+//                $temp_array[]=$office;
+//            }
+//        }
+//        $this->related=implode(", ",$temp_array);
         $this->save();
     }
 
@@ -118,7 +118,7 @@ class Listing extends Model
         //To get the value in Involved People Field
         $involved_people_array = array_column(config('form_fields.listing')[4]["fields"][0]["options"][0]["options"],"value");
         //To get the value in University Offices Field
-        $offices_array = array_column(config('form_fields.listing')[4]["fields"][2]["options"][0]["options"],"value");
+//        $offices_array = array_column(config('form_fields.listing')[4]["fields"][2]["options"][0]["options"],"value");
 
         //Get hours defined in the form definition
         $hours_array = array_column(config('form_fields.listing')[2]["fields"][13]["options"][0]["options"],"value");
@@ -130,6 +130,7 @@ class Listing extends Model
             "key"=>$this->key,
             'shown'=>$this->shown===1?true:false,
             "org_code"=>$this->org_code,
+            "org_name"=>$this->organization['name'],
             "website"=>$this->website,
             "project_information"=>[
                 "type"=>$this->type,
@@ -198,16 +199,16 @@ class Listing extends Model
         $form_data["participant_information"]["involved_people_type"] = $result_array;
 
         //Looking for Other in Related University Offices
-        $result_array=[];
-        foreach (explode(", ",$this->related) as $related_office){
-            if(in_array($related_office,$offices_array)){
-                $result_array[]=$related_office;
-            } else {
-                $result_array[] = "Other";
-                $form_data["participant_information"]["other_university_office"] = $related_office;
-            }
-        }
-        $form_data["participant_information"]["university_offices"] = $result_array;
+//        $result_array=[];
+//        foreach (explode(", ",$this->related) as $related_office){
+//            if(in_array($related_office,$offices_array)){
+//                $result_array[]=$related_office;
+//            } else {
+//                $result_array[] = "Other";
+//                $form_data["participant_information"]["other_university_office"] = $related_office;
+//            }
+//        }
+//        $form_data["participant_information"]["university_offices"] = $result_array;
 
         return $form_data;
     }

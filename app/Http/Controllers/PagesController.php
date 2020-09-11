@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\SiteConfiguration;
 use Illuminate\Http\Request;
 use App\Listing;
 use App\Organization;
@@ -10,7 +11,8 @@ use \Carbon\Carbon;
 class PagesController extends Controller
 {
     public function home(Request $request) {
-        return view('home');
+        $site_configs = SiteConfiguration::where('key','home_page')->first();
+        return view('home',['site_configs'=>$site_configs]);
     }
     public function new_listings(Request $request) {
         $listings = Listing::with(['organization'=>function($query){

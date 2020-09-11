@@ -27,7 +27,7 @@
 				<a class="navLnk" href="https://www.binghamton.edu/cce/about/index.html">Contact Us | </a>
 				<a class="navLnk" href="{{url('/manage')}}">Manage Service Listings</a>
 		  </div>
-    </div>    
+    </div>
   </div><!-- /.container-fluid -->
 </nav>
 <!-- End New Stuff -->
@@ -44,13 +44,19 @@
       </button>
     </div>
 
+
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-  <li><a href="{{url('/')}}">Home</a></li>
-  <li><a href="{{url('/search')}}">Search</a></li>
-  <li><a href="{{url('/organizations')}}">Organizations</a></li>
-  <li><a href="{{url('/listings/new')}}">Recent Listings</a></li>
+          <?php
+          use App\SiteConfiguration;
+          $menu = SiteConfiguration::where('key','menu')->first();
+          echo $menu->value;
+          ?>
+{{--          <li><a href="{{url('/')}}">Home</a></li>--}}
+{{--          <li><a href="{{url('/search')}}">Search</a></li>--}}
+{{--          <li><a href="{{url('/organizations')}}">Organizations</a></li>--}}
+{{--          <li><a href="{{url('/listings/new')}}">Recent Listings</a></li>--}}
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -70,7 +76,7 @@
     </div>
     <div class="row">
         <div id="footer">
-            &copy; {{date('Y')}} Binghamton University Center for Civic Engagement | 
+            &copy; {{date('Y')}} Binghamton University Center for Civic Engagement |
             <a href="https://www.binghamton.edu/cce/about/index.html" style="color:white;">Contact the Office</a>
         </div>
     </div>

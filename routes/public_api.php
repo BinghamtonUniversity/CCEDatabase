@@ -26,6 +26,9 @@ Route::put('/organizations/{organization}/reset_password','Organizations@passwor
 Route::delete('/organizations/{organization}','Organizations@delete');
 Route::get('/organizations/{organization}/listings', 'Organizations@org_listings');
 
+//Use the same pass_reset methods
+Route::get('/organizations/{organization}/impersonate', 'Organizations@impersonate_user');
+
 Route::get('/listings/fields','Listings@fields');
 Route::get('/listings', 'Listings@list_all');
 Route::get('/listings/{listing}', 'Listings@get');
@@ -38,4 +41,8 @@ Route::get('/conversations/{conversation}','Conversations@get_conversation');
 Route::get('/conversations','Conversations@get_all_conversations');
 
 Route::get('/searches','SearchController@get_all_searches');
+
+Route::put('/configurations/{siteConfiguration}','SiteConfigurationController@edit_configuration');
+Route::get('/configurations','SiteConfigurationController@get_configurations');
+
 

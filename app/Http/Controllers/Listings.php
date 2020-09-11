@@ -17,10 +17,14 @@ class Listings extends Controller
 
     public function list_all(Request $request){
         if(isset($request->shown)){
-            $listings =  Listing::where('shown',($request->shown==='true')?true:false)->orderBy('creation_date','asc')->get();
+            $listings =  Listing::with(['organization'=>function($q){
+                $q->select('org_code','name');
+            }])->where('shown',($request->shown==='true')?true:false)->orderBy('creation_date','asc')->get();
         }
         else{
-            $listings = Listing::orderBy('creation_date','asc')->get();
+            $listings = Listing::with(['organization'=>function($q){
+                $q->select('org_code','name');
+            }])->orderBy('creation_date','desc')->get();
         }
 
         $listings_arr = [];

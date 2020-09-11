@@ -88,7 +88,7 @@
                         <div class="col-sm-12">Project Description</div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">{{$listing->desc}}</div>
+                        <div class="col-sm-12">{!! $listing->desc !!}</div>
                     </div>
                 </div>
             </div>

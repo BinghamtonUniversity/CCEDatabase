@@ -16,6 +16,8 @@ return [
             "type"=> "fieldset",
             "label"=> "Project Information",
             "name"=> "project_information",
+            "columnName"=>"Title",
+            "template"=>"<b>{{attributes.org_name}}</b> - {{attributes.project_information.title}} - <span style='text-transform: capitalize;'>{{attributes.project_information.event_type}}</span>",
             "fields"=> [
                 [
                     "type"=> "select",
@@ -59,10 +61,10 @@ return [
                     "type"=> "text"
                 ],
                 [
-                    "type"=> "select",
+                    "type"=> "radio",
                     "label"=> "Category",
                     "name"=> "category",
-                    "help"=> "Hold CTRL or command to select multiple.",
+                    "size"=>2,
                     "multiple"=> true,
                     "required"=> true,
                     "options"=> [
@@ -172,7 +174,7 @@ return [
                     "type"=> "radio",
                     "label"=> "Project Field(s) of Work (Check all that apply)",
                     "name"=> "fields",
-                    "help"=> "Hold CTRL or command to select multiple.",
+                    "size"=>2,
                     "multiple"=> true,
                     "options"=> config('app.categories'),
                     "required"=>true
@@ -534,7 +536,8 @@ return [
             "type"=> "fieldset",
             "label"=> "Contact Info",
             "name"=> "contact_info",
-            "showColumn"=>false,
+//            "showColumn"=>false,
+            "template"=>"Primary Contact: {{attributes.contact_info.primary_contact.contact_name}}<br>Secondary Contact:{{attributes.contact_info.secondary_contact.contact2_name}}",
             "fields"=> [
                 [
                     "type"=> "fieldset",
@@ -641,6 +644,11 @@ return [
             "type"=> "fieldset",
             "label"=> "Participant Information",
             "name"=> "participant_information",
+            "template"=>"<ul><h5>Involved</h5>
+                            {{#attributes.participant_information.involved_people_type}}
+                            <li>{{.}}</li>
+                            {{/attributes.participant_information.involved_people_type}}
+                         </ul> ",
             "fields"=> [
                 [
                     "type"=> "radio",
@@ -705,83 +713,86 @@ return [
                     "required"=> "show",
                     "type"=> "text"
                 ],
-                [
-                    "type"=> "radio",
-                    "label"=> "To which area(s) of Binghamton University does this project/activity relate (so that we may inform them)? (Check all that apply)",
-                    "name"=> "university_offices",
-                    "multiple"=> true,
-                    "required"=> true,
-                    "options"=> [
-                        [
-                            "label"=> "",
-                            "type"=> "optgroup",
-                            "options"=> [
-                                [
-                                    "label"=> "Internship Offices",
-                                    "value"=> "Internship Offices"
-                                ],
-                                [
-                                    "label"=> "Volunteer Offices",
-                                    "value"=> "Volunteer Offices"
-                                ],
-                                [
-                                    "label"=> "Classes",
-                                    "value"=> "Classes"
-                                ],
-                                [
-                                    "label"=> "Student Clubs/Organizations",
-                                    "value"=> "Student Clubs/Organizations"
-                                ],
-                                [
-                                    "label"=> "Research Centers",
-                                    "value"=> "Research Centers"
-                                ],
-                                [
-                                    "label"=> "Academic Departments",
-                                    "value"=> "Academic Departments"
-                                ],
-                                [
-                                    "label"=> "Athletic Department",
-                                    "value"=> "Athletic Department"
-                                ],
-                                [
-                                    "label"=> "No Preference",
-                                    "value"=> "No Preference"
-                                ],
-                                [
-                                    "label"=> "Other University Offices",
-                                    "value"=> "Other"
-                                ]
-                            ]
-                        ]
-                    ]
-                ],
-                [
-                    "label"=> "Please Specify",
-                    "name"=> "other_university_office",
-                    "show"=> [
-                        [
-                            "op"=> "and",
-                            "conditions"=> [
-                                [
-                                    "type"=> "contains",
-                                    "name"=> "university_offices",
-                                    "value"=> [
-                                        "Other"
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ],
-                    "required"=> "show",
-                    "type"=> "text"
-                ]
+//                [
+//                    "type"=> "radio",
+//                    "label"=> "To which area(s) of Binghamton University does this project/activity relate (so that we may inform them)? (Check all that apply)",
+//                    "name"=> "university_offices",
+//                    "multiple"=> true,
+//                    "required"=> true,
+//                    "options"=> [
+//                        [
+//                            "label"=> "",
+//                            "type"=> "optgroup",
+//                            "options"=> [
+//                                [
+//                                    "label"=> "Internship Offices",
+//                                    "value"=> "Internship Offices"
+//                                ],
+//                                [
+//                                    "label"=> "Volunteer Offices",
+//                                    "value"=> "Volunteer Offices"
+//                                ],
+//                                [
+//                                    "label"=> "Classes",
+//                                    "value"=> "Classes"
+//                                ],
+//                                [
+//                                    "label"=> "Student Clubs/Organizations",
+//                                    "value"=> "Student Clubs/Organizations"
+//                                ],
+//                                [
+//                                    "label"=> "Research Centers",
+//                                    "value"=> "Research Centers"
+//                                ],
+//                                [
+//                                    "label"=> "Academic Departments",
+//                                    "value"=> "Academic Departments"
+//                                ],
+//                                [
+//                                    "label"=> "Athletic Department",
+//                                    "value"=> "Athletic Department"
+//                                ],
+//                                [
+//                                    "label"=> "No Preference",
+//                                    "value"=> "No Preference"
+//                                ],
+//                                [
+//                                    "label"=> "Other University Offices",
+//                                    "value"=> "Other"
+//                                ]
+//                            ]
+//                        ]
+//                    ]
+//                ],
+//                [
+//                    "label"=> "Please Specify",
+//                    "name"=> "other_university_office",
+//                    "show"=> [
+//                        [
+//                            "op"=> "and",
+//                            "conditions"=> [
+//                                [
+//                                    "type"=> "contains",
+//                                    "name"=> "university_offices",
+//                                    "value"=> [
+//                                        "Other"
+//                                    ]
+//                                ]
+//                            ]
+//                        ]
+//                    ],
+//                    "required"=> "show",
+//                    "type"=> "text"
+//                ]
             ]
         ],
         [
             "type"=> "fieldset",
             "label"=> "Project Requirements",
             "name"=> "project_requirements",
+            "template"=>"Training Required: {{attributes.project_requirements.reqs_training}}<br>
+                         Proof of Immunization: {{attributes.project_requirements.reqs_immune}}<br>
+                         Application Required: {{attributes.project_requirements.reqs_application}}",
             "fields"=> [
                 [
                     "type"=> "select",
@@ -933,6 +944,7 @@ return [
             "name"=> "website",
             "value"=>"http://",
             "parse"=>true,
+            "showColumn"=>false,
             "label"=> "Listing Website"
         ]
     ],
@@ -956,6 +968,7 @@ return [
             "type"=> "fieldset",
             "label"=> "Organization Information",
             "name"=> "organization_information",
+            "template"=>"{{attributes.organization_information.name}}",
             "parse"=>true,
             "fields"=> [
                 [
@@ -1038,6 +1051,7 @@ return [
                     "multiple"=> true,
                     "required"=>true,
                     "parse"=>true,
+                    "size"=>2,
                     "options"=> [
                         [
                             "options"=> config('app.categories'),
@@ -1051,6 +1065,7 @@ return [
             "type"=> "fieldset",
             "label"=> "Primary Contact",
             "name"=> "primary_contact",
+            "template"=>"{{attributes.primary_contact.contact_name}}{{#attributes.primary_contact.contact_title}} - {{attributes.primary_contact.contact_title}}{{/attributes.primary_contact.contact_title}}",
             "parse"=> true,
             "report"=>true,
             "fields"=> [
@@ -1095,6 +1110,7 @@ return [
             "type"=> "fieldset",
             "label"=> "Secondary Contact",
             "name"=> "secondary_contact",
+            "template"=>"{{attributes.secondary_contact.contact2_name}}{{#attributes.secondary_contact.contact2_title}} - {{attributes.secondary_contact.contact2_title}}{{/attributes.secondary_contact.contact2_title}}",
             "parse"=> true,
             "report"=>true,
             "fields"=> [

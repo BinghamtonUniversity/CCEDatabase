@@ -34,18 +34,21 @@ $(document).ready(function() {
                     "data": orginfo,
                 }).modal().on('save',function(form_event) {
                     var form_data = form_event.form.get();
-                    $.ajax({
-                        type: "PUT",
-                        url: root_url+"/api/organizations/"+form_data.key,
-                        data: form_event.form.get(),
-                        success: function(response) {
-                            toastr.success(response.organization_information.name+' Info Updated!');
-                            form_event.form.trigger('close')
-                        },
-                        error: function(response) {
-                            toastr.error('There was an error!');
-                        }
-                    });
+                    if (form_event.form.validate())
+                        {
+                            $.ajax({
+                                type: "PUT",
+                                url: root_url+"/api/organizations/"+form_data.key,
+                                data: form_event.form.get(),
+                                success: function(response) {
+                                    toastr.success(response.organization_information.name+' Info Updated!');
+                                    form_event.form.trigger('close')
+                                },
+                                error: function(response) {
+                                    toastr.error('There was an error!');
+                                }
+                        });
+                    }
                 }).on('cancel',function(form_event) {
                     form_event.form.trigger('close');
                 })

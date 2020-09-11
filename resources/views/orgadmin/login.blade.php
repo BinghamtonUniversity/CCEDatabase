@@ -24,6 +24,7 @@ new gform(
 			"label": "Select Your Organization",
 			"name": "organization",
 			"multiple": false,
+            "required":true,
 			"options": [
 				{
 					"type": "optgroup",
@@ -43,18 +44,21 @@ new gform(
         {"type":"button","action":"reset_this","label":"Forgot Your Password?","modifiers":"btn btn-default"}
     ]}
 ).on('save',function(form_event) {
-    $.ajax({
-        type: "POST",
-        url: root_url+"/api/orgauth/authenticate",
-        data: form_event.form.get(),
-        success: function(response) {
-            toastr.success('Welcome '+response.name);
-            window.location = root_url+"/manage";
-        },
-        error: function(response) {
-            toastr.error('Permission Denied!');
-        }
-    });
+    if(form_event.form.validate())
+        {
+            $.ajax({
+                type: "POST",
+                url: root_url+"/api/orgauth/authenticate",
+                data: form_event.form.get(),
+            success: function(response) {
+                toastr.success('Welcome '+response.name);
+                window.location = root_url+"/manage";
+            },
+            error: function(response) {
+                toastr.error('Permission Denied!');
+            }
+            });
+    }
 })
 .on('cancel',function(){
     new gform({"fields": {!! json_encode($register_organization) !!} }).modal()
@@ -100,15 +104,17 @@ console.log("ali Kemal");
 })
 .on('reset_this',function(form_event){
     var form_data = form_event.form.get();
-    $.ajax({
-        type: "POST",
-        url: root_url+"/api/password/"+form_data.organization,
-        success: function(response) {
-            toastr.success('Your reset link has been sent to your email');
-        },
-        error: function(response) {
-            toastr.error(response);
-        }
-    });
+    if(form_event.form.validate()){
+        $.ajax({
+            type: "POST",
+            url: root_url+"/api/password/"+form_data.organization,
+            success: function(response) {
+                toastr.success('Your reset link has been sent to your email');
+            },
+            error: function(response) {
+                toastr.error("<b>Error!</b><br>Please make sure you selected a valid organization.");
+            }
+        });
+    }
 });;
 @endsection

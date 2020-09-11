@@ -151,6 +151,13 @@ class Organizations extends Controller
                 'manage_url'=>url('/manage/')
             ],'password_reset'));
     }
+    public function impersonate_user(Organization $organization){
+        $encryption_obj = [
+            'key'=>$organization->key,
+            'timestamp'=>now()->timestamp
+        ];
+        return url('/manage/'.Crypt::encrypt(json_encode($encryption_obj)));
+    }
 
 
 

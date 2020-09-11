@@ -3,9 +3,9 @@
 @section('title', 'Organizations')
 
 @section('description')
-    @if((config('templates.organizations_page_alert'))!=='')
+    @if((config('templates.page.organizations.alert'))!=='')
         <div class="alert alert-danger">
-            {!! config('templates.organizations_page_alert') !!}
+            {!! config('templates.page.organizations.alert') !!}
         </div>
     @endif
     This page shows all of the organizations who are listed in our database in ascending 

@@ -3,9 +3,9 @@
 @section('title', 'Search')
 
 @section('description')
-    @if((config('templates.search_page_alert'))!=='')
+    @if((config('templates.page.search.alert'))!=='')
         <div class="alert alert-danger">
-            {!! config('templates.search_page_alert') !!}
+            {!! config('templates.page.search.alert') !!}
         </div>
     @endif
 @endsection

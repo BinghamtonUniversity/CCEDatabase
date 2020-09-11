@@ -1,7 +1,12 @@
 <?php
 
 return [
-    'home_page' => '',
+    'page' => [
+        'home' => [
+            'body' => '',
+            'alert' => '',
+        ],
+    ],
     'menu' => '
         <li><a href="{{home_page}}">Home</a></li>
         <li><a href="{{search_page}}">Search</a></li>

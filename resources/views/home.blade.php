@@ -3,13 +3,13 @@
 @section('title', 'Service Listings Database')
 
 @section('description')
-    @if((config('templates.home_page_alert'))!=='')
+    @if((config('templates.page.home.alert'))!=='')
         <div class="alert alert-danger">
-            {!! config('templates.home_page_alert') !!}
+            {!! config('templates.page.home.alert') !!}
         </div>
     @endif
 @endsection
 
 @section('content')
-    {!! config('templates.home_page') !!}
+    {!! config('templates.page.home.body') !!}
 @endsection

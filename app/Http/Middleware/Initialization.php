@@ -30,14 +30,19 @@ class Initialization
         }
 
         // Configure and Render Site Config Templates
-        $site_config = SiteConfiguration::all();
-
+        $site_config = SiteConfiguration::where('key','not like','email%')->get();
         foreach($site_config as $config) {
-            config(['templates.'.$config->key => $config->value]);
-        }
-        foreach(config('templates') as $template_name => $template) {
             $m = new \Mustache_Engine;
-            config(['templates.'.$template_name=>$m->render($template,$values)]);
+            config(['templates.'.$config->key => $m->render($config->value,$values)]);
+        }
+
+        // Override  Email Config Templates
+        $email_config = SiteConfiguration::where('key','like','email%')->get();
+        foreach($email_config as $config) {
+            $exploded_key = explode('.',$config->key);
+            unset($exploded_key[0]);
+            $config->key = implode('.',$exploded_key);
+            config(['email_templates.'.$config->key => $config->value]);
         }
         return $next($request);
     }

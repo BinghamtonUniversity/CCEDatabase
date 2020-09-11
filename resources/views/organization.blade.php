@@ -2,9 +2,9 @@
 @section('title',$organization->name)
 
 @section('description')
-    @if((config('templates.organization_page_alert'))!=='')
+    @if((config('templates.page.organization.alert'))!=='')
         <div class="alert alert-danger">
-            {!! config('templates.organization_page_alert') !!}
+            {!! config('templates.page.organization.alert') !!}
         </div>
     @endif
 @endsection

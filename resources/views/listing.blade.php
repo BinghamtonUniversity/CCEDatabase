@@ -2,9 +2,9 @@
 @section('title',$listing->title)
 
 @section('description')
-    @if((config('templates.listing_page_alert'))!=='')
+    @if((config('templates.page.listing.alert'))!=='')
         <div class="alert alert-danger">
-            {!! config('templates.listing_page_alert') !!}
+            {!! config('templates.page.listing.alert') !!}
         </div>
     @endif
 @endsection

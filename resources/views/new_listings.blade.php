@@ -3,9 +3,9 @@
 @section('title', 'New Listings')
 
 @section('description')
-    @if((config('templates.newlistings_page_alert'))!=='')
+    @if((config('templates.page.newlistings.alert'))!=='')
         <div class="alert alert-danger">
-            {!! config('templates.newlistings_page_alert') !!}
+            {!! config('templates.page.newlistings.alert') !!}
         </div>
     @endif
     View the 30 most recently posted listings, ordered from newest

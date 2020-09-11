@@ -2,9 +2,9 @@
 
 @section('title',"Manage: ".Auth::user()->name)
 @section('description')
-    @if((config('templates.manage_page_alert'))!=='')
+    @if((config('templates.page.manage.alert'))!=='')
         <div class="alert alert-danger">
-            {!! config('templates.manage_page_alert') !!}
+            {!! config('templates.page.manage.alert') !!}
         </div>
     @endif
     This page provides a portal for organizations and service groups to 

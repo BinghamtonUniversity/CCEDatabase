@@ -9,7 +9,7 @@
                 <h3>Not Authorized</h3><br>
                 <div>
                     <h4>You are not authorized to visit this page</h4>
-                    If you think this is an error, please contact to <a href="https://www.binghamton.edu/cce/">CCE Service Listings</a>
+                    If you think this is in error, please <a href="config('templates.contact_url')">contact us.</a>
                 </div>
             </div>
         </div>

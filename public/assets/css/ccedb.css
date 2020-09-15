@@ -8,9 +8,8 @@ hr {
 	margin-bottom: 10px;
 }
 
-* {
-	font-family: Arial;
-	font-smooth: always;
+body {
+	font-family: Open Sans,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif;
 }
 
 body {
@@ -315,7 +314,17 @@ blockquote {
 }
 
 .navbar-default .navbar-nav>li>a {
-    color: #005A43;
+    color: white;
+    font-size:15.2px;
+}
+.navbar-default .navbar-nav>li>a:hover {
+    color: white;
+    border-bottom: solid 4px white;
+    margin-bottom:-4px;
+}
+
+.navbar .nav a {
+    color:white;
 }
 
 @media (min-width: 768px) {
@@ -330,9 +339,7 @@ blockquote {
     }
 }
 
-.navbar-nav li:hover {
-	background-color:white;
-}
+
 
 .headline {
     box-flex: 1;

@@ -7,8 +7,8 @@
             {!! config('templates.page.manage.alert') !!}
         </div>
     @endif
-    This page provides a portal for organizations and service groups to 
-    manage their organization page and project listings from one convenient 
+    This page provides a portal for organizations and service groups to
+    manage their organization page and project listings from one convenient
     location.
 @endsection
 
@@ -57,7 +57,9 @@ $(document).ready(function() {
                                     toastr.error('There was an error!');
                                 }
                         });
-                    }
+                    }else{
+                        toastr.error("Please ensure that all required fields have been populated!")
+                        }
                 }).on('cancel',function(form_event) {
                     form_event.form.trigger('close');
                 })
@@ -84,7 +86,9 @@ $('#org-admin-password-update-btn').on('click',function() {
                 toastr.error(response);
                 }
             });
-        }
+        }else{
+            toastr.error("Please ensure that all required fields have been populated!")
+            }
     })
     .on('cancel',function(form_event) {
     form_event.form.trigger('close');

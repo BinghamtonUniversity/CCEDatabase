@@ -22,7 +22,6 @@ class PagesController extends Controller
                 $query->whereNull('end_date');
                 $query->orWhere('end_date','>',Carbon::now());
             })
-//            ->whereNotNull('organization')
             ->orderBy('timestamp','desc')
             ->limit(30)->get();
 
@@ -49,7 +48,7 @@ class PagesController extends Controller
             ->where(function($query) {
                 $query->where('ongoing',true);
                 $query->orWhere('end_date','>',Carbon::now());
-            })->get();
+            })->where('shown',1)->get();
         return view('organization',[
             'organization'=>$organization,
             'listings'=>$listings,

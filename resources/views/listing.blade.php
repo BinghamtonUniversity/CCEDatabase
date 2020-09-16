@@ -38,7 +38,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">Address: </div>
-                        <div class="col-sm-8">{{$listing->location}}</div>
+                        <div class="col-sm-8">{{$listing->location}}<br>{{$listing->location2}}</div>
                     </div>
                 </div>
             </div>
@@ -96,7 +96,7 @@
                         <div class="col-sm-12">Project Description</div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">{!! $listing->desc !!}</div>
+                        <div class="col-sm-12">{!! nl2br($listing->desc) !!}</div>
                     </div>
                 </div>
             </div>
@@ -155,16 +155,40 @@
                             <strong>Project Contact</strong><br><br>
                             <span class="infoLbl">Contact Name</span><br>
                             {{$listing->contact_name}} <em>({{$listing->contact_title}})</em><br><br>
-                            <span class="infoLbl">Email </span><br>
-                            <a href="mailto:{{$listing->contact_email}}">{{$listing->contact_email}}</a><br><br>
+                            @if(!check_empty($listing->contact_email))
+                                <span class="infoLbl">Email </span><br>
+                                <a href="mailto:{{$listing->contact_email}}">{{$listing->contact_email}}</a><br><br>
+                            @endif
+                            @if(!check_empty($listing->contact_phone))
+                                <span class="infoLbl">Phone </span><br>
+                                {{$listing->contact_phone}}<br><br>
+                            @endif
+                            @if(!check_empty($listing->contact_address1))
+                                <span class="infoLbl">Mailing Address </span><br>
+                                {{$listing->contact_address1}}<br>
+                                {{$listing->contact_address2}}<br><br>
+                            @endif
                         </div>
-                        <div class="col-sm-6">
-                            <strong>Additional Contact</strong><br><br>
-                            <span class="infoLbl">Contact Name</span><br>
-                            {{$listing->contact2_name}} <em>({{$listing->contact2_title}})</em><br><br>
-                            <span class="infoLbl">Email </span><br>
-                            <a href="mailto:{{$listing->contact2_email}}">{{$listing->contact2_email}}</a><br><br>
-                        </div>
+                        @if(!check_empty($listing->name))
+                            <div class="col-sm-6">
+                                <strong>Additional Contact</strong><br><br>
+                                <span class="infoLbl">Contact Name</span><br>
+                                {{$listing->contact2_name}} <em>({{$listing->contact2_title}})</em><br><br>
+                                @if(!check_empty($listing->contact2_email))
+                                    <span class="infoLbl">Email </span><br>
+                                    <a href="mailto:{{$listing->contact2_email}}">{{$listing->contact2_email}}</a><br><br>
+                                @endif
+                                @if(!check_empty($listing->contact2_phone))
+                                    <span class="infoLbl">Phone </span><br>
+                                    {{$listing->contact2_phone}}<br><br>
+                                @endif
+                                @if(!check_empty($listing->contact2_address1))
+                                    <span class="infoLbl">Mailing Address </span><br>
+                                    {{$listing->contact2_address1}}<br>
+                                    {{$listing->contact2_address2}}<br><br>
+                                @endif
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -175,7 +199,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Project Location (On Bus Route)</div>
                 <div class="panel-body" style="padding:0px;">
-                    <iframe style="margin-top: 3px; width: 100%; height: 400px;" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;q={{{$listing->location}}}&amp;source=s_q&amp;hl=en&amp;ie=UTF8&amp;spn=0.002744,0.00456&amp;z=17&amp;output=embed"></iframe>
+                    <iframe style="margin-top: 3px; width: 100%; height: 400px;" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;q={{$listing->location}} {{$listing->location2}}&amp;source=s_q&amp;hl=en&amp;ie=UTF8&amp;spn=0.002744,0.00456&amp;z=17&amp;output=embed"></iframe>
                 </div>
             </div>
         </div>
@@ -198,6 +222,8 @@ var contact_form = new gform(contact_form_config, '.contact-form').on('save',fun
                 form_event.form.trigger('clear');
             }
         })
-    }
+    }else{
+        toastr.error("Please ensure that all required fields have been populated!")
+        }
 })
 @endsection

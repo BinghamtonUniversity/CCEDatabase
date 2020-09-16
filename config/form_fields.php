@@ -875,6 +875,15 @@ return [
             "parse"=>true,
             "showColumn"=>false,
             "label"=> "Listing Website"
+        ],
+        [
+            "type"=> "output",
+            "label"=> "",
+            "name"=> "warning_output",
+            "showColumn"=> true,
+            "format"=> [
+                "value"=> "<div class='alert alert-warning'>Please ensure that all required fields have been populated!</div>"
+            ]
         ]
     ],
 
@@ -1079,6 +1088,15 @@ return [
                     "label"=> "Mailing Address (Continued)",
                     "parse"=>true
                 ]
+            ]
+        ],
+        [
+            "type"=> "output",
+            "label"=> "",
+            "name"=> "warning_output",
+            "showColumn"=> true,
+            "format"=> [
+                "value"=> "<div class='alert alert-warning'>Please ensure that all required fields have been populated!</div>"
             ]
         ]
     ],

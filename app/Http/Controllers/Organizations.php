@@ -70,8 +70,9 @@ class Organizations extends Controller
     }
 
     public function update(Request $request, Organization $organization) {
-        $organization->update_from_form($request->all());
         $organization->shown = false;
+        $organization->update_from_form($request->all());
+
         $organization->email_sender( 'org_updated');
         return $organization->get_form_data();
     }
@@ -88,7 +89,6 @@ class Organizations extends Controller
 
     public function admin_update(Request $request, Organization $organization){
         $organization->update_from_form($request->all());
-//        $organization->email_sender( 'org_updated');
 
         return $organization->get_form_data();
     }
@@ -113,7 +113,7 @@ class Organizations extends Controller
     public function password_update(Request $request,Organization $organization){
         if ($organization->update(['passcode'=>sha1($request->passcode)])) {
             $organization->email_sender('password_update');
-//            Mail::to(["email"=>$organization->contact_email])->send(new EmailNotification('password_update',$organization));
+
             return "Successfully updated the password";
         } else{
             return "Failed to update the password!";
@@ -163,9 +163,6 @@ class Organizations extends Controller
 
     //Downloading all contacts in organizations and listings
     public function download_contacts(Request $request){
-//        $organizations = Organization::get(['key','org_code','contact_name','contact_title','contact_email','contact_phone','contact_address1','contact_address2']);
-//        $listings = Listing::get(['org_code','title','contact_name','contact_title','contact_email','contact_phone','contact_address1','contact_address2',
-//                                    'contact2_name','contact2_title','contact2_email','contact2_phone','contact2_address1','contact2_address2']);
         $listings = DB::table('listings')
             ->leftjoin('orgs','orgs.org_code','=','listings.org_code')
             ->select('orgs.name as org_name','orgs.org_code','listings.title','listings.contact_name','listings.contact_title','listings.contact_email','listings.contact_phone','listings.contact_address1','listings.contact_address2',
@@ -232,7 +229,7 @@ class Organizations extends Controller
 
         $result = array_merge($new_listings,$modified_organizations);
         usort($result,function($a,$b){return strcmp($a['org_name'],$b['org_name']);});
-//        return ($result);
+
 
         //Preparing for download
         $rows = [];

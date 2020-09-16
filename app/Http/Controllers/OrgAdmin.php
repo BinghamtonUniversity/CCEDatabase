@@ -42,9 +42,6 @@ class OrgAdmin extends Controller
     public function register(Request $request){
         $organization = Organizations::add($request);
 
-//        $organization = Organization::where('key',$new_organization['key'])
-//            ->where('passcode',sha1($request->passcode))->first();
-
         if(!is_null($organization)) {
             Auth::login($organization,true);
             return view('orgadmin.manage',[

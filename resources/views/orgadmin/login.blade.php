@@ -7,8 +7,8 @@
             {!! config('templates.page.manage.alert') !!}
         </div>
     @endif
-    This page provides a portal for organizations and service groups to 
-    manage their organization page and project listings from one convenient 
+    This page provides a portal for organizations and service groups to
+    manage their organization page and project listings from one convenient
     location.
 @endsection
 
@@ -64,7 +64,9 @@ new gform(
                 toastr.error('Permission Denied!');
             }
             });
-    }
+    }else{
+        toastr.error("Please ensure that all required fields have been populated!")
+        }
 })
 .on('cancel',function(){
     new gform({"fields": {!! json_encode($register_organization) !!} }).modal()
@@ -89,7 +91,7 @@ new gform(
     .on('cancel',function(form_event) {
         form_event.form.trigger('close');
     })
-console.log("ali Kemal");
+{{--console.log("ali Kemal");--}}
 })
 .on('reset_this',function(form_event){
     var form_data = form_event.form.get();
@@ -104,6 +106,8 @@ console.log("ali Kemal");
                 toastr.error("<b>Error!</b><br>Please make sure you selected a valid organization.");
             }
         });
-    }
+    }else{
+        toastr.error("Please ensure that all required fields have been populated!")
+        }
 });
 @endsection

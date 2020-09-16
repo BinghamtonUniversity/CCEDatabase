@@ -140,10 +140,12 @@ window.search_form = {
                             "type": "optgroup",
                             "options": [
                                 {
-                                    "label": "Please Select"
+                                    "label": "Please Select",
+                                    "value":""
                                 },
                                 {
-                                    "label": "Internship"
+                                    "label": "Internship",
+                                    "value": "Internship"
                                 },
                                 {
                                     "label": "Research",
@@ -174,6 +176,10 @@ window.search_form = {
                             "type": "optgroup",
                             "options": [
                                 {
+                                    "label":"Please Select",
+                                    "value":""
+                                },
+                                {
                                     "label": "Ongoing",
                                     "value": "ongoing"
                                 },
@@ -203,100 +209,56 @@ window.search_form = {
                             "type": "optgroup",
                             "options": [
                                 {
-                                    "label": "Abuse/Violence Counseling and/or Prevention",
-                                    "value": "Abuse/Violence Counseling and/or Prevention"
-                                },
-                                {
-                                    "label": "Animal Care",
-                                    "value": "Animal Care"
-                                },
-                                {
-                                    "label": "Arts/Humanities/Culture",
-                                    "value": "Arts/Humanities/Culture"
-                                },
-                                {
-                                    "label": "Business/Management/Entrepreneurship",
-                                    "value": "Business/Management/Entrepreneurship"
-                                },
-                                {
-                                    "label": "Crisis Intervention",
-                                    "value": "Crisis Intervention"
-                                },
-                                {
-                                    "label": "Disability Support",
-                                    "value": "Disability Support"
-                                },
-                                {
-                                    "label": "Education",
-                                    "value": "Education"
-                                },
-                                {
-                                    "label": "Elder Services",
-                                    "value": "Elder Services"
-                                },
-                                {
-                                    "label": "Environmental",
-                                    "value": "Environmental"
-                                },
-                                {
-                                    "label": "Food and Nutrition",
-                                    "value": "Food and Nutrition"
-                                },
-                                {
-                                    "label": "Health",
-                                    "value": "Health"
-                                },
-                                {
-                                    "label": "Homeless and/or Housing",
-                                    "value": "Homeless and/or Housing"
-                                },
-                                {
-                                    "label": "Human Rights",
-                                    "value": "Human Rights"
-                                },
-                                {
-                                    "label": "Human Services",
-                                    "value": "Human Services"
-                                },
-                                {
-                                    "label": "Immigration Services/Refugee Resettlement",
-                                    "value": "Immigration Services/Refugee Resettlement"
-                                },
-                                {
-                                    "label": "Interpretation/Translation Services",
-                                    "value": "Interpretation/Translation Services"
-                                },
-                                {
-                                    "label": "Journalism/Media",
-                                    "value": "Journalism/Media"
-                                },
-                                {
-                                    "label": "Politics/Policy/Government",
-                                    "value": "Politics/Policy/Government"
-                                },
-                                {
-                                    "label": "Social Work/Counseling/Therapy",
-                                    "value": "Social Work/Counseling/Therapy"
-                                },
-                                {
-                                    "label": "Sports and Recreation",
-                                    "value": "Sports and Recreation"
-                                },
-                                {
-                                    "label": "Student Groups",
-                                    "value": "Student Groups"
-                                },
-                                {
-                                    "label": "Technology",
-                                    "value": "Technology"
-                                },
-                                {
-                                    "label": "Volunteerism",
-                                    "value": "Volunteerism"
-                                },
-                                {
                                     "label": "Youth",
                                     "value": "Youth"
+                                },
+                                {
+                                    "label": "Seniors/Elder Care",
+                                    "value": "Seniors/Elder Care"
+                                },
+                                {
+                                    "label": "Animals",
+                                    "value": "Animals"
+                                },
+                                {
+                                    "label": "Hunger/Food",
+                                    "value": "Hunger/Food"
+                                },
+                                {
+                                    "label": "Health/Mental Health",
+                                    "value": "Health/Mental Health"
+                                },
+                                {
+                                    "label": "Disability",
+                                    "value": "Disability"
+                                },
+                                {
+                                    "label": "Environment",
+                                    "value": "Environment"
+                                },
+                                {
+                                    "label": "Homelessness/Poverty",
+                                    "value": "Homelessness/Poverty"
+                                },
+                                {
+                                    "label": "Civic Participation",
+                                    "value": "Civic Participation"
+                                },
+                                {
+                                    "label": "Arts and Culture",
+                                    "value": "Arts and Culture"
+                                },
+                                {
+                                    "label": "Events",
+                                    "value": "Events"
+                                },
+                                {
+                                    "label": "Virtual/Remote Service",
+                                    "value": "Virtual/Remote Service"
+                                },
+                                {
+                                    "label": "Other/General Volunteering",
+                                    "value": "Other/General Volunteering"
                                 }
                             ]
                         }

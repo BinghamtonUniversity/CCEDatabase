@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
-    private function add_search($request){
-        $search = new Search(['keywords'=>$request]);
+    private function add_search($keywords,$category=null,$event_type=null){
+        $search = new Search(['keywords'=>$keywords,'category'=>$category,'event_type'=>$event_type]);
         $search->save();
     }
 
@@ -27,7 +27,6 @@ class SearchController extends Controller
                 }
             }
         }
-        // dd($search_results);
         $search_results = $search_results->toArray();
         usort($search_results, function ($item1, $item2) {
             if ($item1->rank == $item2->rank) { return 0; }
@@ -36,46 +35,38 @@ class SearchController extends Controller
         return $search_results;
     }
     private function search_listings($category, $fields,$event_type) {
-        // "select `key`, `title`, `fields`, `desc` from listings where ".
-        // "(ongoing > 0 or (now() <= end_date))".
-        // "and category like '%".$_GET['category']."%' and (".get_fields_subquery().")";
         $listings = Listing::select('key','title','fields','desc')
-            ->where('category','like','%'.$category.'%')
-            ->where('event_type','=',$event_type)
-//            ->orWhere(function($query) {
-//                $query->where('event_type','=','ongoing');
-//                $query->orWhere('end_date','>',Carbon::now());
-//            })
             ->where(function($query) use ($fields) {
                 foreach($fields as $field){
                     $query->orWhere('fields','like','%'.$field.'%');
                 }
-            })->get();
-        // $listings = $this->sort_data($listings,$fields);
-        return $listings;
+            });
+        if($category!==""){
+            $listings->where('category','like','%'.$category.'%');
+        }
+        if($event_type!=="" ){
+            $listings->where('event_type','=',$event_type);
+        }
+        return $listings->get();
     }
     private function search_organizations($fields) {
-        // "select `org_code`, `name`, `fields`, `desc` from orgs where (".get_fields_subquery().")";
         $orgs = Organization::select('key','org_code','name','fields','desc')
             ->where(function($query) use ($fields) {
                 foreach($fields as $field){
                     $query->orWhere('fields','like','%'.$field.'%');
                 }
             })->get();
-        // $orgs = $this->sort_data($orgs,$fields);
         return $orgs;
     }
     public function advanced_search(Request $request) {
-//        var_dump($request);
-
         $category = ''; $fields = [];$event_type='';
-        if ($request->has('category')){
+        if ($request->has('category') && $request->category!==""&& !is_null($request->category)){
             $category = $request->category;
         }
         if ($request->has('fields')){
             $fields = $request->fields;
         }
-        if($request->has('event_type')){
+        if($request->has('event_type') && $request->event_type!=="" && !is_null($request->event_type)){
             $event_type = $request->event_type;
         }
         return [
@@ -87,7 +78,7 @@ class SearchController extends Controller
         return view('search.search');
     }
     public function search_results_page(Request $request) {
-
+        $this->add_search(implode(',',$request->fields),$request->category,$request->event_type);
         $results = $this->advanced_search($request);
         return view('search.search_results',$results);
     }
@@ -97,7 +88,7 @@ class SearchController extends Controller
         if ($request->has('q')){
             $q = $request->q;
         }
-
+//        return
         return view('search.google_search_results',[
             'q'=>$q
         ]);
@@ -108,6 +99,7 @@ class SearchController extends Controller
         if ($request->has('q')){
             $q = $request->q;
         }
+
         $this->add_search($q);
 
         $data = file_get_contents('https://cse.google.com/cse?cx=017783623567823574052:gjraiskf2ly&ad=n9&num=10&cof=FORID:11&ie=UTF-8&q='.urlencode($q));

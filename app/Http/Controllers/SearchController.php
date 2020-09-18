@@ -40,7 +40,7 @@ class SearchController extends Controller
                 foreach($fields as $field){
                     $query->orWhere('fields','like','%'.$field.'%');
                 }
-            });
+            })->where('listed',true)->where('shown',true);
         if($category!==""){
             $listings->where('category','like','%'.$category.'%');
         }
@@ -55,7 +55,7 @@ class SearchController extends Controller
                 foreach($fields as $field){
                     $query->orWhere('fields','like','%'.$field.'%');
                 }
-            })->get();
+            })->where('listed',true)->where('shown',true)->get();
         return $orgs;
     }
     public function advanced_search(Request $request) {
@@ -107,16 +107,37 @@ class SearchController extends Controller
         return $data2;
     }
     public function get_all_searches(){
-        $year = Carbon::now()->format('Y');
-        if((int)Carbon::now()->format('m')<8){
-            $year = $year-1;
-        }
-        $date_string = strtotime('08/01/'.$year);
-
-        return
-            DB::table('searches')
+        return Search::whereBetween('timestamp',[Carbon::now()->addYears(-1),Carbon::now()])
             ->orderBy('key','asc')
-            ->whereDate('timestamp', '>=',date('Y-m-d',$date_string) )->get();
+            ->get();
+    }
+
+    public function download_searches(){
+        $searches = Search::orderBy('timestamp','desc')->get();
+        $result = [];
+        foreach ($searches as $search){
+            $result[]=[
+                'keywords'=>$search->keywords,
+                'category'=>check_empty($search->category)  ?"N/A":$search->category,
+                'event_type'=>check_empty($search->event_type)?"N/A":$search->event_type,
+                'created_at'=>$search->timestamp
+            ];
+        }
+
+        //Preparing for download
+        $rows = [];
+        if(count($result)>0){
+            header('Content-type: text/csv');
+            $rows[0] = '"'.implode('","',array_keys($result[0])).'"';
+            foreach($result as $data){
+                $rows[] = '"'.implode('","',array_values($data)).'"';
+            }
+            echo implode("\n",$rows);
+        }
+        else{
+            return [];
+        }
+
     }
 
 

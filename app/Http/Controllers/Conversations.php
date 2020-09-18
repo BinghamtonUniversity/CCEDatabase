@@ -143,4 +143,40 @@ class Conversations extends Controller
             $q->select('key','org_code','name');
         }])->first();
     }
+
+    public function download_conversations(){
+        $conversations = Conversation::orderBy('created_at','desc')->with(['listing'=>function($q){
+            $q->select('key','title');
+        }])->with(['org'=>function($q){
+            $q->select('org_code','name');
+        }])->get();
+        $result = [];
+        foreach ($conversations as $conversation){
+            $result[]=[
+                'organization'=>$conversation->org['name'],
+                'listing'=>$conversation->listing['title'],
+                'student_first_name'=>$conversation->student_first_name,
+                'student_last_name'=>$conversation->student_last_name,
+                'student_email'=>$conversation->student_email,
+                'student_phone_number'=>$conversation->student_phone_number,
+                'message'=>$conversation->message,
+                'created_at'=>$conversation->created_at
+            ];
+        }
+
+        //Preparing for download
+        $rows = [];
+        if(count($result)>0){
+            header('Content-type: text/csv');
+            $rows[0] = '"'.implode('","',array_keys($result[0])).'"';
+            foreach($result as $data){
+                $rows[] = '"'.implode('","',array_values($data)).'"';
+            }
+            echo implode("\n",$rows);
+        }
+        else{
+            return [];
+        }
+
+    }
 }

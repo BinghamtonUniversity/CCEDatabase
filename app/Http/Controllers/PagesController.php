@@ -15,16 +15,18 @@ class PagesController extends Controller
     }
     public function new_listings(Request $request) {
         $listings = Listing::with(['organization'=>function($query){
-                $query->where('shown',1);
+                $query->where('shown',true);
+                $query->where('listed',true);
             }])
-            ->where('shown',1)
+            ->where('shown',true)
+            ->where('listed',true)
             ->where(function($query) {
                 $query->whereNull('end_date');
                 $query->orWhere('end_date','>',Carbon::now());
+                $query->orWhere('event_type','ongoing');
             })
             ->orderBy('timestamp','desc')
             ->limit(30)->get();
-
 
         $modified_listings = [];
         foreach ($listings as $listing){
@@ -37,6 +39,9 @@ class PagesController extends Controller
         ]);
     }
     public function listing(Request $request, Listing $listing) {
+        if(!$listing->listed || !$listing->shown){
+            abort(404);
+        }
         $organization = Organization::where('org_code',$listing->org_code)->first();
         return view('listing',[
             'listing'=>$listing,
@@ -44,19 +49,22 @@ class PagesController extends Controller
         ]);
     }
     public function organization(Request $request, Organization $organization) {
+        if(!$organization->listed || !$organization->shown){
+            abort(404);
+        }
         $listings = Listing::where('org_code',$organization->org_code)
             ->where(function($query) {
                 $query->where('ongoing',true);
                 $query->orWhere('end_date','>',Carbon::now());
-            })->where('shown',1)->get();
+            })->where('shown',1)->where('listed',true)->get();
         return view('organization',[
             'organization'=>$organization,
             'listings'=>$listings,
         ]);
     }
     public function organizations(Request $request) {
-        $organizations = Organization::select('name','key','fields')
-            ->where('shown',true)->get();
+        $organizations = Organization::select('name','key','fields')->orderBy('name','asc')
+            ->where('shown',true)->where('listed',true)->get();
         foreach($organizations as $organization) {
             $letters[strtoupper($organization->name[0])] = true;
         }

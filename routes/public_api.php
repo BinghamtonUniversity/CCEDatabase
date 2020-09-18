@@ -17,6 +17,7 @@ Route::post('/organizations', 'Organizations@admin_add');
 Route::get('/organizations/fields', 'Organizations@fields');
 Route::get('/organization/password/fields','Organizations@password_fields');
 Route::get('/organization/register/fields','Organizations@get_register_fields');
+Route::get('/organizations/download','Organizations@download_orgs');
 Route::get('/ccedb/download_contacts','Organizations@download_contacts');
 Route::get('/organizations/{organization}','Organizations@get');
 Route::put('/organizations/{organization}/approve','Organizations@admin_approve');
@@ -31,16 +32,20 @@ Route::get('/organizations/{organization}/impersonate', 'Organizations@impersona
 
 Route::get('/listings/fields','Listings@fields');
 Route::get('/listings', 'Listings@list_all');
+Route::get('/listings/download', 'Listings@listings_download');
 Route::get('/listings/{listing}', 'Listings@get');
 Route::put('/listings/{listing}/approve','Listings@admin_approve');
 Route::put('/listings/{listing}','Listings@admin_update');
 Route::post('/listings/{organization}', 'Listings@admin_add');
 Route::delete('/listings/{listing}','Listings@delete');
 
+Route::get('/conversations/download','Conversations@download_conversations');
 Route::get('/conversations/{conversation}','Conversations@get_conversation');
 Route::get('/conversations','Conversations@get_all_conversations');
 
+Route::get('/searches/download','SearchController@download_searches');
 Route::get('/searches','SearchController@get_all_searches');
+
 
 Route::put('/configurations/{siteConfiguration}','SiteConfigurationController@edit_configuration');
 Route::get('/configurations','SiteConfigurationController@get_configurations');

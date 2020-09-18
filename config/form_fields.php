@@ -89,8 +89,12 @@ return [
                                     "value"=> "Group Project"
                                 ],
                                 [
-                                    "label"=> "Academic Service Learning Class",
-                                    "value"=> "Academic Service Learning Class"
+                                    "label"=> "Job",
+                                    "value"=> "Job"
+                                ],
+                                [
+                                    "label"=> "Community-Engaged Learning Class",
+                                    "value"=> "Community-Engaged Learning Class"
                                 ],
                                 [
                                     "label"=> "Other",
@@ -858,7 +862,7 @@ return [
                         ]
                     ],
                     "required"=> "show",
-                    "type"=> "text"
+                    "type"=> "textarea"
                 ],
                 [
                     "type"=> "textarea",
@@ -880,9 +884,39 @@ return [
             "type"=> "output",
             "label"=> "",
             "name"=> "warning_output",
-            "showColumn"=> true,
+            "showColumn"=> false,
             "format"=> [
                 "value"=> "<div class='alert alert-warning'>Please ensure that all required fields have been populated!</div>"
+            ]
+        ],
+        [
+            "type"=>"datetime",
+            "label"=>"Date Updated",
+            "name"=>"timestamp",
+            "show"=>false,
+            "template"=>"{{attributes.date_updated}}"
+        ],
+        [
+            "type"=> "select",
+            "name"=> "listed",
+            "label"=> "Is Listed?",
+            "showColumn"=>false,
+            "required"=>true,
+            "options"=> [
+                [
+                    "options"=> [
+                        [
+                            "label"=> "Yes",
+                            "value"=> "true"
+                        ],
+                        [
+                            "label"=> "No",
+                            "value"=> "false"
+                        ]
+                    ],
+                    "type"=> "optgroup",
+                    "label"=> ""
+                ]
             ]
         ]
     ],
@@ -1094,9 +1128,39 @@ return [
             "type"=> "output",
             "label"=> "",
             "name"=> "warning_output",
-            "showColumn"=> true,
+            "showColumn"=> false,
             "format"=> [
                 "value"=> "<div class='alert alert-warning'>Please ensure that all required fields have been populated!</div>"
+            ]
+        ],
+        [
+            "type"=>"datetime",
+            "label"=>"Date Updated",
+            "name"=>"timestamp",
+            "show"=>false,
+            "template"=>"{{attributes.date_updated}}"
+        ],
+        [
+            "type"=> "select",
+            "name"=> "listed",
+            "label"=> "Is Listed?",
+            "showColumn"=>false,
+            "required"=>true,
+            "options"=> [
+                [
+                    "options"=> [
+                        [
+                            "label"=> "Yes",
+                            "value"=> "true"
+                        ],
+                        [
+                            "label"=> "No",
+                            "value"=> "false"
+                        ]
+                    ],
+                    "type"=> "optgroup",
+                    "label"=> ""
+                ]
             ]
         ]
     ],

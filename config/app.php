@@ -27,27 +27,7 @@ return [
         'Arts and Culture',
         'Events',
         'Virtual/Remote Service',
-        'Other/General Volunteering',
-//        'Human Services',
-//        'Journalism/Media',
-//        'Sports and Recreation',
-//        'Hunger/Food',
-//        'Volunteerism',
-//        'Arts/Humanities/Culture',
-//        'Disability Support',
-//        'Environmental',
-//        'Homeless and/or Housing',
-//        'Immigration Services/Refugee Resettlement',
-//        'Politics/Policy/Government',
-//        'Student Groups',
-//        'Womens Issues',
-//        'Other'
-//        'Environmental',
-//        'Homelessness/Poverty',
-//        'Civic Participation',
-//        'Arts and Culture',
-//        'Events',
-//        'Virtual/Remote Service',
+        'Other/General Volunteering'
     ],
 
     /*

@@ -16,7 +16,7 @@ class Organization extends Authenticatable
     public $timestamps = false;
 
     protected $fillable = [
-        'key','org_code','name','address1','address2','website','passcode','type','desc','fields','shown',
+        'key','org_code','name','address1','address2','website','passcode','type','desc','fields','shown','listed',
         'contact_name','contact_phone','contact_title','contact_email','contact_address1','contact_address2',
         'contact2_name','contact2_phone','contact2_title','contact2_email','contact2_address1','contact2_address2',
     ];
@@ -50,6 +50,7 @@ class Organization extends Authenticatable
         $this->contact2_email=$organization_arr["secondary_contact"]["contact2_email"];
         $this->contact2_address1=$organization_arr["secondary_contact"]["contact2_address1"];
         $this->contact2_address2=$organization_arr["secondary_contact"]["contact2_address2"];
+        $this->listed = $organization_arr["listed"]=="true"?true:false;
         $this->save();
     }
 
@@ -82,7 +83,9 @@ class Organization extends Authenticatable
                 'contact2_email'=>$this->contact2_email,
                 'contact2_address1'=>$this->contact2_address1,
                 'contact2_address2'=>$this->contact2_address2
-            ]
+            ],
+            'date_updated'=>$this->timestamp,
+            'listed'=>$this->listed?"true":"false",
         ];
     }
 

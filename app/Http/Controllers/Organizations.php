@@ -11,6 +11,7 @@ use App\Mail\EmailNotification;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Expr\Array_;
 
 class Organizations extends Controller
 {
@@ -18,7 +19,7 @@ class Organizations extends Controller
 
     public function list_all(Request $request) {
         if(isset($request->shown)){
-            $organizations = Organization::where('shown',($request->shown==='true')?true:false)->orderBy('key','asc')->get();
+            $organizations = Organization::where('shown',($request->shown==='true')?true:false)->where('listed',true)->orderBy('key','asc')->get();
         }else {
             $organizations = Organization::orderBy('key','asc')->get();
         }
@@ -73,7 +74,9 @@ class Organizations extends Controller
         $organization->shown = false;
         $organization->update_from_form($request->all());
 
-        $organization->email_sender( 'org_updated');
+        if($organization->listed) {
+            $organization->email_sender('org_updated');
+        }
         return $organization->get_form_data();
     }
 
@@ -166,10 +169,10 @@ class Organizations extends Controller
         $listings = DB::table('listings')
             ->leftjoin('orgs','orgs.org_code','=','listings.org_code')
             ->select('orgs.name as org_name','orgs.org_code','listings.title','listings.contact_name','listings.contact_title','listings.contact_email','listings.contact_phone','listings.contact_address1','listings.contact_address2',
-                'listings.contact2_name','listings.contact2_title','listings.contact2_email','listings.contact2_phone','listings.contact2_address1','listings.contact2_address2')
+                'listings.contact2_name','listings.contact2_title','listings.contact2_email','listings.contact2_phone','listings.contact2_address1','listings.contact2_address2','listings.timestamp')
             ->whereNotNull('orgs.org_code')
             ->get();
-        $organizations = Organization::get(['name','org_code','contact_name','contact_title','contact_email','contact_phone','contact_address1','contact_address2','contact2_name','contact2_title','contact2_email','contact2_phone','contact2_address1','contact2_address2']);
+        $organizations = Organization::get(['name','org_code','contact_name','contact_title','contact_email','contact_phone','contact_address1','contact_address2','contact2_name','contact2_title','contact2_email','contact2_phone','contact2_address1','contact2_address2','timestamp']);
 
 //        return $listings;
         $new_listings = [];
@@ -183,7 +186,8 @@ class Organizations extends Controller
                 'contact_email'=>$listing->contact_email,
                 'contact_phone'=>$listing->contact_phone,
                 'contact_address1'=>$listing->contact_address1,
-                'contact_address2'=>$listing->contact_address2
+                'contact_address2'=>$listing->contact_address2,
+                'updated_at'=>$listing->timestamp
             ];
             if($listing->contact2_name!=="") {
                 $new_listings[] = [
@@ -195,7 +199,8 @@ class Organizations extends Controller
                     'contact_email' => $listing->contact2_email,
                     'contact_phone' => $listing->contact2_phone,
                     'contact_address1' => $listing->contact2_address1,
-                    'contact_address2' => $listing->contact2_address2
+                    'contact_address2' => $listing->contact2_address2,
+                    'updated_at'=>$listing->timestamp
                 ];
             }
         }
@@ -211,7 +216,8 @@ class Organizations extends Controller
                 'contact_email'=>$organization->contact_email,
                 'contact_phone'=>$organization->contact_phone,
                 'contact_address1'=>$organization->contact_address1,
-                'contact_address2'=>$organization->contact_address2
+                'contact_address2'=>$organization->contact_address2,
+                'updated_at'=>$organization->timestamp
             ];
             if($organization->contact2_name!==""){
                 $modified_organizations[]=[
@@ -222,7 +228,8 @@ class Organizations extends Controller
                     'contact_email'=>$organization->contact2_email,
                     'contact_phone'=>$organization->contact2_phone,
                     'contact_address1'=>$organization->contact2_address1,
-                    'contact_address2'=>$organization->contact2_address2
+                    'contact_address2'=>$organization->contact2_address2,
+                    'updated_at'=>$organization->timestamp
                 ];
             }
         }
@@ -230,6 +237,52 @@ class Organizations extends Controller
         $result = array_merge($new_listings,$modified_organizations);
         usort($result,function($a,$b){return strcmp($a['org_name'],$b['org_name']);});
 
+
+        //Preparing for download
+        $rows = [];
+        if(count($result)>0){
+            header('Content-type: text/csv');
+            $rows[0] = '"'.implode('","',array_keys($result[0])).'"';
+            foreach($result as $data){
+                $rows[] = '"'.implode('","',array_values($data)).'"';
+            }
+            echo implode("\n",$rows);
+        }
+        else{
+            return [];
+        }
+
+    }
+
+    public function download_orgs(){
+        $organizations = Organization::orderBy('name','asc')->withTrashed()->get();
+        $result = [];
+        foreach ($organizations as $organization){
+            $result[]=[
+                'name'=>$organization->name,
+                'type'=>$organization->type,
+                'desc'=>$organization->desc,
+                'fields'=>($organization->fields),
+                'address1'=>$organization->address1,
+                'address2'=>$organization->address2,
+                'contact_name'=>$organization->contact_name,
+                'contact_title'=>$organization->contact_title,
+                'contact_email'=>$organization->contact_email,
+                'contact_phone'=>$organization->contact_phone,
+                'contact_address1'=>$organization->contact_address1,
+                'contact_address2'=>$organization->contact_address2,
+                'contact2_name'=>$organization->contact2_name,
+                'contact2_title'=>$organization->contact2_title,
+                'contact2_email'=>$organization->contact2_email,
+                'contact2_phone'=>$organization->contact2_phone,
+                'contact2_address1'=>$organization->contact2_address1,
+                'contact2_address2'=>$organization->contact2_address2,
+                'website'=>$organization->website,
+                'shown'=>$organization->shown==true?"Shown":"Not Shown",
+                'listed'=>$organization->listed==true?"Listed":"Not Listed",
+                'updated_at'=>$organization->timestamp
+            ];
+        }
 
         //Preparing for download
         $rows = [];

@@ -158,6 +158,14 @@ window.search_form = {
                                 {
                                     "label": "Group Project",
                                     "value": "Group Project"
+                                },
+                                {
+                                    "label": "Job",
+                                    "value": "Job"
+                                },
+                                {
+                                    "label": "Community-Engaged Learning Class",
+                                    "value": "Community-Engaged Learning Class"
                                 }
                             ]
                         }

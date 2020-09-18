@@ -102,7 +102,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="word-break: break-all">
         <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Requirements</div>

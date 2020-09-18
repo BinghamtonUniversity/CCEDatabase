@@ -14,7 +14,7 @@ class Listing extends Model
     protected $table = "listings";
     public $timestamps = false;
     protected $casts = [
-        'creation_date'=>'date:Y-m-d'
+        'creation_date'=>'date:Y-m-d',
     ];
 
     protected $fillable = [
@@ -24,7 +24,7 @@ class Listing extends Model
         'contact_name','contact_title','contact_email','contact_phone',
         'contact_address1','contact_address2','contact2_name','contact2_title',
         'contact2_email', 'contact2_phone','contact2_address1','contact2_address2',
-        'participants','related','reqs_training','reqs_immune','reqs_application','reqs_desc','shown','creation_date'
+        'participants','related','reqs_training','reqs_immune','reqs_application','reqs_desc','shown','listed','creation_date'
     ];
 
     public function organization() {
@@ -70,6 +70,7 @@ class Listing extends Model
         $this->reqs_immune=($form_data["project_requirements"]["reqs_immune"]==="YES")?$form_data["project_requirements"]["reqs_immune"]."<-|->".$form_data["project_requirements"]["specify_immune"]:$form_data["project_requirements"]["reqs_immune"]."<-|->";
         $this->reqs_application=($form_data["project_requirements"]["reqs_application"]==="YES")?$form_data["project_requirements"]["reqs_application"]."<-|->".$form_data["project_requirements"]["specify_application"]:$form_data["project_requirements"]["reqs_application"]."<-|->";
         $this->reqs_desc=$form_data["project_requirements"]["reqs_desc"];
+        $this->listed = $form_data['listed']==='true'?true:false;
 
         //Other Hours Handling
         if($form_data["project_information"]["type"]==="short"){
@@ -169,7 +170,8 @@ class Listing extends Model
                 "specify_application"=>explode("<-|->",$this->reqs_application)[0]==="YES"?explode("<-|->",$this->reqs_application)[1]:null,
                 "reqs_desc"=>$this->reqs_desc
             ],
-
+            'listed'=>$this->listed?"true":"false",
+            "date_updated"=>$this->timestamp
         ];
 
         //Looking for Other in Involved People

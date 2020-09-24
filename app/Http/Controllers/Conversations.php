@@ -150,19 +150,7 @@ class Conversations extends Controller
         }])->with(['org'=>function($q){
             $q->select('org_code','name');
         }])->get();
-        $result = [];
-        foreach ($conversations as $conversation){
-            $result[]=[
-                'organization'=>$conversation->org['name'],
-                'listing'=>$conversation->listing['title'],
-                'student_first_name'=>$conversation->student_first_name,
-                'student_last_name'=>$conversation->student_last_name,
-                'student_email'=>$conversation->student_email,
-                'student_phone_number'=>$conversation->student_phone_number,
-                'message'=>$conversation->message,
-                'created_at'=>$conversation->created_at
-            ];
-        }
+        $result = $conversations->toArray();
 
         //Preparing for download
         $rows = [];
@@ -170,13 +158,18 @@ class Conversations extends Controller
             header('Content-type: text/csv');
             $rows[0] = '"'.implode('","',array_keys($result[0])).'"';
             foreach($result as $data){
-                $rows[] = '"'.implode('","',array_values($data)).'"';
+                if(!check_empty($data['org'])){
+                    $data['org'] =$data['org']['name'];
+                }
+                if(!check_empty($data['listing'])){
+                    $data['listing'] =$data['listing']['title'];
+                }
+                $rows[] = '"'.implode('","',quote_replacer($data)).'"';
             }
             echo implode("\n",$rows);
         }
         else{
             return [];
         }
-
     }
 }

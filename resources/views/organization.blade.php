@@ -63,7 +63,7 @@
                             @endforeach
                         @else
                             <div class="row">
-                                <div class="col-sm-6">This organization has no current projects in our database</div>
+                                <div class="col-sm-12">This organization has no current projects in our database</div>
                             </div>
                         @endif
                     </div>

@@ -60,13 +60,13 @@ class SearchController extends Controller
     }
     public function advanced_search(Request $request) {
         $category = ''; $fields = [];$event_type='';
-        if ($request->has('category') && $request->category!==""&& !is_null($request->category)){
+        if ($request->has('category')&& !check_empty($request->category)){
             $category = $request->category;
         }
         if ($request->has('fields')){
             $fields = $request->fields;
         }
-        if($request->has('event_type') && $request->event_type!=="" && !is_null($request->event_type)){
+        if($request->has('event_type') && !check_empty($request->event_type)){
             $event_type = $request->event_type;
         }
         return [
@@ -114,15 +114,7 @@ class SearchController extends Controller
 
     public function download_searches(){
         $searches = Search::orderBy('timestamp','desc')->get();
-        $result = [];
-        foreach ($searches as $search){
-            $result[]=[
-                'keywords'=>$search->keywords,
-                'category'=>check_empty($search->category)  ?"N/A":$search->category,
-                'event_type'=>check_empty($search->event_type)?"N/A":$search->event_type,
-                'created_at'=>$search->timestamp
-            ];
-        }
+        $result = $searches->toArray();
 
         //Preparing for download
         $rows = [];
@@ -130,7 +122,7 @@ class SearchController extends Controller
             header('Content-type: text/csv');
             $rows[0] = '"'.implode('","',array_keys($result[0])).'"';
             foreach($result as $data){
-                $rows[] = '"'.implode('","',array_values($data)).'"';
+                $rows[] = '"'.implode('","',quote_replacer($data)).'"';
             }
             echo implode("\n",$rows);
         }

@@ -119,49 +119,8 @@ class Listings extends Controller
         $listings = Listing::with(['organization'=>function($q){
             $q->select('org_code','name');
         }])->withTrashed()->orderBy('title','asc')->get();
-        $result = [];
-        foreach ($listings as $listing){
-            $result[]=[
-                'org_name'=>$listing->organization['name'],
-                'title'=>$listing->title,
-                'type'=>$listing->type,
-                'category'=>$listing->category,
-                'desc'=>$listing->desc,
-                'fields'=>$listing->fields,
-                'participants'=>$listing->participants,
-                'related'=>$listing->related,
-                'start_date'=>$listing->start_date,
-                'end_date'=>$listing->end_date,
-                'location'=>$listing->location,
-                'location2'=>$listing->location2,
-                'hours'=>$listing->hours,
-                'time'=>$listing->time,
-                'paid'=>parse_yesno($listing->paid),
-                'bus_route'=>$listing->bus_route,
-                'num_participants'=>$listing->num_participants,
-                'days'=>$listing->days,
-                'event_type'=>$listing->event_type,
-                'req_training'=>parse_yesno($listing->req_training),
-                'req_immune'=>parse_yesno($listing->req_immune),
-                'req_application'=>parse_yesno($listing->req_application),
-                'contact_name'=>$listing->contact_name,
-                'contact_title'=>$listing->contact_title,
-                'contact_email'=>$listing->contact_email,
-                'contact_phone'=>$listing->contact_phone,
-                'contact_address1'=>$listing->contact_address1,
-                'contact_address2'=>$listing->contact_address2,
-                'contact2_name'=>$listing->contact2_name,
-                'contact2_title'=>$listing->contact2_title,
-                'contact2_email'=>$listing->contact2_email,
-                'contact2_phone'=>$listing->contact2_phone,
-                'contact2_address1'=>$listing->contact2_address1,
-                'contact2_address2'=>$listing->contact2_address2,
-                'website'=>$listing->website,
-                'shown'=>$listing->shown==true?"Shown":"Not Shown",
-                'listed'=>$listing->listed==true?"Listed":"Not Listed",
-                'updated_at'=>$listing->timestamp
-            ];
-        }
+
+        $result = $listings->toArray();
 
         //Preparing for download
         $rows = [];
@@ -169,7 +128,17 @@ class Listings extends Controller
             header('Content-type: text/csv');
             $rows[0] = '"'.implode('","',array_keys($result[0])).'"';
             foreach($result as $data){
-                $rows[] = '"'.implode('","',array_values($data)).'"';
+                $data['reqs_training']=parse_yesno($data['reqs_training']);
+                $data['reqs_immune'] = parse_yesno($data['reqs_immune']);
+                $data['reqs_application'] = parse_yesno($data['reqs_application']);
+                $data['paid']=parse_yesno($data['paid']);
+                if(!check_empty($data['organization'])){
+                    $data['organization']=$data['organization']['name'];
+                    $rows[] = '"' . implode('","', quote_replacer($data)) . '"';
+                }else{
+                    $rows[] = '"' . implode('","', quote_replacer($data)) . '"';
+                }
+
             }
             echo implode("\n",$rows);
         }

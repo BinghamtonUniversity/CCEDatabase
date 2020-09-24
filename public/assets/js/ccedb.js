@@ -165,7 +165,7 @@ window.search_form = {
                                 },
                                 {
                                     "label": "Community-Engaged Learning Class",
-                                    "value": "Community-Engaged Learning Class"
+                                    "value": "Community-Engaged Learning"
                                 }
                             ]
                         }

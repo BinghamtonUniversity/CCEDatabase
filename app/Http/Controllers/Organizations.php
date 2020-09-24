@@ -255,34 +255,8 @@ class Organizations extends Controller
     }
 
     public function download_orgs(){
-        $organizations = Organization::orderBy('name','asc')->withTrashed()->get();
-        $result = [];
-        foreach ($organizations as $organization){
-            $result[]=[
-                'name'=>$organization->name,
-                'type'=>$organization->type,
-                'desc'=>$organization->desc,
-                'fields'=>($organization->fields),
-                'address1'=>$organization->address1,
-                'address2'=>$organization->address2,
-                'contact_name'=>$organization->contact_name,
-                'contact_title'=>$organization->contact_title,
-                'contact_email'=>$organization->contact_email,
-                'contact_phone'=>$organization->contact_phone,
-                'contact_address1'=>$organization->contact_address1,
-                'contact_address2'=>$organization->contact_address2,
-                'contact2_name'=>$organization->contact2_name,
-                'contact2_title'=>$organization->contact2_title,
-                'contact2_email'=>$organization->contact2_email,
-                'contact2_phone'=>$organization->contact2_phone,
-                'contact2_address1'=>$organization->contact2_address1,
-                'contact2_address2'=>$organization->contact2_address2,
-                'website'=>$organization->website,
-                'shown'=>$organization->shown==true?"Shown":"Not Shown",
-                'listed'=>$organization->listed==true?"Listed":"Not Listed",
-                'updated_at'=>$organization->timestamp
-            ];
-        }
+        $organizations = Organization::orderBy('key','desc')->withTrashed()->get();
+        $result = $organizations->toArray();
 
         //Preparing for download
         $rows = [];
@@ -290,7 +264,7 @@ class Organizations extends Controller
             header('Content-type: text/csv');
             $rows[0] = '"'.implode('","',array_keys($result[0])).'"';
             foreach($result as $data){
-                $rows[] = '"'.implode('","',array_values($data)).'"';
+                $rows[] = '"'.implode('","',quote_replacer($data)).'"';
             }
             echo implode("\n",$rows);
         }

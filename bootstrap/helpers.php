@@ -14,3 +14,10 @@ function check_empty($string){
     }
     return false;
 }
+function quote_replacer($data){
+    $temp = [];
+    foreach (array_values($data) as $obj){
+        $temp[] = str_replace('"','""',$obj);
+    }
+    return $temp;
+}

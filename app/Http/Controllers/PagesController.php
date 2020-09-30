@@ -54,9 +54,10 @@ class PagesController extends Controller
         }
         $listings = Listing::where('org_code',$organization->org_code)
             ->where(function($query) {
-                $query->where('ongoing',true);
+                $query->whereNull('end_date');
                 $query->orWhere('end_date','>',Carbon::now());
-            })->where('shown',1)->where('listed',true)->get();
+                $query->orWhere('event_type','ongoing');
+            })->where('shown',true)->where('listed',true)->orderBy('timestamp','desc')->get();
         return view('organization',[
             'organization'=>$organization,
             'listings'=>$listings,

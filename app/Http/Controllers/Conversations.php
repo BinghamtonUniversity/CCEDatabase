@@ -129,8 +129,10 @@ class Conversations extends Controller
     public function get_all_conversations(){
         return Conversation::with(['listing'=>function($q){
             $q->select('key','title','org_code');
+            $q->withTrashed();
         }])->with(['org'=>function($q){
             $q->select('key','org_code','name');
+            $q->withTrashed();
         }])->whereBetween('created_at',[Carbon::now()->addYears(-1),Carbon::now()])
             ->orderBy('created_at','asc')
             ->get();
@@ -139,16 +141,20 @@ class Conversations extends Controller
         return Conversation::where('conversation_id',$conversation->conversation_id)
             ->with(['listing'=>function($q){
             $q->select('key','title','org_code');
+            $q->withTrashed();
         }])->with(['org'=>function($q){
             $q->select('key','org_code','name');
+            $q->withTrashed();
         }])->first();
     }
 
     public function download_conversations(){
         $conversations = Conversation::orderBy('created_at','desc')->with(['listing'=>function($q){
             $q->select('key','title');
+            $q->withTrashed();
         }])->with(['org'=>function($q){
             $q->select('org_code','name');
+            $q->withTrashed();
         }])->get();
         $result = $conversations->toArray();
 

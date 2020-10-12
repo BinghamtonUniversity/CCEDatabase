@@ -339,9 +339,8 @@ blockquote {
     }
 }
 
-
-
 .headline {
+    min-height: 51px;
     box-flex: 1;
     -webkit-flex: 1;
     -moz-flex: 1;

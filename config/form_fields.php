@@ -559,7 +559,7 @@ return [
                             "label"=> "Phone Number",
                             "name"=> "contact_phone",
                             "columns"=> 6,
-                            "required"=> true,
+                            "required"=> false,
                             "type"=> "text"
                         ],
                         [
@@ -580,14 +580,14 @@ return [
                             "label"=> "Mailing Address",
                             "name"=> "contact_address1",
                             "columns"=> 6,
-                            "required"=> true,
+                            "required"=> false,
                             "type"=> "text"
                         ],
                         [
                             "label"=> "Mailing Address (Continued)",
                             "name"=> "contact_address2",
                             "columns"=> 6,
-                            "required"=> true,
+                            "required"=> false,
                             "type"=> "text"
                         ]
                     ]

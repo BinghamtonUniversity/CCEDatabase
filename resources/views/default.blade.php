@@ -19,10 +19,10 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header" style="width:100%;">
-      <a class="navbar-brand" href="{{route('home_page')}}" style="height:60px;padding:7.5px 4.5px;color:white;font-weight: 400;font-size: 1.3rem;">
+      <a class="navbar-brand" href="https://www.binghamton.edu/cce/" style="height:60px;padding:7.5px 4.5px;color:white;font-weight: 400;font-size: 1.3rem;">
         <img src="https://www.binghamton.edu/assets/img/logo/binghamton-university.png" style="width:351px;">
         <span class="hidden-xs" style="font-size: 22px;border-left: 1px solid #fff;margin-left: 10px;padding: 5px 0px 5px 10px;vertical-align: middle;">
-          CCE Service Listings
+            Center for Civic Engagement
         </span>
       </a>
       <div class="hidden-xs" style="float:right;text-align:right;margin-top:5px;">

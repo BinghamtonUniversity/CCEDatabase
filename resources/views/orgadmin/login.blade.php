@@ -46,7 +46,7 @@ new gform(
 	],
     "actions":[
         {"type":"save","action":"save","label":"Submit","modifiers":"btn btn-primary"},
-        {"type":"cancel","action":"cancel","label":"Register","modifiers":"btn btn-default"},
+        {"type":"cancel","action":"cancel","label":"Create New Profile","modifiers":"btn btn-default"},
         {"type":"button","action":"reset_this","label":"Forgot Your Password?","modifiers":"btn btn-default"}
     ]}
 ).on('save',function(form_event) {

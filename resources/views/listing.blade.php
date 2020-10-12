@@ -212,6 +212,7 @@
 @section('scripts')
 var contact_form = new gform(contact_form_config, '.contact-form').on('save',function(form_event) {
     if (form_event.form.validate()) {
+        toastr.info('Sending Message... Please be patient');
         var contact_form_data = form_event.form.get()
         $.ajax({
             type:"POST",
@@ -224,6 +225,6 @@ var contact_form = new gform(contact_form_config, '.contact-form').on('save',fun
         })
     }else{
         toastr.error("Please ensure that all required fields have been populated!")
-        }
+    }
 })
 @endsection

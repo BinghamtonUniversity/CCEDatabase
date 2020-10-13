@@ -171,6 +171,8 @@ class Organizations extends Controller
             ->select('orgs.name as org_name','orgs.org_code','listings.title','listings.contact_name','listings.contact_title','listings.contact_email','listings.contact_phone','listings.contact_address1','listings.contact_address2',
                 'listings.contact2_name','listings.contact2_title','listings.contact2_email','listings.contact2_phone','listings.contact2_address1','listings.contact2_address2','listings.timestamp')
             ->whereNotNull('orgs.org_code')
+            ->whereNull('listings.deleted_at')
+            ->whereNull('orgs.deleted_at')
             ->get();
         $organizations = Organization::get(['name','org_code','contact_name','contact_title','contact_email','contact_phone','contact_address1','contact_address2','contact2_name','contact2_title','contact2_email','contact2_phone','contact2_address1','contact2_address2','timestamp']);
 
@@ -255,7 +257,7 @@ class Organizations extends Controller
     }
 
     public function download_orgs(){
-        $organizations = Organization::orderBy('key','desc')->withTrashed()->get();
+        $organizations = Organization::orderBy('key','desc')->get();
         $result = $organizations->toArray();
 
         //Preparing for download

@@ -118,7 +118,7 @@ class Listings extends Controller
     public function listings_download(){
         $listings = Listing::with(['organization'=>function($q){
             $q->select('org_code','name');
-        }])->withTrashed()->orderBy('title','asc')->get();
+        }])->orderBy('title','asc')->get();
 
         $result = $listings->toArray();
 

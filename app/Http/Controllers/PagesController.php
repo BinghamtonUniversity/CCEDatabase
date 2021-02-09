@@ -76,4 +76,15 @@ class PagesController extends Controller
             'letters' => array_keys($letters),
         ]);
     }
+
+    public function sitemap(Request $request) {
+        $organizations = Organization::select('key','timestamp')->orderBy('timestamp','desc')
+            ->where('shown',true)->where('listed',true)->get();
+        $listings = Listing::select('key','timestamp')->orderBy('timestamp','desc')
+            ->where('shown',true)->where('listed',true)->get();
+        return response()->view('sitemap',[
+            'organizations'=>$organizations,
+            'listings'=>$listings,
+        ])->header('Content-Type', 'text/xml');
+    }
 }

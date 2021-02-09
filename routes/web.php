@@ -18,6 +18,7 @@ Route::get('/newlistings', 'PagesController@new_listings')->name('newlistings_pa
 Route::get('/listings/{listing}', 'PagesController@listing');
 Route::get('/organizations/{organization}', 'PagesController@organization');
 Route::get('/organizations', 'PagesController@organizations')->name('organizations_page');
+Route::get('/sitemap.xml','PagesController@sitemap');
 
 Route::get('/search', 'SearchController@search_page')->name('search_page');
 Route::get('/search/results', 'SearchController@search_results_page');
@@ -28,7 +29,6 @@ Route::get('/manage/login', 'OrgAdmin@login');
 Route::get('/manage/logout', 'OrgAdmin@logout');
 Route::get('/manage', 'OrgAdmin@manage')->name('manage_page');
 Route::get('/manage/{password}','OrgAdmin@password_reset');
-
 
 Route::group(['prefix' => 'api'], function () {
     Route::get('/search', 'SearchController@advanced_search');

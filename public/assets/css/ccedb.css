@@ -362,3 +362,7 @@ blockquote {
     background: url(//www.binghamton.edu/assets/img/bkg/screen-lines.png);
     font-family: Lora,Garamond,Georgia,Times New Roman,serif!important;
 }
+
+.panel-body {
+    overflow: scroll;
+}

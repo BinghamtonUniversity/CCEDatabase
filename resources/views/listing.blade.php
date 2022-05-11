@@ -28,6 +28,22 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Date and Location {{$listing->dates}}</div>
                 <div class="panel-body">
+                    <?php 
+                        if ($listing->event_type === 'event' || $listing->event_type == 'annual') {
+                            if (!is_null($listing->start_date)) {
+                                ?><div class="row">
+                                        <div class="col-sm-4">Start Date:</div>
+                                        <div class="col-sm-8">{{date('m/d/Y',strtotime($listing->start_date))}}</div>
+                                </div><?php
+                            }
+                            if (!is_null($listing->end_date)) {
+                                ?><div class="row">
+                                        <div class="col-sm-4">End Date:</div>
+                                        <div class="col-sm-8">{{date('m/d/Y',strtotime($listing->end_date))}}</div>
+                                </div><?php
+                            }
+                        }
+                    ?>
                     <div class="row">
                         <div class="col-sm-4">Days of Work:</div>
                         <div class="col-sm-8">{{$listing->days}}</div>
@@ -79,22 +95,6 @@
                             ?>
                         </div>
                     </div>
-                    <?php 
-                    if ($listing->event_type === 'event' || $listing->event_type == 'annual') {
-                        if (!is_null($listing->start_date)) {
-                            ?><div class="row">
-                                    <div class="col-sm-4">Start Date:</div>
-                                    <div class="col-sm-8">{{date('m/d/Y',strtotime($listing->start_date))}}</div>
-                            </div><?php
-                        }
-                        if (!is_null($listing->end_date)) {
-                            ?><div class="row">
-                                    <div class="col-sm-4">End Date:</div>
-                                    <div class="col-sm-8">{{date('m/d/Y',strtotime($listing->end_date))}}</div>
-                            </div><?php
-                        }
-                    }
-                    ?>
                     <div class="row">
                         <div class="col-sm-4">Weekly Hours:</div>
                         <div class="col-sm-8">{{$listing->hours}}</div>

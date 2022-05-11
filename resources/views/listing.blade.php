@@ -79,7 +79,22 @@
                             ?>
                         </div>
                     </div>
-
+                    <?php 
+                    if ($listing->event_type === 'event' || $listing->event_type == 'annual') {
+                        if (!is_null($listing->start_date)) {
+                            ?><div class="row">
+                                    <div class="col-sm-4">Start Date:</div>
+                                    <div class="col-sm-8">{{$listing->start_date}}</div>
+                            </div><?php
+                        }
+                        if (!is_null($listing->end_date)) {
+                            ?><div class="row">
+                                    <div class="col-sm-4">End Date:</div>
+                                    <div class="col-sm-8">{{$listing->end_date}}</div>
+                            </div><?php
+                        }
+                    }
+                    ?>
                     <div class="row">
                         <div class="col-sm-4">Weekly Hours:</div>
                         <div class="col-sm-8">{{$listing->hours}}</div>

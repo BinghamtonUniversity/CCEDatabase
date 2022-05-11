@@ -84,13 +84,13 @@
                         if (!is_null($listing->start_date)) {
                             ?><div class="row">
                                     <div class="col-sm-4">Start Date:</div>
-                                    <div class="col-sm-8">{{$listing->start_date}}</div>
+                                    <div class="col-sm-8">{{date('m/d/Y',strtotime($listing->start_date))}}</div>
                             </div><?php
                         }
                         if (!is_null($listing->end_date)) {
                             ?><div class="row">
                                     <div class="col-sm-4">End Date:</div>
-                                    <div class="col-sm-8">{{$listing->end_date}}</div>
+                                    <div class="col-sm-8">{{date('m/d/Y',strtotime($listing->end_date))}}</div>
                             </div><?php
                         }
                     }

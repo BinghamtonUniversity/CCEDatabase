@@ -168,6 +168,10 @@
                                 {{$listing->contact_address1}}<br>
                                 {{$listing->contact_address2}}<br><br>
                             @endif
+                            @if(!check_empty($listing->website))
+                                <span class="infoLbl">Website</span><br>
+                                <em>{{$listing->website}}</em><br>
+                            @endif
                         </div>
                         @if(!check_empty($listing->name))
                             <div class="col-sm-6">

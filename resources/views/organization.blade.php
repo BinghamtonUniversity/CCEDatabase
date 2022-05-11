@@ -108,6 +108,10 @@
                                     <em>{{$organization->contact_address1}}</em><br>
                                     <em>{{$organization->contact_address2}}</em><br><br>
                                 @endif
+                                @if(!check_empty($organization->website))
+                                    <span class="infoLbl">Website</span><br>
+                                    <em>{{$organization->website}}</em><br>
+                                @endif
                             </div>
                             @if(!check_empty($organization->contact2_name))
                                 <div class="col-sm-6">

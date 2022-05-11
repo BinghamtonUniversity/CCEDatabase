@@ -170,7 +170,7 @@
                             @endif
                             @if(!check_empty($listing->website))
                                 <span class="infoLbl">Website</span><br>
-                                <em>{{$listing->website}}</em><br>
+                                <a href="{{$listing->website}}" target="_blank">{{$listing->website}}</a><br>
                             @endif
                         </div>
                         @if(!check_empty($listing->name))

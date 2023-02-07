@@ -1,6 +1,6 @@
 @extends('default')
 
-@section('title', 'New Listings')
+@section('title', 'Recent Opportunities')
 
 @section('description')
     @if((config('templates.page.newlistings.alert'))!=='')

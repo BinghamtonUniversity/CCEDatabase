@@ -9,7 +9,7 @@
                 <h3>Not Found</h3><br>
                 <div>
                     <h4>Sorry, the page you are looking for cannot be found</h4>
-                    If you think this is in error, please <a href="{{ config('templates.contact_url') }}">contact us.</a>
+                    If you think this is in error, please <a href="{{ config('templates.contact_url') }}">Contact CCE.</a>
                 </div>
             </div>
         </div>

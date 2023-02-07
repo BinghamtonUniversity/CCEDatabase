@@ -53,7 +53,7 @@ return [
                     </div>"
         ],
         "listing"=>[
-            "subject"=>"Listing Update on the CCE Service Listings database",
+            "subject"=>"Listing Update on the CCE Community Opportunities Directory",
             "body"=>"<div><h4>Hi {{contact.name}},</h4>
                         <p>Your request to update your project listing, {{listing.name}}, on the Binghamton University Center for Civic Engagement (CCE) Service Listings volunteer database has been received. Your submission will be reviewed by CCE staff and should be approved and live on the Service Listings within one week of submitting your request. Until the updated submission has been approved, your listing will not appear on the Service Listings website. </p>
                         <p>Thank you, </p><br>

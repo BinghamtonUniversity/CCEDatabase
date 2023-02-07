@@ -26,8 +26,8 @@
         </span>
       </a>
       <div class="hidden-xs" style="float:right;text-align:right;margin-top:5px;">
-				<a class="btn btn-xs btn-primary" href="{{ config('templates.contact_url') }}">Contact Us</a>
-				<a class="btn btn-xs btn-primary" href="{{route('manage_page')}}">Manage Service Listings</a>
+				<a class="btn btn-xs btn-primary" href="{{ config('templates.contact_url') }}">Contact CCE</a>
+				<a class="btn btn-xs btn-primary" href="{{route('manage_page')}}">Manage Account</a>
 		  </div>
     </div>
   </div><!-- /.container-fluid -->

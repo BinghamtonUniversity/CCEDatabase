@@ -1,6 +1,6 @@
 @extends('default')
 
-@section('title', 'Service Listings Database')
+@section('title', 'Community Opportunities Directory')
 
 @section('description')
     @if((config('templates.page.home.alert'))!=='')

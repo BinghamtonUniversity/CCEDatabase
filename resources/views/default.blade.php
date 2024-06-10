@@ -55,7 +55,7 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<div class="container-fluid" style="background-color:white">
+<div class="container-fluid" style="background-color:white" style="position:fixed;top:119px;">
     <div class="row" style="text-align:center;">
         <h2 class="headline">@yield('title')</h2>
     </div>

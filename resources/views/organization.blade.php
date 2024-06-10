@@ -16,7 +16,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<strong style="font-size: 150%;">{{$organization->name}}</strong> ({{$organization->type}})<br>
-					{{$organization->address1}} | {{$organization->address2}} &nbsp; <a style="color: #3299CC; text-decoration: none;" target="_blank" href="http://maps.google.com/maps?q={{$organization->address1}} {{$organization->address2}}">[view map]</a>
+					{{$organization->address1}} | {{$organization->address2}} &nbsp; <a target="_blank" href="http://maps.google.com/maps?q={{$organization->address1}} {{$organization->address2}}">[view map]</a>
 				</div>
 				<div class="panel-body">{!! nl2br($organization->desc) !!}</div>
 			</div>

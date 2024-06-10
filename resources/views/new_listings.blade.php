@@ -61,7 +61,7 @@
                 <div class="col-sm-12">
                 {!! substr($listing->desc,0,250)!!}
                     <span class="label label-info">
-                        <a style="color:white;" href="{{url('listings'.'/'.$listing->key)}}">Click here for more info!</a>
+                        <a class="btn btn-primary btn-xs" href="{{url('listings'.'/'.$listing->key)}}">Click here for more info!</a>
                     </span>
                 </div>
             </div>

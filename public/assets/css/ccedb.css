@@ -366,3 +366,16 @@ blockquote {
 .panel-body {
     overflow: scroll;
 }
+
+/* Updates from Patrick Collette for accessibility */
+/* 6/10/2024 */
+a {color: #007541;}
+
+.btn-primary {
+background-color: #005a43;
+border-color:#005a43;
+}
+.btn-info {
+background-color: #005a43;
+border-color:#005a43;
+}

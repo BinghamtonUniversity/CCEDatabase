@@ -218,7 +218,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Project Location (On Bus Route)</div>
                 <div class="panel-body" style="padding:0px;">
-                    <iframe style="margin-top: 3px; width: 100%; height: 400px;" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;q={{$listing->location}} {{$listing->location2}}&amp;source=s_q&amp;hl=en&amp;ie=UTF8&amp;spn=0.002744,0.00456&amp;z=17&amp;output=embed"></iframe>
+                    <iframe title="Project Location Map" style="margin-top: 3px; width: 100%; height: 400px;" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;q={{$listing->location}} {{$listing->location2}}&amp;source=s_q&amp;hl=en&amp;ie=UTF8&amp;spn=0.002744,0.00456&amp;z=17&amp;output=embed"></iframe>
                 </div>
             </div>
         </div>

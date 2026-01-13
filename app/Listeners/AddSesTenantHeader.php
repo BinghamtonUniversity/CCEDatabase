@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth; // or your tenant resolver
 
 class AddSesTenantHeader
 {
-    public function handle(MessageSending $event): void
+    public function handle(MessageSending $event)
     {
         $tenant = config('mail.ses_tenant');
         if ($tenant !== null && $tenant !== '') {

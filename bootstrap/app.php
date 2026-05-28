@@ -11,9 +11,14 @@ return Application::configure(basePath: dirname(__DIR__))
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
-    )
-    ->withMiddleware(function (Middleware $middleware) {
-
+        // 1. Replicating your Laravel 5 RouteServiceProvider mapping
+        then: function () {
+            Route::prefix('/api/public')
+                ->middleware('public.api.auth')
+                ->namespace('App\Http\Controllers') // Replicates the $namespace property
+                ->group(base_path('routes/public_api.php'));
+        },
+    )->withMiddleware(function (Middleware $middleware) {
         // Trust all proxies (Load Balancers) and use standard headers
         $middleware->trustProxies(at: '*', headers: 
             Request::HEADER_X_FORWARDED_FOR |

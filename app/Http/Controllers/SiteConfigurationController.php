@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\SiteConfiguration;
+use App\Models\SiteConfiguration;
 use Illuminate\Http\Request;
 
 class SiteConfigurationController extends Controller

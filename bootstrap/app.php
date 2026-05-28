@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\Initialization;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,15 +13,29 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Append the Initialization middleware to the 'web' group
-        // This ensures it runs on every browser request
+
+        // Trust all proxies (Load Balancers) and use standard headers
+        $middleware->trustProxies(at: '*', headers: 
+            Request::HEADER_X_FORWARDED_FOR |
+            Request::HEADER_X_FORWARDED_HOST |
+            Request::HEADER_X_FORWARDED_PORT |
+            Request::HEADER_X_FORWARDED_PROTO |
+            Request::HEADER_X_FORWARDED_AWS_ELB
+        );
+
+        // Run your custom template parsing middleware on all web requests
         $middleware->web(append: [
             Initialization::class,
         ]);
 
+        // Disable CSRF across the board
+        $middleware->validateCsrfTokens(except: [
+            '*',
+        ]);
+
+        // Register custom legacy aliases
         $middleware->alias([
-            'auth' => \App\Http\Middleware\Authenticate::class,
-            // If you have custom L5.5 middleware aliases, add them here
+            'public.api.auth' => \App\Http\Middleware\PublicAPIAuth::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

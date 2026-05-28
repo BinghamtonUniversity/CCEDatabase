@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Response;
 use Closure;
-use App\SiteConfiguration;
+use App\Models\SiteConfiguration;
 
 class Initialization
 {

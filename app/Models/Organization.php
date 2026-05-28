@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 use App\Mail\EmailNotification;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;

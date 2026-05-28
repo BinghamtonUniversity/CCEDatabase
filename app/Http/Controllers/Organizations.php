@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Mail\OrganizationApproved;
-use App\Conversation;
+use App\Models\Conversation;
 use Illuminate\Http\Request;
-use App\Organization;
-use App\Listing;
+use App\Models\Organization;
+use App\Models\Listing;
 use App\Mail\EmailNotification;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;

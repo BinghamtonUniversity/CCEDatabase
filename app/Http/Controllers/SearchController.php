@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Search;
+use App\Models\Search;
 use Illuminate\Http\Request;
-use App\Listing;
-use App\Organization;
+use App\Models\Listing;
+use App\Models\Organization;
 use \Carbon\Carbon;
 use mysql_xdevapi\TableSelect;
 use Symfony\Component\Console\Helper\Table;

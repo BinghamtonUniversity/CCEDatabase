@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Conversation;
-use App\Listing;
+use App\Models\Conversation;
+use App\Models\Listing;
 use App\Mail\EmailNotification;
-use App\Organization;
+use App\Models\Organization;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;

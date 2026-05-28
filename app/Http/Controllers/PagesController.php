@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\SiteConfiguration;
+use App\Models\SiteConfiguration;
 use Illuminate\Http\Request;
-use App\Listing;
-use App\Organization;
+use App\Models\Listing;
+use App\Models\Organization;
 use \Carbon\Carbon;
 
 class PagesController extends Controller

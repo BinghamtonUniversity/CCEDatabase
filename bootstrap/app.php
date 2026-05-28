@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // 1. Replicating your Laravel 5 RouteServiceProvider mapping
         then: function () {
             Route::prefix('/api/public')
-                ->middleware('public.api.auth')
+                ->middleware(['public.api.auth', \Illuminate\Routing\Middleware\SubstituteBindings::class])
                 ->namespace('App\Http\Controllers') // Replicates the $namespace property
                 ->group(base_path('routes/public_api.php'));
         },

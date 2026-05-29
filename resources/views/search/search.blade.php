@@ -28,7 +28,7 @@ var search_form = new gform(search_form,'.search-form').on('save',function(data)
             req_data = {
                 q:form_data.keyword
             }
-            req_url = "/search/google";
+            req_url = "/search/results";
         } else {
             req_data = {
                 fields:form_data.advanced_search.interest_areas,
@@ -37,10 +37,10 @@ var search_form = new gform(search_form,'.search-form').on('save',function(data)
             if(form_data.advanced_search.category!==undefined){
                 req_data.category = form_data.advanced_search.category
             }
-            req_url = "/search/results";
+            req_url = "/search/advanced";
 
         }
-        window.location.href = root_url + req_url+ '/?'+$.param(req_data)
+        window.location.href = root_url + req_url+ '?'+$.param(req_data)
     }
 })
 

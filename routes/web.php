@@ -26,9 +26,8 @@ Route::get('/sitemap.xml', [PagesController::class, 'sitemap']);
 
 // Search
 Route::get('/search', [SearchController::class, 'search_page'])->name('search_page');
-Route::get('/search/results', [SearchController::class, 'search_results_page']);
-Route::get('/search/google', [SearchController::class, 'google_search_results_page']);
-Route::get('/search/google/iframe', [SearchController::class, 'google_search_results_iframe']);
+Route::get('/search/advanced', [SearchController::class, 'advanced_search_results_page']);
+Route::get('/search/results', [SearchController::class, 'simple_search_results_page']);
 
 // Management / Auth
 Route::get('/manage/login', [OrgAdmin::class, 'login']);

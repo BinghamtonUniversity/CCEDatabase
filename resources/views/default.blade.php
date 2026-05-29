@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{{url('/assets/css/ccedb.css')}}" type="text/css" />
 <link href="{{url('/assets/css/toastr.min.css')}}" rel="stylesheet">
 <link href="{{url('/assets/css/font-awesome.min.css')}}" rel="stylesheet">
+<link rel="shortcut icon" href="/favicon.ico">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>

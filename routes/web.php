@@ -22,7 +22,12 @@ Route::get('/newlistings', [PagesController::class, 'new_listings'])->name('newl
 Route::get('/listings/{listing}', [PagesController::class, 'listing']);
 Route::get('/organizations/{organization}', [PagesController::class, 'organization']);
 Route::get('/organizations', [PagesController::class, 'organizations'])->name('organizations_page');
-Route::get('/sitemap.xml', [PagesController::class, 'sitemap']);
+
+// Sitemaps
+Route::get('/sitemap.xml', [PagesController::class, 'sitemap_index']);
+Route::get('/sitemap-base.xml', [PagesController::class, 'sitemap_base']);
+Route::get('/sitemap-organizations.xml', [PagesController::class, 'sitemap_organizations']);
+Route::get('/sitemap-listings.xml', [PagesController::class, 'sitemap_listings']);
 
 // Search
 Route::get('/search', [SearchController::class, 'search_page'])->name('search_page');

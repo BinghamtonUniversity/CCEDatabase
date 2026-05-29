@@ -77,14 +77,34 @@ class PagesController extends Controller
         ]);
     }
 
-    public function sitemap(Request $request) {
-        $organizations = Organization::select('key','timestamp')->orderBy('timestamp','desc')
-            ->where('shown',true)->where('listed',true)->get();
-        $listings = Listing::select('key','timestamp')->orderBy('timestamp','desc')
-            ->where('shown',true)->where('listed',true)->get();
-        return response()->view('sitemap',[
-            'organizations'=>$organizations,
-            'listings'=>$listings,
-        ])->header('Content-Type', 'text/xml');
-    }
+// PagesController.php
+
+public function sitemap_index() {
+    return response()->view('sitemaps.index')->header('Content-Type', 'text/xml');
 }
+
+public function sitemap_base() {
+    return response()->view('sitemaps.base')->header('Content-Type', 'text/xml');
+}
+
+public function sitemap_organizations() {
+    $organizations = Organization::select('key', 'timestamp')
+        ->where('shown', true)->where('listed', true)
+        ->orderBy('timestamp', 'desc')->get();
+        
+    return response()->view('sitemaps.organizations', compact('organizations'))
+        ->header('Content-Type', 'text/xml');
+}
+
+public function sitemap_listings() {
+    $listings = Listing::select('key', 'timestamp')
+        ->where('listed', true)->where('shown', true)
+        ->where(function($query) {
+            $query->whereNull('end_date')
+                  ->orWhere('end_date', '>', now())
+                  ->orWhere('event_type', 'ongoing');
+        })->get();
+
+    return response()->view('sitemaps.listings', compact('listings'))
+        ->header('Content-Type', 'text/xml');
+}}

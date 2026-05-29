@@ -1,2 +1,6 @@
 User-agent: *
-Disallow:
+Disallow: /search/results
+Disallow: /search/advanced
+
+# Path to your sitemap
+Sitemap: https://communityopportunities.binghamton.edu/sitemap.xml

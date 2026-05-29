@@ -22,10 +22,17 @@ class Conversations extends Controller
     }
 
     public function add_listing_conversation(Request $request, Listing $listing) {
+        // I am not a robot ;-) TJC 2026-06
+        if ($request->filled('explanation')) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'An unexpected error occurred. Please try again later.'
+            ], 500);
+        }
+
         // Send an email to contact1 and contact2 for the listing
         // CC the person who submitted the form on the email
         // Set "reply to" to the person who submitted the form
-
         $conversation = $this->add($request,['student_first_name'=>$request->first_name, 'student_last_name'=>$request->last_name,
             'student_email'=>$request->email,'student_phone_number'=>$request->phone,
             'message'=>$request->message,'org_code'=>$listing->org_code,'listing_key'=>$listing->key]);
@@ -79,6 +86,14 @@ class Conversations extends Controller
     }
 
     public function add_org_conversation(Request $request, Organization $organization) {
+        // I am not a robot ;-) TJC 2026-06
+        if ($request->filled('explanation')) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'An unexpected error occurred. Please try again later.'
+            ], 500);
+        }
+
         // Send an email to contact1 and contact2 for the organization
         // CC the person who submitted the form on the email
         // Set "reply to" to the person who submitted the form

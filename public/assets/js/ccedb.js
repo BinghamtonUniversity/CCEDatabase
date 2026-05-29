@@ -51,6 +51,12 @@ window.contact_form_config = {
 			"required": true,
 			"showColumn": true,
 			"type": "textarea"
+		},
+        {
+			"label": "Explanation",
+			"name": "explanation",
+			"required": false,
+			"showColumn": true,
 		}
 	]
 }

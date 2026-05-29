@@ -379,3 +379,12 @@ border-color:#005a43;
 background-color: #005a43;
 border-color:#005a43;
 }
+
+/* I am not a robot ;-) TJC 2026-06	*/
+div.contact-form div.row:has(input[name="explanation"]) {
+width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0.01;
+    pointer-events: none;
+}
